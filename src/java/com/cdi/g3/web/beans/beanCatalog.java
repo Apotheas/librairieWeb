@@ -29,6 +29,10 @@ public class beanCatalog implements Serializable {
     public beanCatalog() throws ObjectNotFoundException {
         this.books = ctatalogService.FindAllBooks();
     }
+    
+    public beanCatalog(Collection bookList) throws ObjectNotFoundException {
+        this.books = bookList;
+    }
 
     public Collection getBooksByOffsetAndLength()  {
         ArrayList<Book> booksLineOfThePage ;

@@ -47,7 +47,7 @@ public class controller extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "/WEB-INF/homme.jsp";
+        String url = "/WEB-INF/home.jsp";
         
         HttpSession session = request.getSession();
         ServletContext application = this.getServletContext();
