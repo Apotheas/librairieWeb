@@ -63,7 +63,7 @@ public class controller extends HttpServlet {
         }
 
         // Charger le catalog dans la application
-        if (application.getAttribute("catalog") == null) {
+        if (application.getAttribute("catalog") == null || request.getParameter("home")!= null ) {
             beanCatalog bCatalog
                     = (beanCatalog) application.getAttribute("catalog");
             if (bCatalog == null) {

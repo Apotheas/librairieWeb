@@ -5045,7 +5045,7 @@ button.close {
 
 .carousel-item-next,
 .carousel-item-prev {
-  position: absolute;
+  position: absolute; 
   top: 0;
 }
 

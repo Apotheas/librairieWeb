@@ -12,29 +12,25 @@
         <meta name="author" content="">
         <title>Home</title> 
         <!-- Bootstrap core CSS -->        
-        <link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <!--<link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  -->
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
 
         <!--  <link href="css/bootstrap/css/bootstrap.css"  rel="stylesheet" /> -->
         <!--<link rel="stylesheet" href="css/form.css" />-->
-
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
 
     <body>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="relou">
             <jsp:include page="common/header.jsp"/>
         </nav>
 
         <!-- Page Content -->
-        <div class="container">
+        <div class="container" >
 
             <div class="row">
 
@@ -42,25 +38,25 @@
                     <jsp:include page="common/navigation.jsp"/>
                 </div>
                 <!-- /.col-lg-3 -->
-                
-                 <div class="col-lg-9">
-                 <!-- Partie de Content a changer par rapport au besoin -->
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-               
 
-                     <h1>Hello ${Welcome}!</h1>
-                            On vous souhaite une bonne viste sur notre librairie
+                <div class="col-lg-9">
+                    <!-- Partie de Content a changer par rapport au besoin -->
+                    <!----------------------------------------------------------------->       
+                    <!------------------------------------------------------------------->
+                    <!-------------------------------------------------------------------->
 
-               
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-                <!--Fin de la partie de Content a changer par rapport au besoin -->
-                 </div>  
+
+                    <h1>Hello ${Welcome}!</h1>
+                    On vous souhaite une bonne viste sur notre librairie
+
+
+                    <!----------------------------------------------------------------->       
+                    <!------------------------------------------------------------------->
+                    <!-------------------------------------------------------------------->
+                    <!--Fin de la partie de Content a changer par rapport au besoin -->
+                </div>  
                 <!-- /.col-lg-9 -->
-                
+
             </div>
             <!-- /.row -->
         </div>
@@ -68,7 +64,7 @@
 
         <!-- Footer -->
         <footer class="py-5 bg-dark">
-              <jsp:include page="common/footer.jsp"/>
+            <jsp:include page="common/footer.jsp"/>
         </footer>
 
         <!-- Bootstrap core JavaScript -->
@@ -79,3 +75,5 @@
     </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

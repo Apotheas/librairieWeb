@@ -12,24 +12,20 @@
         <meta name="author" content="">
         <title>Home</title> 
         <!-- Bootstrap core CSS -->        
-        <link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <!--<link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  -->
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
 
         <!--  <link href="css/bootstrap/css/bootstrap.css"  rel="stylesheet" /> -->
         <!--<link rel="stylesheet" href="css/form.css" />-->
-
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
 
     <body>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="relou">
             <jsp:include page="common/header.jsp"/>
         </nav>
 
@@ -43,59 +39,59 @@
                 </div>
                 <!-- /.col-lg-3 -->
 
-                 <div class="col-lg-9">
-                 <!-- Partie de Content a changer par rapport au besoin -->
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-               <form action='controller' method='post'>                                
-                            <fieldset>
-                                <legend>Inscription</legend>
-                                <p>Vous pouvez vous inscrire via ce formulaire.</p>
+                <div class="col-lg-9">
+                    <!-- Partie de Content a changer par rapport au besoin -->
+                    <!----------------------------------------------------------------->       
+                    <!------------------------------------------------------------------->
+                    <!-------------------------------------------------------------------->
+                    <form action='controller' method='post'>                                
+                        <fieldset>
+                            <legend>Inscription</legend>
+                            <p>Vous pouvez vous inscrire via ce formulaire.</p>
 
-                                <label for="login">Login <span class="requis">*</span></label>
-                                <input type="login" id="login" name="login" value="<c:out value="${beanCustomer.login}"/>" size="20" maxlength="60" />
-                                <span class="erreur">${form.erreurs['login']}</span>
-                                <br />
+                            <label for="login">Login <span class="requis">*</span></label>
+                            <input type="login" id="login" name="login" value="<c:out value="${beanCustomer.login}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${form.erreurs['login']}</span>
+                            <br />
 
-                                <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
-                                <input type="password" id="motdepasse" name="password" value="" size="20" maxlength="20" />
-                                <span class="erreur">${form.erreurs['motdepasse']}</span>
-                                <br />
+                            <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
+                            <input type="password" id="motdepasse" name="password" value="" size="20" maxlength="20" />
+                            <span class="erreur">${form.erreurs['motdepasse']}</span>
+                            <br />
 
-                                <label for="confirmation">Confirmation du mot de passe <span class="requis">*</span></label>
-                                <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
-                                <span class="erreur">${form.erreurs['confirmation']}</span>
-                                <br />
+                            <label for="confirmation">Confirmation du mot de passe <span class="requis">*</span></label>
+                            <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+                            <span class="erreur">${form.erreurs['confirmation']}</span>
+                            <br />
 
-                                <label for="nom">Nom </label>
-                                <input type="text" id="nom" name="nom" value="<c:out value="${beanCustomer.lastName}"/>" size="20" maxlength="20" />
-                                <span class="erreur">${form.erreurs['nom']}</span>
-                                <br />
-                                
-                                <label for="nom">Prénom </label>
-                                <input type="text" id="nom" name="nom" value="<c:out value="${beanCustomer.firstName}"/>" size="20" maxlength="20" />
-                                <span class="erreur">${form.erreurs['nom']}</span>
-                                <br />
-                                
-                                <label for="email">Adresse email <span class="requis">*</span></label>
-                                <input type="email" id="email" name="email" value="<c:out value="${beanCustomer.email}"/>" size="20" maxlength="60" />
-                                <span class="erreur">${form.erreurs['email']}</span>
-                                <br />
+                            <label for="nom">Nom </label>
+                            <input type="text" id="nom" name="nom" value="<c:out value="${beanCustomer.lastName}"/>" size="20" maxlength="20" />
+                            <span class="erreur">${form.erreurs['nom']}</span>
+                            <br />
 
-                                <input type="submit" value="Inscription" class="sansLabel" />
-                                <br />
-                                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-                            </fieldset>
-                        </form>               
-               
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-                <!--Fin de la partie de Content a changer par rapport au besoin -->
+                            <label for="nom">Prénom </label>
+                            <input type="text" id="nom" name="nom" value="<c:out value="${beanCustomer.firstName}"/>" size="20" maxlength="20" />
+                            <span class="erreur">${form.erreurs['nom']}</span>
+                            <br />
+
+                            <label for="email">Adresse email <span class="requis">*</span></label>
+                            <input type="email" id="email" name="email" value="<c:out value="${beanCustomer.email}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${form.erreurs['email']}</span>
+                            <br />
+
+                            <input type="submit" value="Inscription" class="sansLabel" />
+                            <br />
+                            <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+                        </fieldset>
+                    </form>               
+
+                    <!----------------------------------------------------------------->       
+                    <!------------------------------------------------------------------->
+                    <!-------------------------------------------------------------------->
+                    <!--Fin de la partie de Content a changer par rapport au besoin -->
                 </div>
                 <!-- /.col-lg-9 -->
-                
+
             </div>
             <!-- /.row -->
         </div>
@@ -103,7 +99,7 @@
 
         <!-- Footer -->
         <footer class="py-5 bg-dark">
-              <jsp:include page="common/footer.jsp"/>
+            <jsp:include page="common/footer.jsp"/>
         </footer>
 
         <!-- Bootstrap core JavaScript -->
@@ -114,3 +110,5 @@
     </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

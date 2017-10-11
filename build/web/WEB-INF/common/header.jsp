@@ -1,7 +1,7 @@
 
 
 <div class="container">
-    <a class="navbar-brand" href="controller">Home<img border="0" src="images/logo.gif"/></a>
+    <a class="navbar-brand" href="controller?home=true">Home<img border="0" src="images/logo.gif"/></a>
 
     <form action="controller?section=searchitems">
         <input type="text" name="keyword">

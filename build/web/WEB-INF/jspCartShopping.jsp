@@ -12,24 +12,20 @@
         <meta name="author" content="">
         <title>Home</title> 
         <!-- Bootstrap core CSS -->        
-        <link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <!--<link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  -->
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
 
         <!--  <link href="css/bootstrap/css/bootstrap.css"  rel="stylesheet" /> -->
         <!--<link rel="stylesheet" href="css/form.css" />-->
-
-
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
 
     <body>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="relou">
             <jsp:include page="common/header.jsp"/>
         </nav>
 
@@ -44,11 +40,11 @@
                 <!-- /.col-lg-3 -->
                 <div class="col-sm-9">
 
-                <!-- Partie de Content a changer par rapport au besoin -->
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-                
+                    <!-- Partie de Content a changer par rapport au besoin -->
+                    <!----------------------------------------------------------------->       
+                    <!------------------------------------------------------------------->
+                    <!-------------------------------------------------------------------->
+
                     <h2>Table</h2>
                     <p>The cart shopping:</p>                        
 
@@ -85,11 +81,11 @@
 
                     </c:if>      
 
-                
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-                <!--Fin de la partie de Content a changer par rapport au besoin -->
+
+                    <!----------------------------------------------------------------->       
+                    <!------------------------------------------------------------------->
+                    <!-------------------------------------------------------------------->
+                    <!--Fin de la partie de Content a changer par rapport au besoin -->
                 </div>
                 <!-- /.col-lg-9 -->
 
@@ -111,3 +107,5 @@
     </body>
 
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
