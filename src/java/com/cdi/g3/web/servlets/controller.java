@@ -14,7 +14,9 @@ import com.cdi.g3.web.beans.beanCustomer;
 import com.cdi.g3.web.beans.beanLogin;
 import com.cdi.g3.web.beans.beanPagination;
 import com.cdi.g3.web.beans.beanPanier;
+import com.cdi.g3.web.beans.beanTheme;
 import java.io.IOException;
+import java.util.Collection;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,8 +51,8 @@ public class controller extends HttpServlet {
 
         HttpSession session = request.getSession();
         ServletContext application = this.getServletContext();
-        
-         // Charger le bean pagination dans la application
+
+        // Charger le bean pagination dans la application
         if (application.getAttribute("pagination") == null) {
             beanPagination bPagination
                     = (beanPagination) application.getAttribute("pagination");
@@ -59,7 +61,6 @@ public class controller extends HttpServlet {
                 application.setAttribute("pagination", bPagination);
             }
         }
-        
 
         // Charger le catalog dans la application
         if (application.getAttribute("catalog") == null) {
@@ -88,7 +89,7 @@ public class controller extends HttpServlet {
             request.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
             request.setAttribute("noOfPages", bPagination.getNoOfPages(bCatalog.getBooksCatalog()));
             request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
-        
+
         }
 
         if (request.getParameter("pageHome") == null) {
@@ -96,30 +97,104 @@ public class controller extends HttpServlet {
             request.setAttribute("currentPage", pageHome);
         }
         // Fin de chargement du catalog dans la application        
-        if ("pagination".equals(request.getParameter("section"))) {
-            
-            if ((request.getParameter("pageHome") != null)) {
-            url = "/WEB-INF/home.jsp";
-            beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
-            beanCatalog bCatalog = (beanCatalog) application.getAttribute("catalog");
-            int pageHome;
-            if (request.getParameter("pageHome") == null) {
-                pageHome = 1;
-            }
-            if (request.getParameter("pageHome") != null) {
-                pageHome = Integer.parseInt(request.getParameter("pageHome"));
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
-            request.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
-            request.setAttribute("noOfPages", bPagination.getNoOfPages(bCatalog.getBooksCatalog()));
-            request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
-            request.setAttribute("currentPage", pageHome);
-            }
-        }
-        
-    }
 
+       
+            if ("pagination".equals(request.getParameter("section"))) {
+
+                if ((request.getParameter("pageHome") != null)) {
+                    url = "/WEB-INF/home.jsp";
+                    beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
+                    beanCatalog bCatalog = (beanCatalog) application.getAttribute("catalog");
+                    int pageHome;
+                    if (request.getParameter("pageHome") == null) {
+                        pageHome = 1;
+                    }
+                    if (request.getParameter("pageHome") != null) {
+                        pageHome = Integer.parseInt(request.getParameter("pageHome"));
+                        bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
+                        request.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
+                        request.setAttribute("noOfPages", bPagination.getNoOfPages(bCatalog.getBooksCatalog()));
+                        request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
+                        request.setAttribute("currentPage", pageHome);
+                    }
+                }
+
+            }
+        
         if ("catalog".equals(request.getParameter("section"))) {
             url = "/WEB-INF/jspCatalog.jsp";
+        }
+
+        //Charger la barre des themes
+        if (application.getAttribute("theme") == null) {
+            beanTheme bTheme
+                    = (beanTheme) application.getAttribute("theme");
+            if (bTheme == null) {
+                try {
+                    bTheme = new beanTheme();
+                } catch (ObjectNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+//                application.setAttribute("theme", bTheme.getThemes());
+                request.setAttribute("theme", bTheme.getThemes());
+            }
+        }
+
+        if (request.getParameter("theme") != null) {
+            String nameTheme = request.getParameter("theme");
+            beanCatalog bCatalog;
+
+            if (request.getParameter("sub") != null) {
+                String nameSub = request.getParameter("sub");
+
+                try {
+                    bCatalog = new beanCatalog();
+                    Collection bookSubList = bCatalog.getBooksbySub(nameSub, nameTheme);
+                    application.setAttribute("catalog", bCatalog);
+                    int page = 1;
+
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookSubList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookSubList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookSubList));
+
+                } catch (ObjectNotFoundException ex) {
+                    System.out.println("ERROR LOADING BOOK OF SUB");
+                }
+            } else {
+                try {
+                    bCatalog = new beanCatalog();
+                    Collection bookThemeList = bCatalog.getBooksbyTheme(nameTheme);
+                    application.setAttribute("catalog", bCatalog);
+                    int page = 1;
+
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookThemeList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookThemeList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookThemeList));
+                } catch (ObjectNotFoundException ex) {
+                    System.out.println("ERROR LOADING BOOK OF THEME");
+                }
+            }
+
         }
 
         if ("panier".equals(request.getParameter("section"))) {

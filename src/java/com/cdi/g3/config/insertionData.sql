@@ -78,8 +78,27 @@ VALUES
 ('2290140961','7','reduced', 'Les ladies de Lantern Street',4.52,25,2, 'La femme mystere' ,null,'http://www.gibertjoseph.com/les-ladies-de-lantern-street-la-femme-mystere-8403758.html',null,null,null,'Top!'),
 ('2290139998','8','reduced', 'Le jeu de la tentation',7.95,24,1, null,'Trouver l amour ? En ce qui la concerne, Kate Seymour y a renonc� depuis une �ternit�. Ironie du sort, elle a h�rit� d un don infaillible : d�tecter l alchimie entre deux �tres. Alors, faisant contre mauvaise fortune','http://www.gibertjoseph.com/le-jeu-de-la-tentation-8403757.html',null,null,null,null),
 ('2811222510','9','reduced', 'Wild heart',7.20,19,2, null,'Alors que Menzoberazzan go�te � un semblant de paix, lib�r�e de ses hordes de d�mons, l Outreterre panse ses plaies. Le barbare du Valbise et son compagnon halfelin, seulement d�sireux de profiter de leur nouvelle','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Incroyable'),
-('2290139963','10','reduced', 'Gareth',4.07,39,1, null,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,'Pas terrible')
-
+('2290139963','10','reduced', 'Gareth',4.07,39,1, null,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,'Pas terrible'),
+('2363092533','10','reduced','La Sorciere',9.10,23,1, null ,'Summers 20 Must-Read Books If you want to know the world behind out corporate-sponsored dreamscapes, you read writers like Arundhati Roy. She shows you what s really going on','http://www.gibertjoseph.com/le-piege-8953421.html',null,null,null,'interessant'),
+('2309992770','9','reduced', 'Men without Women',14.90,11,1, null ,'A dazzling new collection of short stories - the internationally bestselling authors first collection for over a decade.','http://www.gibertjoseph.com/da-vinci-code-8869292.html',null,null,null,'long et ennuyeux'),
+('2103816491','8','reduced', 'Desire',19.90,7,2, null,' Partout, les monstres sont chez eux... � Vincent Dussart est s�r de son coup. Ce break impos� par sa femme va prendre fin aujourd hui. Il n a rien laiss� au hasard. Comme toujours. Confiant, il p�n�tre dans la maison .','http://www.gibertjoseph.com/comme-de-longs-echos-8822343.html',null,null,null,null),
+('2739500707','7','reduced', 'Crucial',9.00,34,1, null ,'Pendant la Guerre de S�cession, un soldat yankee bless� est recueilli dans un pensionnat de jeunes filles du Sud. L intrusion d un homme bouleverse ce milieu f�minin corset� et repli� sur lui-m�me. Objet de tous les fantasmes','http://www.gibertjoseph.com/les-proies-8762857.html',null,null,null,'Magnifique livre , je conseille !'),
+('2331553545','6','reduced','Lombrique Science',9.80,19,1, null,'Paris, 1911. � l issue du congr�s de l Association Psychanalytique Internationale, le jeune docteur Du Barrail est charg� par Sigmund Freud en personne d enqu�ter sur la mort myst�rieuse d un de leurs confr�res, retrouv�.','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Chef d oeuvre'),
+('2345637001','5','reduced','Ainsi Soit IL',7.40,63,1, null,null,'http://www.gibertjoseph.com/laisse-moi-t-aimer-8403762.html',null,null,null,null),
+('2123456661','4','reduced', 'La raclette',4.52,25,2, 'La femme mystere' ,null,'http://www.gibertjoseph.com/les-ladies-de-lantern-street-la-femme-mystere-8403758.html',null,null,null,'Top!'),
+('2243539998','3','reduced', 'Java pour les nuls',7.95,24,1, null,'Trouver l amour ? En ce qui la concerne, Kate Seymour y a renonc� depuis une �ternit�. Ironie du sort, elle a h�rit� d un don infaillible : d�tecter l alchimie entre deux �tres. Alors, faisant contre mauvaise fortune','http://www.gibertjoseph.com/le-jeu-de-la-tentation-8403757.html',null,null,null,null),
+('2811356510','2','reduced', 'Horizon',7.20,19,2, null,'Alors que Menzoberazzan go�te � un semblant de paix, lib�r�e de ses hordes de d�mons, l Outreterre panse ses plaies. Le barbare du Valbise et son compagnon halfelin, seulement d�sireux de profiter de leur nouvelle','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Incroyable'),
+('2290134563','1','reduced', 'Mr. Porc',4.07,39,1, null,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,'Pas terrible'),
+('2363586533','9','reduced','La Sorciere le retour',9.10,23,1, null ,'Summers 20 Must-Read Books If you want to know the world behind out corporate-sponsored dreamscapes, you read writers like Arundhati Roy. She shows you what s really going on','http://www.gibertjoseph.com/le-piege-8953421.html',null,null,null,'interessant'),
+('2364992770','10','reduced', 'Bunny le Lapin',14.90,11,1, null ,'A dazzling new collection of short stories - the internationally bestselling authors first collection for over a decade.','http://www.gibertjoseph.com/da-vinci-code-8869292.html',null,null,null,'long et ennuyeux'),
+('2123816491','7','reduced', 'Robert de la Patisserie',19.90,7,2, null,' Partout, les monstres sont chez eux... � Vincent Dussart est s�r de son coup. Ce break impos� par sa femme va prendre fin aujourd hui. Il n a rien laiss� au hasard. Comme toujours. Confiant, il p�n�tre dans la maison .','http://www.gibertjoseph.com/comme-de-longs-echos-8822343.html',null,null,null,null),
+('2724500707','8','reduced', 'ZombieCat',9.00,34,1, null ,'Pendant la Guerre de S�cession, un soldat yankee bless� est recueilli dans un pensionnat de jeunes filles du Sud. L intrusion d un homme bouleverse ce milieu f�minin corset� et repli� sur lui-m�me. Objet de tous les fantasmes','http://www.gibertjoseph.com/les-proies-8762857.html',null,null,null,'Magnifique livre , je conseille !'),
+('2333526545','5','reduced','lombre de la mort',9.80,19,1, null,'Paris, 1911. � l issue du congr�s de l Association Psychanalytique Internationale, le jeune docteur Du Barrail est charg� par Sigmund Freud en personne d enqu�ter sur la mort myst�rieuse d un de leurs confr�res, retrouv�.','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Chef d oeuvre'),
+('2263637001','6','reduced','Lui',7.40,63,1, null,null,'http://www.gibertjoseph.com/laisse-moi-t-aimer-8403762.html',null,null,null,null),
+('2235456661','3','reduced', 'Les Fourmis',4.52,25,2, 'La femme mystere' ,null,'http://www.gibertjoseph.com/les-ladies-de-lantern-street-la-femme-mystere-8403758.html',null,null,null,'Top!'),
+('2243545748','2','reduced', 'Au nom de dieu',7.95,24,1, null,'Trouver l amour ? En ce qui la concerne, Kate Seymour y a renonc� depuis une �ternit�. Ironie du sort, elle a h�rit� d un don infaillible : d�tecter l alchimie entre deux �tres. Alors, faisant contre mauvaise fortune','http://www.gibertjoseph.com/le-jeu-de-la-tentation-8403757.html',null,null,null,null),
+('2374356510','1','reduced', 'lArt de la Poutine',7.20,19,2, null,'Alors que Menzoberazzan go�te � un semblant de paix, lib�r�e de ses hordes de d�mons, l Outreterre panse ses plaies. Le barbare du Valbise et son compagnon halfelin, seulement d�sireux de profiter de leur nouvelle','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Incroyable'),
+('2225637563','4','reduced', 'Go Away',4.07,39,1, null,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,'Pas terrible')
 
 
              
@@ -110,7 +129,9 @@ INSERT INTO Theme ( NAMETHEME )
 
 Values 
 ('Policier'),
-('Amour')
+('Amour'),
+('Histoire'),
+('Educatif')
 
 
 
@@ -128,9 +149,14 @@ Values
             ('3','18 eme siecles','Amour'),
             ('4','Moderne','Amour'),
             ('5','Australien','Amour'),
-            ('6','Americain','Policier'),
-            ('7','Asiatique','Policier'),
-            ('8','18 eme siecles','Policier')
+            ('6','Corruption','Policier'),
+            ('7','Enquete','Policier'),
+            ('8','Western','Policier'),
+            ('9','18eme Siecle','Histoire'),
+            ('10','Politique','Histoire'),
+            ('11','Informatique','Educatif'),
+            ('12','Cusine','Educatif')
+            
 
 
 			
@@ -144,15 +170,42 @@ INSERT INTO SubThemeBook (
             IDSUBTHEMESB ) 
 
 Values  ('1','2253092533','1'),
-        ('2','2253092770','4'),
+        ('2','2253092770','2'),
         ('3','2265116491','4'),
-        ('4','2743640707','1'),
-        ('5','2330081545','2'),
-        ('6','2290147001','6'),
-        ('7','2290140961','2'),
-        ('8','2290139998','3'),
-        ('9','2811222510','3'),
-        ('10','2290139963','5')
+        ('4','2743640707','4'),
+        ('5','2330081545','5'),
+        ('6','2290147001','4'),
+        ('7','2290140961','5'),
+        ('8','2290139998','5'),
+        ('9','2811222510','6'),
+        ('10','2290139963','6'),
+        ('11','2253092533','6'),
+        ('12','2374356510','7'),
+        ('13','2243545748','7'),
+        ('14','2235456661','7'),
+        ('15','2263637001','8'),
+        ('16','2333526545','8'),
+        ('17','2724500707','8'),
+        ('18','2123816491','9'),
+        ('19','2364992770','9'),
+        ('20','2363586533','9'),
+        ('21','2290134563','10'),
+        ('22','2811356510','10'),
+        ('23','2243539998','10'),
+        ('24','2123456661','11'),
+        ('25','2345637001','11'),
+        ('26','2331553545','11'),
+        ('27','2739500707','11'),
+        ('28','2103816491','12'),
+        ('29','2309992770','12'),
+        ('30','2363092533','12'),
+        ('31','2123456661','2'),
+        ('32','2345637001','2'),
+        ('33','2331553545','2'),
+        ('34','2739500707','2'),
+        ('35','2103816491','1'),
+        ('36','2309992770','1'),
+        ('37','2363092533','1')
 
 		
 /*==============================================================*/

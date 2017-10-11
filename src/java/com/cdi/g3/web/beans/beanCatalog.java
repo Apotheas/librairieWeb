@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,7 +49,23 @@ public class beanCatalog implements Serializable {
         this.books = books;
     }
     
-    
+     public Collection getBooksbyTheme(String theme) {
+        try {
+            return ctatalogService.FindBooksByTheme(theme);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Collection getBooksbySub(String theme, String sub) {
+        try {
+            return ctatalogService.FindBooksBySub(theme, sub);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
     
 
     
