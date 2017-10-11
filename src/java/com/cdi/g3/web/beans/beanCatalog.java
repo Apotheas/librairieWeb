@@ -20,81 +20,36 @@ import java.util.List;
  */
 public class beanCatalog implements Serializable {
     private static final CatalogService ctatalogService = new CatalogService();
+    private Collection<Book> booksCatalog = new ArrayList();
     private Collection<Book> books = new ArrayList();
-    private int offset;
-    private int recordsPerPage =6;
-    private int numberColone =3;
-    private int noOfPages;
-
+    
     public beanCatalog() throws ObjectNotFoundException {
-        this.books = ctatalogService.FindAllBooks();
+        this.booksCatalog = ctatalogService.FindAllBooks();
     }
     
     public beanCatalog(Collection bookList) throws ObjectNotFoundException {
         this.books = bookList;
     }
 
-    public Collection getBooksByOffsetAndLength()  {
-        ArrayList<Book> booksLineOfThePage ;
-        Collection<ArrayList> booksByOffsetAndLength = new ArrayList();
-        int to = this.offset + this.recordsPerPage;
-        if (this.offset > books.size())
-            this.offset = books.size();
-        if (to > books.size())
-            to = books.size();
-        for (int i = this.offset; i < to; i=i+numberColone) {
-            booksLineOfThePage = new ArrayList();
-            for (int j = i; j < i+numberColone; j++) {
-            booksLineOfThePage.add(((ArrayList<Book>) books).get(j));
-            }
-             booksByOffsetAndLength.add(booksLineOfThePage);
-        }
-        return booksByOffsetAndLength;
+    public Collection<Book> getBooksCatalog() {
+        return booksCatalog;
     }
 
-    public Collection getPages() {
-       List pageNumbers = new ArrayList();
-        int pages = books.size() / this.recordsPerPage;
-        if (books.size() % this.recordsPerPage != 0) {
-            pages = pages + 1;
-        } 
-        for (int i = 1; i <= pages; i++) {
-            pageNumbers.add(new Integer(i));
-        }
-        return pageNumbers;
+    public void setBooksCatalog(Collection<Book> booksCatalog) {
+        this.booksCatalog = booksCatalog;
     }
 
-    public int getOffset() {
-        return offset;
+    public Collection<Book> getBooks() {
+        return books;
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
-
-    public int getRecordsPerPage() {
-        return recordsPerPage;
-    }
-
-    public void setRecordsPerPage(int recordsPerPage) {
-        this.recordsPerPage = recordsPerPage;
-    }
-
-    public int getNumberColone() {
-        return numberColone;
-    }
-
-    public void setNumberColone(int numberColone) {
-        this.numberColone = numberColone;
-    }
-
-    public int getNnoOfPages() {        
-        return (int) Math.ceil(books.size() * 1.0 / recordsPerPage);      
-       
+    public void setBooks(Collection<Book> books) {
+        this.books = books;
     }
     
     
     
+
     
     
     }

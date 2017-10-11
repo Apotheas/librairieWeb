@@ -1,45 +1,76 @@
+<%@page import="com.cdi.g3.server.domain.catalog.Book"%>
+<%@page import="com.cdi.g3.web.beans.beanCatalog"%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Fatal Error</title>        
-        <link type="text/css" rel="stylesheet" href="css/bootstrap/css/bootstrap.css" />
-        <link type="text/css" rel="stylesheet" href="css/form.css" />
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Home</title> 
+        <!-- Bootstrap core CSS -->        
+        <link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  
+        <!-- Custom styles for this template -->       
+        <link href="css/shop-homepage.css" rel="stylesheet"/>
+
+        <!--  <link href="css/bootstrap/css/bootstrap.css"  rel="stylesheet" /> -->
+        <!--<link rel="stylesheet" href="css/form.css" />-->
+
+
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
 
 
     <body>
-        <div class="container">
-           <header class="row" id="header">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <jsp:include page="common/header.jsp"/>
-           </header>
-           
-           <div class="row">                
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <jsp:include page="common/navigation.jsp"/>
+                </div>
+                <!-- /.col-lg-3 -->
+                <div class="col-lg-9">
+                 <!-- Partie de Content a changer par rapport au besoin -->
+                <!----------------------------------------------------------------->       
+                <!------------------------------------------------------------------->
+                <!-------------------------------------------------------------------->
+                 <h1>Fatal Error!</h1>
+               
+                <!----------------------------------------------------------------->       
+                <!------------------------------------------------------------------->
+                <!-------------------------------------------------------------------->
+                <!--Fin de la partie de Content a changer par rapport au besoin -->
+                  </div>
+                <!-- /.col-lg-9 -->
                 
-               <nav  class="col-lg-3" id="navBar">
-                <jsp:include page="common/navigation.jsp"/>
-                </nav> 
-
-                <section class="col-lg-9">
-                    
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <h1>Fatal Error!</h1>
-                        </div>
-                    </div>
-
-                </section>
             </div>
-
-
-            <footer class="row" id="footer">
-                 <jsp:include page="common/footer.jsp"/>
-            </footer>
+            <!-- /.row -->
         </div>
-    </body>
-</html>
+        <!-- /.container -->
 
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+              <jsp:include page="common/footer.jsp"/>
+        </footer>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/popper/popper.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    </body>
+
+</html>

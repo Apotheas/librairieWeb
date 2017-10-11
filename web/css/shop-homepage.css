@@ -1,6 +1,14 @@
-/* Général ------------------------------------------------------------------------------------- */
+/*!
+ * Start Bootstrap - Shop Homepage (http://startbootstrap.com/template-overviews/shop-homepage)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
 
 body {
+    padding-top: 54px;
+}
+
+container {
     padding-top: 54px;
 }
 
@@ -9,15 +17,6 @@ body {
         padding-top: 56px;
     }
 }
-
-
-
-
-
-body, p, legend, label, input {
-    font: normal 8pt verdana, helvetica, sans-serif;
-}
-
 
 fieldset {
     padding: 10px;
@@ -29,22 +28,6 @@ legend {
     color: #0568CD;
 }
 
-#header {
-    background-color:#e6e6e6;
-}
-
-#footer {
-    background-color:#e6e6e6;
-}
-
-#navBar {
-    width: 15%;
-    text-align:center;
-}
- // NavBarre -----------------------------------------------------------------------------------*/
-#navBar ul li{
-    margin-top:-2.5em;
-}
 /* Forms --------------------------------------------------------------------------------------- */
 
 form label {

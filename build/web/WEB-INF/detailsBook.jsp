@@ -11,16 +11,13 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Home</title> 
-        <!-- Bootstrap core CSS -->        
-        <link href="css/librairie/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>  
-        <!-- Custom styles for this template -->       
-        <link href="css/shop-homepage.css" rel="stylesheet"/>
+        <!-- Bootstrap core CSS -->
+       <link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">  
+        <!-- Custom styles for this template -->
+      <link href="css/css/shop-homepage.css" rel="stylesheet"> 
 
         <!--  <link href="css/bootstrap/css/bootstrap.css"  rel="stylesheet" /> -->
-        <!--<link rel="stylesheet" href="css/form.css" />-->
-
-
-
+        <!--  <link rel="stylesheet" href="css/form.css" /> -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
@@ -30,7 +27,7 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <jsp:include page="common/header.jsp"/>
+            <jsp:include page="common/header1.jsp"/>
         </nav>
 
         <!-- Page Content -->
@@ -39,31 +36,34 @@
             <div class="row">
 
                 <div class="col-lg-3">
-                    <jsp:include page="common/navigation.jsp"/>
+                    <jsp:include page="common/navigation1.jsp"/>
                 </div>
                 <!-- /.col-lg-3 -->
+
+
                 <div class="col-lg-9">
-                 <!-- Partie de Content a changer par rapport au besoin -->
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-                 <h1>Fatal Error!</h1>
-               
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-                <!--Fin de la partie de Content a changer par rapport au besoin -->
-                  </div>
+
+                   
+                    
+                    
+                    
+                    
+
+                </div>
                 <!-- /.col-lg-9 -->
-                
+
             </div>
             <!-- /.row -->
+
         </div>
         <!-- /.container -->
 
         <!-- Footer -->
         <footer class="py-5 bg-dark">
-              <jsp:include page="common/footer.jsp"/>
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+            </div>
+            <!-- /.container -->
         </footer>
 
         <!-- Bootstrap core JavaScript -->

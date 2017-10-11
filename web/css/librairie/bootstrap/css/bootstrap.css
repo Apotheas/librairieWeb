@@ -5055,6 +5055,7 @@ button.close {
           transform: translateX(0);
 }
 
+
 @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
   .carousel-item-next.carousel-item-left,
   .carousel-item-prev.carousel-item-right {
@@ -5069,6 +5070,8 @@ button.close {
           transform: translateX(100%);
 }
 
+
+
 @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
   .carousel-item-next,
   .active.carousel-item-right {
@@ -5082,6 +5085,7 @@ button.close {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
 }
+
 
 @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
   .carousel-item-prev,
@@ -6326,6 +6330,7 @@ a.bg-dark:focus, a.bg-dark:hover {
   z-index: 1030;
 }
 
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sticky-top {
     position: -webkit-sticky;
@@ -6334,6 +6339,7 @@ a.bg-dark:focus, a.bg-dark:hover {
     z-index: 1020;
   }
 }
+
 
 .sr-only {
   position: absolute;

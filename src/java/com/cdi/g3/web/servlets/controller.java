@@ -12,11 +12,9 @@ import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.web.beans.beanCatalog;
 import com.cdi.g3.web.beans.beanCustomer;
 import com.cdi.g3.web.beans.beanLogin;
+import com.cdi.g3.web.beans.beanPagination;
 import com.cdi.g3.web.beans.beanPanier;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,59 +46,82 @@ public class controller extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "/WEB-INF/home.jsp";
-        
+
         HttpSession session = request.getSession();
         ServletContext application = this.getServletContext();
         
-        // Charger le catalog dans la session
-        if(application.getAttribute("catalog") == null){
-        beanCatalog bCatalog
+         // Charger le bean pagination dans la application
+        if (application.getAttribute("pagination") == null) {
+            beanPagination bPagination
+                    = (beanPagination) application.getAttribute("pagination");
+            if (bPagination == null) {
+                bPagination = new beanPagination();
+                application.setAttribute("pagination", bPagination);
+            }
+        }
+        
+
+        // Charger le catalog dans la application
+        if (application.getAttribute("catalog") == null) {
+            beanCatalog bCatalog
                     = (beanCatalog) application.getAttribute("catalog");
             if (bCatalog == null) {
                 try {
                     bCatalog = new beanCatalog();
                 } catch (ObjectNotFoundException ex) {
-                     ex.printStackTrace();
+                    ex.printStackTrace();
                 }
                 application.setAttribute("catalog", bCatalog);
             }
-        int page = 1;
-        
-        String pageNumberValue = request.getParameter("pageNumber"); 
-        if (pageNumberValue != null) {
-            try {
-                page = Integer.parseInt(pageNumberValue);               
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
+            int page = 1;
+
+            String pageNumberValue = request.getParameter("pageHome");
+            if (pageNumberValue != null) {
+                try {
+                    page = Integer.parseInt(pageNumberValue);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
-        }        
-        bCatalog.setOffset(bCatalog.getRecordsPerPage() * (page - 1)); 
-        application.setAttribute("pages", bCatalog.getPages());
-        application.setAttribute("booksDetails", bCatalog.getBooksByOffsetAndLength());
-        application.setAttribute("noOfPages", bCatalog.getNnoOfPages());        
+            beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
+            bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+            request.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
+            request.setAttribute("noOfPages", bPagination.getNoOfPages(bCatalog.getBooksCatalog()));
+            request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
+        
         }
-        if(request.getParameter("pageHome") == null){
+
+        if (request.getParameter("pageHome") == null) {
             int pageHome = 1;
-            request.setAttribute("currentPage", pageHome);   
-        }        
-         // Fin de chargement du catalog dans la session        
+            request.setAttribute("currentPage", pageHome);
+        }
+        // Fin de chargement du catalog dans la application        
         if ("pagination".equals(request.getParameter("section"))) {
+            
+            if ((request.getParameter("pageHome") != null)) {
+            url = "/WEB-INF/home.jsp";
+            beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
+            beanCatalog bCatalog = (beanCatalog) application.getAttribute("catalog");
+            int pageHome;
+            if (request.getParameter("pageHome") == null) {
+                pageHome = 1;
+            }
             if (request.getParameter("pageHome") != null) {
-                beanCatalog bCatalog = (beanCatalog) application.getAttribute("catalog");                
-            int pageHome = 1;
-            int recordsPerPage = 6;
-            if(request.getParameter("pageHome") != null)
-            pageHome = Integer.parseInt(request.getParameter("pageHome"));
-            bCatalog.setRecordsPerPage(recordsPerPage);           
-            request.setAttribute("currentPage", pageHome);               
-            }            
+                pageHome = Integer.parseInt(request.getParameter("pageHome"));
+                bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
+            request.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
+            request.setAttribute("noOfPages", bPagination.getNoOfPages(bCatalog.getBooksCatalog()));
+            request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
+            request.setAttribute("currentPage", pageHome);
+            }
         }
         
+    }
+
         if ("catalog".equals(request.getParameter("section"))) {
             url = "/WEB-INF/jspCatalog.jsp";
         }
 
-        
         if ("panier".equals(request.getParameter("section"))) {
             beanPanier bPanier
                     = (beanPanier) session.getAttribute("panier");
@@ -110,7 +131,7 @@ public class controller extends HttpServlet {
             }
             if (request.getParameter("add") != null) {
                 bPanier.add(request.getParameter("add"));
-                
+
             }
             if (request.getParameter("dec") != null) {
                 bPanier.dec(request.getParameter("dec"));
@@ -121,28 +142,28 @@ public class controller extends HttpServlet {
             if (request.getParameter("clear") != null) {
                 bPanier.clear();
             }
-            
-            if(request.getParameter("affichePanier")!=null){
-                 url = "/WEB-INF/jspCartShopping.jsp";
-            bPanier
-                    = (beanPanier) session.getAttribute("panier");
-            if (bPanier == null) {
-                bPanier = new beanPanier();
-                session.setAttribute("panier", bPanier);
-            }
-            request.setAttribute("panierVide", bPanier.isEmpty());
-            request.setAttribute("panier", bPanier.list());
-                
+
+            if (request.getParameter("affichePanier") != null) {
+                url = "/WEB-INF/jspCartShopping.jsp";
+                bPanier
+                        = (beanPanier) session.getAttribute("panier");
+                if (bPanier == null) {
+                    bPanier = new beanPanier();
+                    session.setAttribute("panier", bPanier);
+                }
+                request.setAttribute("panierVide", bPanier.isEmpty());
+                request.setAttribute("panier", bPanier.list());
+
             }
         }
 
         if ("login".equals(request.getParameter("section"))) {
-            
-            if (request.getParameter("signOn") !=null) {
-                 url = "/WEB-INF/jspFormLogin.jsp";
+
+            if (request.getParameter("signOn") != null) {
+                url = "/WEB-INF/jspFormLogin.jsp";
             }
-            
-            if (request.getParameter("doIt") != null){
+
+            if (request.getParameter("doIt") != null) {
                 beanLogin bLogin
                         = (beanLogin) application.getAttribute("beanLogin");
                 if (bLogin == null) {
@@ -152,28 +173,28 @@ public class controller extends HttpServlet {
                 if (bLogin.checkLogin(request.getParameter("login"),
                         request.getParameter("password"))) {
                     url = "/WEB-INF/jspWelcome.jsp";
-                    String welcome = request.getParameter("login");                    
-                    
+                    String welcome = request.getParameter("login");
+
                     request.setAttribute("Welcome", welcome);
                     ////ajouter session aussi 
                     session.setAttribute("Welcome", welcome);
                     Cookie cc = new Cookie("ok", welcome);
                     response.addCookie(cc);
-                                        
+
                     beanCustomer bCustomer
-                        = (beanCustomer) session.getAttribute("beanCustomer");
-                if (bCustomer == null) {
+                            = (beanCustomer) session.getAttribute("beanCustomer");
+                    if (bCustomer == null) {
                         try {
                             bCustomer = new beanCustomer(request.getParameter("login"));
                         } catch (ObjectNotFoundException ex) {
                             ex.printStackTrace();
                         } catch (CheckException ex) {
-                           ex.printStackTrace();
+                            ex.printStackTrace();
                         }
+                        session.setAttribute("beanCustomer", bCustomer);
+                    }
                     session.setAttribute("beanCustomer", bCustomer);
-                }
-                 session.setAttribute("beanCustomer", bCustomer);
-                 
+
                     cc = new Cookie("try", "");
                     cc.setMaxAge(0);
                     response.addCookie(cc);
@@ -202,7 +223,7 @@ public class controller extends HttpServlet {
             Cookie c = getCookie(request.getCookies(), "ok");
             if (c != null) {
                 url = "/WEB-INF/jspWelcome.jsp";
-                request.setAttribute("Welcome", c.getValue()); 
+                request.setAttribute("Welcome", c.getValue());
             }
 
             Cookie ccc = getCookie(request.getCookies(), "try");
@@ -216,25 +237,24 @@ public class controller extends HttpServlet {
 
             if (request.getParameter("deconnect") != null) {
                 url = "/WEB-INF/jspFormLogin.jsp";
-               
+
                 //detruire la session et vider le cader
                 beanPanier bPanier = (beanPanier) session.getAttribute("beanPanier");
-                if (bPanier != null){
+                if (bPanier != null) {
                     bPanier.clear();
                 }
                 session.invalidate();
-                
+
                 request.setAttribute("user", c.getValue());
                 Cookie cc = new Cookie("ok", "");
                 cc.setMaxAge(0);
                 response.addCookie(cc);
             }
         }
-        
-        
+
         System.out.println(url);
         System.out.println(request.getRequestURI());
-        
+
         request.getRequestDispatcher(url).include(request, response);
     }
 
@@ -252,9 +272,6 @@ public class controller extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
-    
-    
 
     /**
      * Handles the HTTP <code>POST</code> method.
