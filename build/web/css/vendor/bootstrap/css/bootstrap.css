@@ -1,9 +1,4 @@
-/*!
- * Bootstrap v4.0.0-beta (https://getbootstrap.com)
- * Copyright 2011-2017 The Bootstrap Authors
- * Copyright 2011-2017 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
+
 @media print {
   *,
   *::before,
@@ -5045,7 +5040,7 @@ button.close {
 
 .carousel-item-next,
 .carousel-item-prev {
-  position: absolute;
+  position: absolute; 
   top: 0;
 }
 
@@ -5055,7 +5050,8 @@ button.close {
           transform: translateX(0);
 }
 
-@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+
+@supports ((-webkit-transform-style: preserve-3d)  or (transform-style: preserve-3d)) {
   .carousel-item-next.carousel-item-left,
   .carousel-item-prev.carousel-item-right {
     -webkit-transform: translate3d(0, 0, 0);
@@ -5068,6 +5064,8 @@ button.close {
   -webkit-transform: translateX(100%);
           transform: translateX(100%);
 }
+
+
 
 @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
   .carousel-item-next,
@@ -5082,6 +5080,7 @@ button.close {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
 }
+
 
 @supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
   .carousel-item-prev,
@@ -5135,11 +5134,11 @@ button.close {
 }
 
 .carousel-control-prev-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M4 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+  background-image:url(images/cinqueterre.gif) ;
 }
 
 .carousel-control-next-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+  background-image:url(images/commeDeLongs.gif);
 }
 
 .carousel-indicators {
@@ -6326,6 +6325,7 @@ a.bg-dark:focus, a.bg-dark:hover {
   z-index: 1030;
 }
 
+
 @supports ((position: -webkit-sticky) or (position: sticky)) {
   .sticky-top {
     position: -webkit-sticky;
@@ -6334,6 +6334,7 @@ a.bg-dark:focus, a.bg-dark:hover {
     z-index: 1020;
   }
 }
+
 
 .sr-only {
   position: absolute;
