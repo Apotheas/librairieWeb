@@ -38,7 +38,7 @@ public class beanCatalog implements Serializable {
     }
 
     public void setBooksCatalog(Collection<Book> booksCatalog) {
-        this.booksCatalog = booksCatalog;
+        this.books = booksCatalog;
     }
 
     public Collection<Book> getBooks() {

@@ -21,11 +21,13 @@ public class beanPagination implements Serializable {
     private int recordsPerPage ;
     private int numberColone ;
     private int noOfPages;
+    private String pagination;
 
     
     public beanPagination() {
         recordsPerPage =6;
         numberColone =3;
+        pagination="catalog";
     }
     
     
@@ -95,6 +97,16 @@ public class beanPagination implements Serializable {
     public void setNoOfPages(int noOfPages) {
         this.noOfPages = noOfPages;
     }
+
+    public String getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(String pagination) {
+        this.pagination = pagination;
+    }
+    
+    
     
     
     
