@@ -119,7 +119,6 @@ private void setErreur( String champ, String message ) {
         this.confirmationPassword = confirmationPassword;
     }
     
-    
     public beanCustomer registerCustomer(beanCustomer bCustomer) throws CreateException, CheckException{
         
          Customer utilisateur = new Customer();
