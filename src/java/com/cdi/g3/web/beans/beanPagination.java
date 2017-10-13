@@ -27,7 +27,7 @@ public class beanPagination implements Serializable {
     public beanPagination() {
         recordsPerPage =6;
         numberColone =3;
-        pagination="catalog";
+        pagination = "catalog";
     }
     
     
