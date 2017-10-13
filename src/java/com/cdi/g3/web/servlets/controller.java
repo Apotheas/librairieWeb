@@ -116,11 +116,11 @@ public class controller extends HttpServlet {
             url = "/WEB-INF/jspCatalog.jsp";
         }
 
-        /*==========================================================================================================/
-         |
-         |    Charger la barre des themes
-         |
-         /*===========================================================================================================*/
+/*==========================================================================================================/
+ |
+ |    Charger la barre des themes
+ |
+ /*===========================================================================================================*/
         url = "/WEB-INF/home.jsp";
         beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
         beanCatalog bCatalog = (beanCatalog) application.getAttribute("catalog");
@@ -145,14 +145,13 @@ public class controller extends HttpServlet {
             }
             String nameTheme = request.getParameter("theme");
             request.setAttribute("theme", application.getAttribute("theme"));
-            bPagination.setPagination("theme");
+            
             if (request.getParameter("sub") != null) {
                 String nameSub = request.getParameter("sub");
                 bPagination.setPagination("sub");
-
                 Collection bookSubList = bCatalog.getBooksbySub(nameSub, nameTheme);
                 if (bookSubList != null) {
-                    bCatalog.setBooks(bookSubList);
+                  bCatalog.setBooks(bookSubList);
 //                application.setAttribute("catalog", bCatalog);
                     bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
                     request.setAttribute("pages", bPagination.getPages(bookSubList));
@@ -163,6 +162,7 @@ public class controller extends HttpServlet {
 
                 }
             } else {
+                bPagination.setPagination("theme");
                 Collection bookThemeList = bCatalog.getBooksbyTheme(nameTheme);
 //              application.setAttribute("catalog", bCatalog);
                 if (bookThemeList != null) {
@@ -183,19 +183,23 @@ public class controller extends HttpServlet {
         if (request.getParameter("home") != null) {
             bPagination.setPagination("catalog");
         }
-
+        
+        
+   /*==========================================================================================================/
+    |
+    |    Section pagination
+    |
+    /*===========================================================================================================*/
+         
         if ("pagination".equals(request.getParameter("section"))) {
             int pageHome = 1;
             if ((request.getParameter("pageHome") != null)) {
                 pageHome = Integer.parseInt(request.getParameter("pageHome"));
             }
 
-//            if (request.getParameter("theme") != null) {
-            if (bPagination.getPagination().equals("theme")) {
-                String nameTheme = request.getParameter("theme");
-//            if (request.getParameter("sub") != null) {
+
                 if (bPagination.getPagination().equals("sub")) {
-                    String nameSub = request.getParameter("sub");
+                     bPagination.setPagination("sub");
                     Collection bookSubList = bCatalog.getBooks();
                     application.setAttribute("catalog", bCatalog);
                     bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
@@ -203,8 +207,9 @@ public class controller extends HttpServlet {
                     request.setAttribute("pages", bPagination.getPages(bookSubList));
                     request.setAttribute("noOfPages", bPagination.getNoOfPages(bookSubList));
                     request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookSubList));
-                } else {
-
+                }
+                if (bPagination.getPagination().equals("theme")) {
+                    bPagination.setPagination("theme");                   
                     Collection bookThemeList = bCatalog.getBooks();
                     application.setAttribute("catalog", bCatalog);
                     bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
@@ -214,8 +219,8 @@ public class controller extends HttpServlet {
                     request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookThemeList));
                 }
 
-            } else {
-
+            else {
+                bPagination.setPagination("catalog");
                 request.setAttribute("currentPage", pageHome);
                 bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
                 request.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
@@ -231,6 +236,7 @@ public class controller extends HttpServlet {
          |    Section Panier
          |
          /*===========================================================================================================*/
+       
         if ("panier".equals(request.getParameter("section"))) {
             beanPanier bPanier
                     = (beanPanier) session.getAttribute("panier");
