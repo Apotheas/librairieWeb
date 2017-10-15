@@ -14,8 +14,8 @@ import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
-import com.cdi.g3.server.domain.customers.Adress;
-import com.cdi.g3.server.domain.customers.AdressDAO;
+import com.cdi.g3.server.domain.customers.Address;
+import com.cdi.g3.server.domain.customers.AddressDAO;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.domain.customers.CustomerDAO;
 import com.cdi.g3.server.domain.orders.InfoStatus;
@@ -45,7 +45,7 @@ public class OrderService extends AbstractService {
     private static final OrdersDAO _orderDAO = new OrdersDAO();
     private static final OrderLineDAO _orderLineDAO = new OrderLineDAO();
     private static final BookDAO _bookDAO = new BookDAO();
-    private static final AdressDAO _adresskDAO = new AdressDAO();
+    private static final AddressDAO _adresskDAO = new AddressDAO();
     private static final AdressService _adressService = new AdressService();
     private static final InfoStatusDAO _infoStatusDAO = new InfoStatusDAO();
     public static  final PachageShipperDAO  _pachageShipperDAO = new PachageShipperDAO();
@@ -146,11 +146,11 @@ public class OrderService extends AbstractService {
         order.setCustomer(customer);
         
         // Retreives the data for the AdressBilling and sets it       
-        Adress adressBilling = (Adress) _adresskDAO.findByPrimaryKey(order.getAdressBilling().getId());
+        Address adressBilling = (Address) _adresskDAO.findByPrimaryKey(order.getAdressBilling().getId());
         order.setAdressBilling(adressBilling);
         
          //Retreives the data for the AdressShipping and sets it
-        Adress adressShipping = (Adress) _adresskDAO.findByPrimaryKey(order.getAdressShipping().getId());
+        Address adressShipping = (Address) _adresskDAO.findByPrimaryKey(order.getAdressShipping().getId());
         order.setAdressShipping(adressShipping);
 //         Retreives the data for all the order lines
         

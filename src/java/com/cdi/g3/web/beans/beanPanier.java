@@ -20,7 +20,6 @@ public class beanPanier implements Serializable {
     
     Map<String,Item>  map ;
     
-    
     public beanPanier() {
         this.map = new HashMap(); 
     }
@@ -61,6 +60,8 @@ public class beanPanier implements Serializable {
     public int getSize(){
         return this.map.size();
     }
+    
+    
     
     public Collection<Item> list(){
         return this.map.values();

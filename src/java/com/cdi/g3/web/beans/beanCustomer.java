@@ -7,65 +7,68 @@ package com.cdi.g3.web.beans;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.CreateException;
+import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.service.customers.CustomerService;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.service.customers.AdressService;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author cdi314
  */
-public class beanCustomer implements Serializable{    
-    private CustomerService customerService = new CustomerService();
+public class beanCustomer implements Serializable {
 
-    private Customer customer;
-    private String login;
-    private String password;
+    private CustomerService customerService ;
+    private AdressService adressService;
+    private Customer customer; 
+    private Address addressBill;
+    private Address addressShip;
+    private beanAddress bAddress;
     private String confirmationPassword;
-    private String email;
-    private String lastName;
-    private String firstName;
+    private String resultat;
+    private Map<String, String> erreurs;
     
+    public beanCustomer() {
+        customer = new Customer();
+        bAddress= new  beanAddress();
+        addressBill = new  Address();
+        addressShip = new  Address();
+        customerService = new CustomerService();
+        adressService = new AdressService();
+        erreurs = new HashMap<String, String>();
+    }
+
+    public beanCustomer(String login) throws ObjectNotFoundException, CheckException, FinderException {
+        this();
+        this.customer = customerService.findCustomer(login);
+        this.addressBill = adressService.findAdressBilling(this.customer.getLoginCustomer());
+        this.addressShip = adressService.findAdressBilling(this.customer.getLoginCustomer());
+    }
     
-    private String              resultat;
-
-private Map<String, String> erreurs      = new HashMap<String, String>();
-
-
-public String getResultat() {
-    return resultat;}
+    public String getResultat() {
+        return resultat;
+    }
 
     public void setResultat(String resultat) {
         this.resultat = resultat;
     }
 
-
-public Map<String, String> getErreurs() {
-    return erreurs;
-}
-/*
- * Ajoute un message correspondant au champ spécifié à la map des erreurs.
- */
-private void setErreur( String champ, String message ) {
-    erreurs.put( champ, message );
-}
-
-    public beanCustomer() {
+    public Map<String, String> getErreurs() {
+        return erreurs;
     }
+    /*
+     * Ajoute un message correspondant au champ spécifié à la map des erreurs.
+     */
 
-    
-    public beanCustomer(String login) throws ObjectNotFoundException, CheckException {
-       this.customer= customerService.findCustomer(login);        
-    }
-
-    public void setEmail(String email) {
-	this.email = email;
-    }
-    public String getEmail() {
-	return email;
+    private void setErreur(String champ, String message) {
+        erreurs.put(champ, message);
     }
 
     public Customer getCustomer() {
@@ -75,38 +78,31 @@ private void setErreur( String champ, String message ) {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-    public String getLogin() {
-        return login;
+    
+    public beanAddress getbAddress() {
+        return bAddress;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setbAddress(beanAddress bAddress) {
+        this.bAddress = bAddress;
     }
 
-    public String getPassword() {
-        return password;
+    public Address getAddressBill() {
+        return addressBill;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAddressBill(Address addressBill) {
+        this.addressBill = addressBill;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Address getAddressShip() {
+        return addressShip;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAddressShip(Address addressShip) {
+        this.addressShip = addressShip;
     }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+    
     public Customer getCustomer(String login) {
         return this.customer;
     }
@@ -118,72 +114,89 @@ private void setErreur( String champ, String message ) {
     public void setConfirmationPassword(String confirmationPassword) {
         this.confirmationPassword = confirmationPassword;
     }
-    
-    public beanCustomer registerCustomer(beanCustomer bCustomer) throws CreateException, CheckException{
-        
-         Customer utilisateur = new Customer();
-        
+
+    public beanCustomer registerCustomer() throws CreateException, CheckException {
+
         try {
-        validationEmail( bCustomer.getEmail() );
-    } catch ( Exception e ) {
-        bCustomer.setErreur( bCustomer.getEmail(), e.getMessage() );
-    }
-    utilisateur.setEmailCustomer(bCustomer.getEmail() );
+            customerService.findCustomer(customer.getLoginCustomer());
+            this.setErreur("loginCustomer", "Ce login existe déjà, merci de choisir un autre login");
+            return this;
 
-    try {
-        validationMotsDePasse( bCustomer.getPassword(),bCustomer.getConfirmationPassword() );
-    } catch ( Exception e ) {
-        bCustomer.setErreur( bCustomer.getPassword(), e.getMessage() );
-        bCustomer.setErreur( bCustomer.getConfirmationPassword(), null );
-    }
-    utilisateur.setPasswordCustomer(bCustomer.getPassword() );
+        } catch (ObjectNotFoundException ex) {
+            try {
+                validationNom(customer.getLoginCustomer());
+            } catch (Exception e) {
+                this.setErreur("loginCustomer", e.getMessage());
+            }
+            customer.setLoginCustomer(customer.getLoginCustomer());
 
-    try {
-        validationNom( bCustomer.getLastName() );
-    } catch ( Exception e ) {
-        bCustomer.setErreur( bCustomer.getLastName(), e.getMessage() );
-    }
-    utilisateur.setLastNameCustomer(bCustomer.getLastName() );
+            try {
+                validationEmail(customer.getEmailCustomer());
+            } catch (Exception e) {
+                this.setErreur("emailCustomer", e.getMessage());
+            }
+            customer.setEmailCustomer(customer.getEmailCustomer());
 
-    if ( bCustomer.getErreurs().isEmpty() ) {
-        bCustomer.setResultat("Succès de l'inscription.") ;
-        customerService.createCustomer(utilisateur); 
-    } else {        
-         bCustomer.setResultat("Échec de l'inscription.") ;
-    }
-      
-    return bCustomer;
-}
-    
-    
-    private void validationEmail( String email ) throws Exception {
-    if ( email != null ) {
-        if ( !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
-            throw new Exception( "Merci de saisir une adresse mail valide." );
+            try {
+                validationMotsDePasse(customer.getPasswordCustomer(), this.getConfirmationPassword());
+            } catch (Exception e) {
+                this.setErreur("passwordCustomer", e.getMessage());
+                this.setErreur(this.getConfirmationPassword(), null);
+            }
+            customer.setPasswordCustomer(customer.getPasswordCustomer());
+
+            try {
+                validationNom(customer.getLastNameCustomer());
+            } catch (Exception e) {
+                this.setErreur("lastNameCustomer", e.getMessage());
+            }
+            customer.setLastNameCustomer(customer.getLastNameCustomer());
+
+            try {
+                validationNom(customer.getFirstNameCustomer());
+            } catch (Exception e) {
+                this.setErreur("firstNameCustomer", e.getMessage());
+            }
+            customer.setFirstNameCustomer(customer.getFirstNameCustomer());
+
+            if (this.getErreurs().isEmpty()) {
+                this.setResultat("Succès de l'inscription.");
+                customerService.createCustomer(customer);
+            } else {
+                this.setResultat("Échec de l'inscription.");
+            }
+
+            return this;
         }
-    } else {
-        throw new Exception( "Merci de saisir une adresse mail." );
-    }
-}
 
-private void validationMotsDePasse( String motDePasse, String confirmation ) throws Exception {
-    if ( motDePasse != null && confirmation != null ) {
-        if ( !motDePasse.equals( confirmation ) ) {
-            throw new Exception( "Les mots de passe entrés sont différents, merci de les saisir à nouveau." );
-        } else if ( motDePasse.length() < 3 ) {
-            throw new Exception( "Les mots de passe doivent contenir au moins 3 caractères." );
+    }
+
+    private void validationEmail(String email) throws Exception {
+        if (email != null) {
+            if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
+                throw new Exception("Merci de saisir une adresse mail valide.");
+            }
+        } else {
+            throw new Exception("Merci de saisir une adresse mail.");
         }
-    } else {
-        throw new Exception( "Merci de saisir et confirmer votre mot de passe." );
     }
-}
 
-private void validationNom( String nom ) throws Exception {
-    if ( nom != null && nom.length() < 3 ) {
-        throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
+    private void validationMotsDePasse(String motDePasse, String confirmation) throws Exception {
+        if (motDePasse != null && confirmation != null) {
+            if (!motDePasse.equals(confirmation)) {
+                throw new Exception("Les mots de passe entrés sont différents, merci de les saisir à nouveau.");
+            } else if (motDePasse.length() < 3) {
+                throw new Exception("Les mots de passe doivent contenir au moins 3 caractères.");
+            }
+        } else {
+            throw new Exception("Merci de saisir et confirmer votre mot de passe.");
+        }
     }
-}
 
-    
-    
+    private void validationNom(String nom) throws Exception {
+        if (nom != null && nom.length() < 3) {
+            throw new Exception("Le nom d'utilisateur doit contenir au moins 3 caractères.");
+        }
+    }
+
 }

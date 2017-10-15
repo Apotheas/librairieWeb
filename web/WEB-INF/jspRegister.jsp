@@ -42,44 +42,44 @@
                     <!----------------------------------------------------------------->       
                     <!------------------------------------------------------------------->
                     <!-------------------------------------------------------------------->
-                    <form action='controller' method='post'>                                
+                   <jsp:useBean id="bCustomer" class="com.cdi.g3.web.beans.beanCustomer" scope="session" />
+                    <form action='controller?section=customer' method='post'>                                
                         <fieldset>
                             <legend>Inscription</legend>
                             <p>Vous pouvez vous inscrire via ce formulaire.</p>
 
                             <label for="login">Login <span class="requis">*</span></label>
-                            <input type="login" id="login" name="login" value="<c:out value="${beanCustomer.login}"/>" size="20" maxlength="60" />
-                            <span class="erreur">${form.erreurs['login']}</span>
+                            <input type="login" id="login" name="login" value="<c:out value="${bCustomer.customer.loginCustomer}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.erreurs['loginCustomer']}</span>
                             <br />
 
                             <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
                             <input type="password" id="motdepasse" name="password" value="" size="20" maxlength="20" />
-                            <span class="erreur">${form.erreurs['motdepasse']}</span>
+                            <span class="erreur">${bCustomer.erreurs['passwordCustomer']}</span>
                             <br />
 
                             <label for="confirmation">Confirmation du mot de passe <span class="requis">*</span></label>
                             <input type="password" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
-                            <span class="erreur">${form.erreurs['confirmation']}</span>
+                            <span class="erreur">${bCustomer.erreurs['confirmationPassword']}</span>
+                            <br /><br />
+
+                            <label for="nom">Nom <span class="requis">*</span> </label>
+                            <input type="text" id="nom" name="nom" value="<c:out value="${bCustomer.customer.lastNameCustomer}"/>" size="20" maxlength="20" />
+                            <span class="erreur"><c:out value="${bCustomer.erreurs['lastNameCustomer']}"/></span>                            
                             <br />
 
-                            <label for="nom">Nom </label>
-                            <input type="text" id="nom" name="nom" value="<c:out value="${beanCustomer.lastName}"/>" size="20" maxlength="20" />
-                            <span class="erreur">${form.erreurs['nom']}</span>
-                            <br />
-
-                            <label for="nom">Prénom </label>
-                            <input type="text" id="nom" name="nom" value="<c:out value="${beanCustomer.firstName}"/>" size="20" maxlength="20" />
-                            <span class="erreur">${form.erreurs['nom']}</span>
+                            <label for="nom">Prénom <span class="requis">*</span></label>
+                            <input type="text" id="nom" name="prenom" value="<c:out value="${bCustomer.customer.firstNameCustomer}"/>" size="20" maxlength="20" />
+                            <span class="erreur">${bCustomer.erreurs['firstNameCustomer']}</span>
                             <br />
 
                             <label for="email">Adresse email <span class="requis">*</span></label>
-                            <input type="email" id="email" name="email" value="<c:out value="${beanCustomer.email}"/>" size="20" maxlength="60" />
-                            <span class="erreur">${form.erreurs['email']}</span>
+                            <input type="email" id="email" name="email" value="<c:out value="${bCustomer.customer.emailCustomer}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.erreurs['emailCustomer']}</span>
                             <br />
-
-                            <input type="submit" value="Inscription" class="sansLabel" />
+                            <input type="submit" name='doIt' value="register" class="sansLabel" />
                             <br />
-                            <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+                            <p class="${empty bCustomer.erreurs ? 'succes' : 'erreur'}">${bCustomer.resultat}</p>
                         </fieldset>
                     </form>               
 

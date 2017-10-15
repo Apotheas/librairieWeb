@@ -27,13 +27,13 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     // =             Attributes             =
     // ======================================
     
-     private static final AdressDAO _daoAdress = new AdressDAO();
+     private static final AddressDAO _daoAdress = new AddressDAO();
     
     private static final String TABLE = "Customer";  
     
-    private static final String COLUMNS = "LOGINCUSTOMER, LASTNAMECUSTOMER, FIRSTNAMECUSTOMER, EMAILCUSTOMER, PASSWORDCUSTOMER"
+    private static final String COLUMNS = "LOGINCUSTOMER, LASTNAMECUSTOMER, FIRSTNAMECUSTOMER, EMAILCUSTOMER, PASSWORDCUSTOMER,telephoneCustomer"
             + ", NAMECOMPANYCUSTOMER, COMMENTCUSTOMER, STATUSCUSTOMER";
-    private static final String COLUMNS_PREP= " LASTNAMECUSTOMER, FIRSTNAMECUSTOMER, EMAILCUSTOMER, PASSWORDCUSTOMER"
+    private static final String COLUMNS_PREP= " LASTNAMECUSTOMER, FIRSTNAMECUSTOMER, EMAILCUSTOMER, PASSWORDCUSTOMER,telephoneCustomer"
             + ", NAMECOMPANYCUSTOMER, COMMENTCUSTOMER, STATUSCUSTOMER, LOGINCUSTOMER";
     // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "CUSTOMER";
@@ -44,7 +44,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     protected String getInsertSqlPreparedStatement() {        
         final String sql;
         
-        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?,?,?)";
+        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?,?,?,?)";
         return sql;
     }
 
@@ -57,7 +57,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     protected String getUpdateSqlPreparedStatement() {        
         final String sql;        
         sql = "UPDATE " + TABLE + " SET LASTNAMECUSTOMER = ?, FIRSTNAMECUSTOMER = ?, EMAILCUSTOMER = ?,"
-                + " PASSWORDCUSTOMER = ?, NAMECOMPANYCUSTOMER = ?, COMMENTCUSTOMER = ?, STATUSCUSTOMER = ? WHERE LOGINCUSTOMER = ?" ;
+                + " PASSWORDCUSTOMER = ?, telephoneCustomer = ?, NAMECOMPANYCUSTOMER = ?, COMMENTCUSTOMER = ?, STATUSCUSTOMER = ? WHERE LOGINCUSTOMER = ?" ;
         return sql;
         
     }
@@ -131,9 +131,10 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     protected DomainObject transformResultset2DomainObject(final ResultSet resultSet) throws SQLException {
         final Customer customer;
         customer = new Customer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
-        customer.setNameCompanyCustomer(resultSet.getString(6));
-        customer.setCommentCustomer(resultSet.getString(7));
-        customer.setStatusCustomer(resultSet.getInt(8));
+        customer.setTelephoneCustomer(resultSet.getString(6));
+        customer.setNameCompanyCustomer(resultSet.getString(7));
+        customer.setCommentCustomer(resultSet.getString(8));
+        customer.setStatusCustomer(resultSet.getInt(9));
         // RetreCollectionives the data for all the customer adress shipping//        
          try {
             final Collection  listAddressShipping = _daoAdress.findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
@@ -167,10 +168,11 @@ public final class CustomerDAO extends AbstractDataAccessObject {
             prestmt.setString(2, ((Customer) object).getFirstNameCustomer());
             prestmt.setString(3, ((Customer) object).getEmailCustomer());
             prestmt.setString(4, ((Customer) object).getPasswordCustomer());
-            prestmt.setString(5, ((Customer) object).getNameCompanyCustomer());
-            prestmt.setString(6, ((Customer) object).getCommentCustomer());
-            prestmt.setInt(7, ((Customer) object).getStatusCustomer());
-            prestmt.setString(8, ((Customer) object).getLoginCustomer());
+            prestmt.setString(5, ((Customer) object).getTelephoneCustomer());
+            prestmt.setString(6, ((Customer) object).getNameCompanyCustomer());            
+            prestmt.setString(7, ((Customer) object).getCommentCustomer());
+            prestmt.setInt(8, ((Customer) object).getStatusCustomer());
+            prestmt.setString(9, ((Customer) object).getLoginCustomer());
             
             retour = prestmt.executeUpdate();
 

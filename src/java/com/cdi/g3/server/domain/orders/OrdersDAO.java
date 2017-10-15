@@ -10,7 +10,7 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.DomainObject;
-import com.cdi.g3.server.domain.customers.Adress;
+import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
@@ -162,10 +162,10 @@ public class OrdersDAO extends AbstractDataAccessObject {
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Orders order;       
-        order = new Orders(resultSet.getString(1), new Adress(resultSet.getString(2)),
+        order = new Orders(resultSet.getString(1), new Address(resultSet.getString(2)),
                 new Customer(resultSet.getString(3)), resultSet.getDate(4), new InfoStatus(resultSet.getString(5)));
         
-        order.setAdressBilling(new Adress(resultSet.getString(6)));
+        order.setAdressBilling(new Address(resultSet.getString(6)));
         
         order.setPachageShipper(new PachageShipper(resultSet.getString(7)));
         order.setInternalNumOrder(resultSet.getString(8));

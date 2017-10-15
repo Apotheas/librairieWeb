@@ -24,11 +24,13 @@ public final class Customer extends DomainObject implements Serializable {
     private String firstNameCustomer;
     private String emailCustomer;
     private String passwordCustomer;
+     private String telephoneCustomer;
     private String nameCompanyCustomer;
     private String commentCustomer;
+    
     private int statusCustomer;
-    private  Collection<Adress>  listAddressShipping = new ArrayList();
-    private  Collection<Adress>  listAddressBilling = new ArrayList();
+    private  Collection<Address>  listAddressShipping = new ArrayList();
+    private  Collection<Address>  listAddressBilling = new ArrayList();
     private  Collection<Appreciation>  listAppreciation = new ArrayList();
     private  Collection<Orders>  listOrders = new ArrayList();
 
@@ -196,6 +198,15 @@ public final class Customer extends DomainObject implements Serializable {
     public Collection getListOrders() {
         return listOrders;
     }
+
+    public String getTelephoneCustomer() {
+        return telephoneCustomer;
+    }
+
+    public void setTelephoneCustomer(String telephoneCustomer) {
+        this.telephoneCustomer = telephoneCustomer;
+    }
+    
     
     
     
@@ -212,6 +223,7 @@ public final class Customer extends DomainObject implements Serializable {
         v.add(this.firstNameCustomer);
         v.add(this.lastNameCustomer);
         v.add(this.emailCustomer);
+        v.add(this.telephoneCustomer);
         v.add(this.commentCustomer);
         v.add(this.statusCustomer);
         return v;

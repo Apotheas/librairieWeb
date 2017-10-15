@@ -9,7 +9,7 @@ import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.server.domain.Invoice;
 import com.cdi.g3.server.domain.catalog.Book;
-import com.cdi.g3.server.domain.customers.Adress;
+import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.domain.orders.OrderLine;
 import com.cdi.g3.server.domain.orders.Orders;
@@ -227,7 +227,7 @@ public static   Table generateAdressesHeader(Orders order) {
 }
 
     public static  String generateCartCompany() {
-        Adress adress = null;
+        Address adress = null;
         try {
 
             adress = serviceAdresse.findAdress("1");
@@ -261,7 +261,7 @@ public static   Table generateAdressesHeader(Orders order) {
                 + customer.getFirstNameCustomer() + " " + customer.getNameCompanyCustomer() + "\n";
           
         
-        Adress adress =null;
+        Address adress =null;
         try {
          adress = serviceAdresse.findAdress(order.getAdressBilling().getId());
         } catch (FinderException ex) {
@@ -280,7 +280,7 @@ public static   Table generateAdressesHeader(Orders order) {
     }
 
     public static String generateCartAdressShoppingCustomer(Orders order) {
-        Adress adress =null;
+        Address adress =null;
         try {
          adress = serviceAdresse.findAdress(order.getAdressShipping().getId());
         } catch (FinderException ex) {

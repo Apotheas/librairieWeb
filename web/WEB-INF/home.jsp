@@ -107,7 +107,7 @@
                     <div class="row"> 
 
                         <c:forEach var="booksPage" items="${booksDetails}" >
-                            <c:forEach var="bookRow" items="${booksPage}">
+                            <c:forEach var="bookRow" items="${booksPage}" >
                                 <div class="col-lg-4 col-md-6 mb-4">
                                     <div class="card h-100">
                                         <a href="#"><img class="card-img-top" src="${bookRow.pathIconBook}" alt=""></a>
@@ -134,9 +134,9 @@
                 </div>
                 <!-- /.col-lg-9 -->
 
-                <div class="col-sm-9">
-
-                    <ul class="pagination">
+                <div class="col-sm-9"  id="pagination">
+                    
+                    <ul class="pagination" >
 
                         <c:if test="${currentPage != 1}">
                             <li class="page-item"><a class="page-link" href="controller?section=pagination&pageHome=${currentPage - 1}">Previous</a></li>
@@ -159,7 +159,8 @@
                             </c:if>
                     </ul>
 
-                </div>  
+               
+                     </div>  
                 <!-- /.col-lg-9 -->
                 <!----------------------------------------------------------------->       
                 <!------------------------------------------------------------------->

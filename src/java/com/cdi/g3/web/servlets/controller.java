@@ -6,6 +6,7 @@
 package com.cdi.g3.web.servlets;
 
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.customers.Customer;
@@ -99,10 +100,11 @@ public class controller extends HttpServlet {
             }
             beanPagination bPagination = (beanPagination) application.getAttribute("pagination");
             bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-            request.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
-            request.setAttribute("noOfPages", bPagination.getNoOfPages(bCatalog.getBooksCatalog()));
-            request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
-//            bPagination.setPagination("catalog");
+            application.setAttribute("pages", bPagination.getPages(bCatalog.getBooksCatalog()));
+            application.setAttribute("noOfPages", bPagination.getNoOfPages(bCatalog.getBooksCatalog()));
+            application.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
+            bPagination.setPagination("catalog");
+
         }
 
         if (request.getParameter("pageHome") == null) {
@@ -138,8 +140,7 @@ public class controller extends HttpServlet {
                 }
             }
         }
-        
-        
+
         if (request.getParameter("theme") != null) {
             int pageHome = 1;
             if ((request.getParameter("pageHome") != null)) {
@@ -149,7 +150,7 @@ public class controller extends HttpServlet {
             request.setAttribute("theme", application.getAttribute("theme"));
 
             if (request.getParameter("sub") != null) {
-                 bPagination.setPagination("sub");
+                bPagination.setPagination("sub");
                 String nameSub = request.getParameter("sub");
                 Collection bookSubList = bCatalog.getBooksbySub(nameSub, nameTheme);
                 if (bookSubList != null) {
@@ -179,11 +180,8 @@ public class controller extends HttpServlet {
             }
 
         }
-
-//        if (request.getParameter("home") != null) {
-//            bPagination.setPagination("catalog");
-//        }
-
+        
+        
         /*==========================================================================================================/
          |
          |    Section pagination
@@ -194,11 +192,10 @@ public class controller extends HttpServlet {
             if ((request.getParameter("pageHome") != null)) {
                 pageHome = Integer.parseInt(request.getParameter("pageHome"));
             }
-
+            
             if ("sub".equals(bPagination.getPagination())) {
                 bPagination.setPagination("sub");
                 Collection bookSubList = bCatalog.getBooks();
-//                application.setAttribute("catalog", bCatalog);
                 bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
                 request.setAttribute("currentPage", pageHome);
                 request.setAttribute("pages", bPagination.getPages(bookSubList));
@@ -207,14 +204,15 @@ public class controller extends HttpServlet {
             }
             if ("theme".equals(bPagination.getPagination())) {
                 bPagination.setPagination("theme");
-                Collection bookThemeList = bCatalog.getBooks();
-//                application.setAttribute("catalog", bCatalog);
+                Collection bookThemeList = bCatalog.getBooks();                
                 bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
                 request.setAttribute("currentPage", pageHome);
                 request.setAttribute("pages", bPagination.getPages(bookThemeList));
                 request.setAttribute("noOfPages", bPagination.getNoOfPages(bookThemeList));
                 request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookThemeList));
-            } else {
+            }
+            
+                if ("catalog".equals(bPagination.getPagination())) {
                 bPagination.setPagination("catalog");
                 request.setAttribute("currentPage", pageHome);
                 bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
@@ -223,9 +221,8 @@ public class controller extends HttpServlet {
                 request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bCatalog.getBooksCatalog()));
 
             }
-
         }
-
+         
         /*==========================================================================================================/
          |
          |    Section Panier
@@ -240,16 +237,20 @@ public class controller extends HttpServlet {
             }
             if (request.getParameter("add") != null) {
                 bPanier.add(request.getParameter("add"));
+                session.setAttribute("size", bPanier.getSize());
 
             }
             if (request.getParameter("dec") != null) {
                 bPanier.dec(request.getParameter("dec"));
+                session.setAttribute("size", bPanier.getSize());
             }
             if (request.getParameter("del") != null) {
                 bPanier.del(request.getParameter("del"));
+                session.setAttribute("size", bPanier.getSize());
             }
             if (request.getParameter("clear") != null) {
                 bPanier.clear();
+                session.setAttribute("size", bPanier.getSize());
             }
 
             if (request.getParameter("affichePanier") != null) {
@@ -259,6 +260,7 @@ public class controller extends HttpServlet {
                 if (bPanier == null) {
                     bPanier = new beanPanier();
                     session.setAttribute("panier", bPanier);
+                    
                 }
                 request.setAttribute("panierVide", bPanier.isEmpty());
                 request.setAttribute("panier", bPanier.list());
@@ -273,23 +275,77 @@ public class controller extends HttpServlet {
          /*===========================================================================================================*/
         if ("customer".equals(request.getParameter("section"))) {
             if (request.getParameter("afficheCustomer") != null) {
-                url = "/WEB-INF/jspFormCustomer.jsp";
+                url = "/WEB-INF/jspCustomer.jsp";
 
                 beanCustomer bCustomer
                         = (beanCustomer) session.getAttribute("bCustomer");
-                if (bCustomer == null) {
-                    try {
-                        bCustomer = new beanCustomer((String) session.getAttribute("Welcome"));
-                    } catch (ObjectNotFoundException ex) {
-                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (CheckException ex) {
-                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    session.setAttribute("bCustomer", bCustomer);
-                }
+//                if (bCustomer == null) {
+//                    try {
+//                        bCustomer = new beanCustomer((String) session.getAttribute("bCustomer"));
+//                    } catch (ObjectNotFoundException ex) {
+//                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (CheckException ex) {
+//                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+//                    } catch (FinderException ex) {
+//                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+////                    }
+//                    session.setAttribute("bCustomer", bCustomer);
+//                }
 
             }
-
+            
+            if (request.getParameter("addCustomer") != null) {
+                url = "/WEB-INF/jspRegister.jsp";
+            }
+            
+            
+            if (request.getParameter("doIt") != null) {
+                 url = "/WEB-INF/jspRegister.jsp";                
+                beanCustomer bCustomer = new beanCustomer();
+                bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
+                bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
+                bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
+                bCustomer.getCustomer().setEmailCustomer(request.getParameter("email"));
+                bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
+                bCustomer.setConfirmationPassword(request.getParameter("confirmation"));
+                try {
+                   bCustomer= bCustomer.registerCustomer();
+                    // puts the customerDTO into the session
+                request.getSession().setAttribute("bCustomer", bCustomer);
+                } catch (CreateException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (CheckException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            
+            if (request.getParameter("updateProfil") != null) {
+            if (request.getParameter("doIt") != null) {
+                 url = "/WEB-INF/jspRegister.jsp";                
+                beanCustomer bCustomer = (beanCustomer) session.getAttribute("bCustomer");
+                bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
+                bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
+                bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
+                bCustomer.getCustomer().setEmailCustomer(request.getParameter("email"));
+                bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
+                bCustomer.setConfirmationPassword(request.getParameter("telephone"));
+                bCustomer.getCustomer().setNameCompanyCustomer(request.getParameter("nameCompanyCustomer"));
+                
+                try {
+                   bCustomer= bCustomer.registerCustomer();
+                    // puts the customerDTO into the session
+                
+                request.getSession().setAttribute("bCustomer", bCustomer);
+                } catch (CreateException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (CheckException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+            }
+            
         }
 
         /*==========================================================================================================/
@@ -310,13 +366,14 @@ public class controller extends HttpServlet {
                     bLogin = new beanLogin();
                     application.setAttribute("beanLogin", bLogin);
                 }
+                
                 if (bLogin.checkLogin(request.getParameter("login"),
                         request.getParameter("password"))) {
                     url = "/WEB-INF/jspWelcome.jsp";
                     String welcome = request.getParameter("login");
 
                     request.setAttribute("Welcome", welcome);
-                    ////ajouter session aussi 
+                    ////ajouter session aussi
                     session.setAttribute("Welcome", welcome);
                     Cookie cc = new Cookie("ok", welcome);
                     response.addCookie(cc);
@@ -330,6 +387,8 @@ public class controller extends HttpServlet {
                             ex.printStackTrace();
                         } catch (CheckException ex) {
                             ex.printStackTrace();
+                        } catch (FinderException ex) {
+                            Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         session.setAttribute("bCustomer", bCustomer);
                     }
@@ -396,8 +455,9 @@ public class controller extends HttpServlet {
          |   Quiter le controlleur
          |
          /*===========================================================================================================*/
-//        System.out.println(url);
+       
 //        System.out.println(request.getRequestURI());
+
         request.getRequestDispatcher(url).include(request, response);
     }
 

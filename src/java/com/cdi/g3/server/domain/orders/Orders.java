@@ -7,7 +7,7 @@ package com.cdi.g3.server.domain.orders;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
-import com.cdi.g3.server.domain.customers.Adress;
+import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.domain.customers.Customer;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,11 +25,11 @@ public class Orders extends DomainObject implements Serializable{
     // ======================================
     
     private String idOrders;    
-    private Adress adressShipping ;    
+    private Address adressShipping ;    
     private Customer customer;
     private Date dateOrder;
     private InfoStatus nameInfoStatus;
-    private Adress adressBilling ;
+    private Address adressBilling ;
     private PachageShipper  pachageShipper;
     private String internalNumOrder;
     private String paymentSystemOrder;
@@ -48,7 +48,7 @@ public class Orders extends DomainObject implements Serializable{
        idOrders = id;
        nameInfoStatus = new InfoStatus("processing");
     } 
-    public Orders(final String id, Adress adressShipping, Customer customer, Date dateOrder, InfoStatus nameInfoStatus){
+    public Orders(final String id, Address adressShipping, Customer customer, Date dateOrder, InfoStatus nameInfoStatus){
 		super();
 		idOrders = id;
 		this.adressShipping = adressShipping;
@@ -56,7 +56,7 @@ public class Orders extends DomainObject implements Serializable{
 		this.dateOrder = dateOrder;
 		this.nameInfoStatus = nameInfoStatus;
 	} 
-     public Orders(Adress adressShipping, Customer customer, Date dateOrder, InfoStatus nameInfoStatus){
+     public Orders(Address adressShipping, Customer customer, Date dateOrder, InfoStatus nameInfoStatus){
 		super();		
 		this.adressShipping = adressShipping;
 		this.customer = customer;
@@ -98,11 +98,11 @@ public class Orders extends DomainObject implements Serializable{
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    public Adress getAdressShipping() {
+    public Address getAdressShipping() {
         return adressShipping;
     }
 
-    public void setAdressShipping(Adress adressShipping) {
+    public void setAdressShipping(Address adressShipping) {
         this.adressShipping = adressShipping;
     }
 
@@ -122,11 +122,11 @@ public class Orders extends DomainObject implements Serializable{
         this.nameInfoStatus = nameInfoStatus;
     }
 
-    public Adress getAdressBilling() {
+    public Address getAdressBilling() {
         return adressBilling;
     }
 
-    public void setAdressBilling(Adress adressBilling) {
+    public void setAdressBilling(Address adressBilling) {
         this.adressBilling = adressBilling;
     }
 

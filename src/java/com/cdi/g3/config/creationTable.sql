@@ -153,6 +153,7 @@ create table CUSTOMER
    FIRSTNAMECUSTOMER    varchar(50)                    not null,
    EMAILCUSTOMER        varchar(50)                    not null,
    PASSWORDCUSTOMER     varchar(50)                    not null,
+   TELEPHONECUSTOMER     varchar(20)                   null,
    NAMECOMPANYCUSTOMER  varchar(50)                    null,
    COMMENTCUSTOMER      varchar(250)                   null,
    STATUSCUSTOMER       integer                        null,

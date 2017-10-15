@@ -8,9 +8,10 @@
     position:initial;
 }
 
-body {
-    /*padding-top: 54px;*/
+#pagination {
+  text-align:center;
 }
+
 
 #content {
   padding-top: 54px;

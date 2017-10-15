@@ -10,7 +10,7 @@ import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
-import com.cdi.g3.server.domain.customers.Adress;
+import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.service.customers.AdressService;
 import com.cdi.g3.server.service.customers.CustomerService;
@@ -979,7 +979,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         final String mname = "jButtonCreateActionPerformed";
         AdressService serviceAdress = new AdressService();
-        Adress adressBlling = new Adress();
+        Address adressBlling = new Address();
         try {
             // Asks if we want to remove the customer
             final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to create adressBlling ", "Delete", JOptionPane.YES_NO_OPTION);
@@ -1012,7 +1012,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private void jButtonSendAdressShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendAdressShipActionPerformed
         final String mname = "jButtonCreateActionPerformed";
         AdressService serviceAdress = new AdressService();
-        Adress adressShipping = new Adress();
+        Address adressShipping = new Address();
         try {
             // Asks if we want to remove the customer
             final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to create adressShipping "
@@ -1077,7 +1077,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                 jButtonCreateAdressBill.setVisible(false);
                 jButtonCreateAdressShip.setVisible(false);
                 jButtonUpdateAdressBill.setVisible(false);
-                setTextFieldAdress((Adress) adressShipList.elementAt(0));
+                setTextFieldAdress((Address) adressShipList.elementAt(0));
                 jButtonCreateCustomer.setVisible(false);
                 jButtonUpdateCustomer.setVisible(true);
 
@@ -1088,7 +1088,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                 jButtonCreateAdressBill.setVisible(false);
                 jButtonCreateAdressShip.setVisible(false);
                 jButtonUptateAdressShip.setVisible(false);
-                setTextFieldAdress((Adress) adressBillList.elementAt(0));
+                setTextFieldAdress((Address) adressBillList.elementAt(0));
                 jButtonCreateCustomer.setVisible(false);
                 jButtonUpdateCustomer.setVisible(true);
                 return;
@@ -1164,7 +1164,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         adressShipList.clear();
         adressShipList.addAll(customer.getListAddressShipping());
         jComboBoxShip.setModel(initAdressShipComboBoxModel(adressShipList));
-        Adress adressShipping = (Adress) jComboBoxShip.getSelectedItem();
+        Address adressShipping = (Address) jComboBoxShip.getSelectedItem();
         if (adressShipping != null) {
             setTextFieldAdress(adressShipping);
             jButtonUpdateAdressBill.setVisible(true);
@@ -1177,7 +1177,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         adressBillList.clear();
         adressBillList.addAll(customer.getListAddressShipping());
         jComboBoxBill.setModel(initAdressShipComboBoxModel(adressBillList));
-        Adress adressBilling = (Adress) jComboBoxBill.getSelectedItem();
+        Address adressBilling = (Address) jComboBoxBill.getSelectedItem();
         if (adressBilling != null) {
             setTextFieldAdress(adressBilling);
             jButtonUpdateAdressBill.setVisible(true);
@@ -1229,8 +1229,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonAdressShippingActionPerformed
 
     private void jComboBoxBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBillActionPerformed
-        Adress adressShipping = new Adress();
-        adressShipping = (Adress) jComboBoxBill.getSelectedItem();
+        Address adressShipping = new Address();
+        adressShipping = (Address) jComboBoxBill.getSelectedItem();
         if (adressShipping != null) {
             setTextFieldAdress(adressShipping);
             jButtonUpdateAdressBill.setVisible(true);
@@ -1244,8 +1244,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
     private void jComboBoxShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxShipActionPerformed
 
-        Adress adressShipping = new Adress();
-        adressShipping = (Adress) jComboBoxShip.getSelectedItem();
+        Address adressShipping = new Address();
+        adressShipping = (Address) jComboBoxShip.getSelectedItem();
         if (!adressShipping.equals(null)) {
             setTextFieldAdress(adressShipping);
             jButtonUpdateAdressBill.setVisible(false);
@@ -1339,7 +1339,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         final String mname = "jButtonCreateAdressBillActionPerformed";
         
         AdressService serviceAdress = new AdressService();
-        Adress adressBilling = new Adress();
+        Address adressBilling = new Address();
         jRadioButtonShip.setSelected(true);
         try {
             adressBilling = setChampsAdress(adressBilling);
@@ -1372,7 +1372,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         final String mname = "jButtonCreateAdressBillActionPerformed";
         
         AdressService serviceAdress = new AdressService();
-        Adress adressShipping = new Adress();
+        Address adressShipping = new Address();
         jRadioButtonShip.setSelected(true);
         try {
             adressShipping = setChampsAdress(adressShipping);
@@ -1404,8 +1404,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         AdressService serviceAdress = new AdressService();
         jRadioButtonBill.setSelected(true);
        
-        // Sets all the Adress data
-        Adress adressBilling = new Adress();        
+        // Sets all the Address data
+        Address adressBilling = new Address();        
         adressBilling = setChampsAdress(adressBilling);
         adressBilling.setId(jTextIdAdress.getText());
         try {
@@ -1430,8 +1430,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         AdressService serviceAdress = new AdressService();
         jRadioButtonShip.setSelected(true);
        
-        // Sets all the Adress data
-        Adress adressShipping = new Adress();        
+        // Sets all the Address data
+        Address adressShipping = new Address();        
         adressShipping = setChampsAdress(adressShipping);
         adressShipping.setId(jTextIdAdress.getText());
         try {
@@ -1481,7 +1481,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButtonUpdateCustomerActionPerformed
 
-    public void setChampsBillingAdress(Adress adress) {
+    public void setChampsBillingAdress(Address adress) {
         jTextNameReceiverAdressBill.setText(adress.getNameReceiverAdress());
         jTextNumStreetBill.setText(adress.getNumAdress());
         jTextStreetBill.setText(adress.getNameStreetAdress());
@@ -1527,7 +1527,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         adressBillList.clear();
     }
 
-    public Adress setChampsAdress(Adress adress) {
+    public Address setChampsAdress(Address adress) {
         adress.setNameReceiverAdress(jTextNameReceiverAdress.getText());
         adress.setNumAdress(jTextNumStreet.getText());
         adress.setNameStreetAdress(jTextStreet.getText());
@@ -1543,7 +1543,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
     }
 
-    public void setTextFieldAdress(Adress adress) {
+    public void setTextFieldAdress(Address adress) {
         jTextNameReceiverAdress.setText(adress.getNameReceiverAdress());
         jTextNumStreet.setText(adress.getNumAdress());
         jTextStreet.setText(adress.getNameStreetAdress());
@@ -1555,7 +1555,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
     }
 
-    public void setChampsShippingAdress(Adress adress) {
+    public void setChampsShippingAdress(Address adress) {
         jTextNameReceiverAdressShipp.setText(adress.getNameReceiverAdress());
         jTextNumStreetShipp.setText(adress.getNumAdress());
         jTextStreetShipp.setText(adress.getNameStreetAdress());

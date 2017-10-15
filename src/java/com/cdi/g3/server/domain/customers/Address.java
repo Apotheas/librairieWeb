@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public final class Adress extends DomainObject implements Serializable {
+public final class Address extends DomainObject implements Serializable {
 
     // ======================================
     // =             Attributes             =
@@ -63,14 +63,14 @@ public final class Adress extends DomainObject implements Serializable {
     // ======================================
     // =            Constructors            =
     // ======================================
-    public Adress() {
+    public Address() {
     }
 
-    public Adress(final String id) {
+    public Address(final String id) {
         idAdress = id;
     }
 
-    public Adress(final String id,
+    public Address(final String id,
             Customer CustomerShipAdress,
             Customer CustomerBillAdress,
             String nameReceiverAdress,

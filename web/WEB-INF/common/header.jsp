@@ -1,6 +1,8 @@
 
 
 <div class="container">
+    
+     <jsp:useBean id="bPanier" class="com.cdi.g3.web.beans.beanPanier" scope="session" />
     <a class="navbar-brand" href="controller?home=true">Home<img border="0" src="images/logo.gif"/></a>
 
     <form action="controller?section=searchitems">
@@ -20,9 +22,12 @@
             <div  class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li  class="nav-item active">
-                        <a class="nav-link"  href="controller?section=login&signOn=true">Sign on
+                        <a class="nav-link"  href="controller?section=login&signOn=true">Me Connecter
                             <span class="sr-only">(current)</span>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  href="controller?section=customer&addCustomer">Ajouter un compte</a> |
                     </li>
                 </ul>
             </div>
@@ -31,15 +36,15 @@
             <div  class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li  class="nav-item active">
-                        <a class="nav-link"  href="controller?section=customer&afficheCustomer">Account
+                        <a class="nav-link"  href="controller?section=customer&afficheCustomer">Mon compte
                             <span class="sr-only">(current)</span>               
                         </a> |
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  href="controller?section=panier&affichePanier">Cart</a> |
+                        <a class="nav-link"  href="controller?section=panier&affichePanier"> <img src="images/cart.png" alt=""> ${sessionScope.size}  Mon Panier</a> |
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href='controller?section=login&deconnect'>Sign off</a>
+                        <a class="nav-link" href='controller?section=login&deconnect'>Se Deconnecter</a>
                     </li>
                 </ul>
             </div>

@@ -12,8 +12,8 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.RemoveException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
-import com.cdi.g3.server.domain.customers.Adress;
-import com.cdi.g3.server.domain.customers.AdressDAO;
+import com.cdi.g3.server.domain.customers.Address;
+import com.cdi.g3.server.domain.customers.AddressDAO;
 import com.cdi.g3.server.service.AbstractService;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,9 +27,9 @@ public class AdressService extends AbstractService {
     // ======================================
     // = Attributes =
     // ======================================
-    private static final AdressDAO _daoAdress = new AdressDAO();
+    private static final AddressDAO _daoAdress = new AddressDAO();
 
-    public static AdressDAO getDaoAdress() {
+    public static AddressDAO getDaoAdress() {
         return _daoAdress;
     }
     
@@ -45,7 +45,7 @@ public class AdressService extends AbstractService {
     // ======================================
     // = Business methods =
     // ======================================
-    public Adress createAdress(final Adress adress) throws CreateException, CheckException {
+    public Address createAdress(final Address adress) throws CreateException, CheckException {
         final String mname = "createAdress";
         Trace.entering(_cname, mname, adress);
 
@@ -65,13 +65,13 @@ public class AdressService extends AbstractService {
         return adress;
     }
 
-    public Adress findAdress(final String adressId) throws FinderException, CheckException {
+    public Address findAdress(final String adressId) throws FinderException, CheckException {
         final String mname = "findAdress";
         Trace.entering(_cname, mname, adressId);
 
         checkId(adressId);
         // Finds the object
-        final Adress adress = (Adress) _daoAdress.findByPrimaryKey(adressId);
+        final Address adress = (Address) _daoAdress.findByPrimaryKey(adressId);
         Trace.exiting(_cname, mname, adress);
         return adress;
     }
@@ -97,7 +97,7 @@ public class AdressService extends AbstractService {
         }
     }
 
-    public void updateAdress(Adress adress) throws UpdateException, CheckException {
+    public void updateAdress(Address adress) throws UpdateException, CheckException {
         final String mname = "updateAdress";
         Trace.entering(_cname, mname, adress);
         
@@ -143,7 +143,7 @@ public class AdressService extends AbstractService {
         Trace.exiting(_cname, mname, new Integer(listAddressShipping.size()));
         return listAddressShipping;
     }
-    public Adress findAdressShipping(String loginCustomer) throws FinderException {
+    public Address findAdressShipping(String loginCustomer) throws FinderException {
         final String mname = "findAdressShipping";
         Trace.entering(_cname, mname);
         // Finds all the objects
@@ -152,7 +152,7 @@ public class AdressService extends AbstractService {
         addressShipping.addAll(listAddressShipping);       
         
         Trace.exiting(_cname, mname, new Integer(listAddressShipping.size()));
-        return  (Adress) addressShipping.get(0);
+        return  (Address) addressShipping.get(0);
     }
     
     public Collection findAllAdressBilling(String loginCustomer) throws FinderException {
@@ -165,7 +165,7 @@ public class AdressService extends AbstractService {
         return listAddressBilling;
     }
     
-    public Adress findAdressBilling(String loginCustomer) throws FinderException {
+    public Address findAdressBilling(String loginCustomer) throws FinderException {
         final String mname = "findAllAdressBilling";
         Trace.entering(_cname, mname);
         // Finds all the objects        
@@ -174,7 +174,7 @@ public class AdressService extends AbstractService {
         addressBilling.addAll(listAddressBilling);
         
         Trace.exiting(_cname, mname, new Integer(listAddressBilling.size()));
-        return (Adress) addressBilling.get(0);
+        return (Address) addressBilling.get(0);
         
     }
     

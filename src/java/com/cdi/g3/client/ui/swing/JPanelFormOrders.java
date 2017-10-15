@@ -14,7 +14,7 @@ import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.CreditCard;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
-import com.cdi.g3.server.domain.customers.Adress;
+import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.domain.orders.InfoStatus;
 import com.cdi.g3.server.domain.orders.OrderLine;
@@ -1132,8 +1132,8 @@ public class JPanelFormOrders extends JDesktopPane {
                 JOptionPane.showMessageDialog(this, "select a customer", "info message", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-            final Adress adressBilling = ((Adress) jComboBoxAdressShipping.getSelectedItem());
-            final Adress adressShipping = ((Adress) jComboBoxAdressShipping.getSelectedItem());
+            final Address adressBilling = ((Address) jComboBoxAdressShipping.getSelectedItem());
+            final Address adressShipping = ((Address) jComboBoxAdressShipping.getSelectedItem());
 //           
             order.setAdressShipping(adressShipping);
             order.setAdressBilling(adressBilling);
@@ -1178,7 +1178,7 @@ public class JPanelFormOrders extends JDesktopPane {
     }//GEN-LAST:event_jComboBoxCustomersActionPerformed
 
     private void jComboBoxAdressBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAdressBillingActionPerformed
-        final Adress adressBilling = ((Adress) jComboBoxAdressBilling.getSelectedItem());
+        final Address adressBilling = ((Address) jComboBoxAdressBilling.getSelectedItem());
         jTextNameReceiverAdressBill.setText(adressBilling.getNameReceiverAdress());
         jTextNumStreetBill.setText(adressBilling.getNumAdress());
         jTextStreetBill.setText(adressBilling.getNameStreetAdress());
@@ -1191,7 +1191,7 @@ public class JPanelFormOrders extends JDesktopPane {
     }//GEN-LAST:event_jComboBoxAdressBillingActionPerformed
 
     private void jComboBoxAdressShippingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAdressShippingActionPerformed
-        final Adress adressShipping = ((Adress) jComboBoxAdressShipping.getSelectedItem());
+        final Address adressShipping = ((Address) jComboBoxAdressShipping.getSelectedItem());
         jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
         jTextNumStreetShipp.setText(adressShipping.getNumAdress());
         jTextStreetShipp1.setText(adressShipping.getNameStreetAdress());
@@ -1334,9 +1334,9 @@ public class JPanelFormOrders extends JDesktopPane {
 
     private void jRadioButtonSameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSameActionPerformed
         final String mname = "jRadioButtonSameActionPerformed";
-//        jPanalCustomer.setChampsBillingAdress((Adress) jComboBoxAdressShipping.getSelectedItem());
+//        jPanalCustomer.setChampsBillingAdress((Address) jComboBoxAdressShipping.getSelectedItem());
 //        
-        final Adress adressBilling = ((Adress) jComboBoxAdressShipping.getSelectedItem());
+        final Address adressBilling = ((Address) jComboBoxAdressShipping.getSelectedItem());
         jTextNameReceiverAdressBill.setText(adressBilling.getNameReceiverAdress());
         jTextNumStreetBill.setText(adressBilling.getNumAdress());
         jTextStreetBill.setText(adressBilling.getNameStreetAdress());

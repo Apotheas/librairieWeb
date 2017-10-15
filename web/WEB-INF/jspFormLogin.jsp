@@ -43,7 +43,7 @@
                     <!----------------------------------------------------------------->       
                     <!------------------------------------------------------------------->
                     <!-------------------------------------------------------------------->
-                    <form action='controller' method='post'> 
+                    <form action='controller?section=login' method='post'> 
                         <fieldset>
                             <legend>Connexion</legend>
                             <p>Vous pouvez vous connecter via ce formulaire.</p>

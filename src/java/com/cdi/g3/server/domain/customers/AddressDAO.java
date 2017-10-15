@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  *
  * @author youssef
  */
-public class AdressDAO extends AbstractDataAccessObject {
+public class AddressDAO extends AbstractDataAccessObject {
 
     private static final String TABLE = "Adress";
     private static final String COLUMNS = "idAdress, loginCustomerShipAdress, loginCustomerBillAdress,"
@@ -85,8 +85,8 @@ public class AdressDAO extends AbstractDataAccessObject {
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
-        final Adress adress;
-        adress = new Adress(resultSet.getString(1));
+        final Address adress;
+        adress = new Address(resultSet.getString(1));
 
         if (resultSet.getString(2) != null) {
             adress.setCustomerShipAdress(new Customer(resultSet.getString(2)));
@@ -119,33 +119,33 @@ public class AdressDAO extends AbstractDataAccessObject {
         int retour = 0;
         try {
 
-            if (((Adress) object).getCustomerShipAdress() != null) {
-                prestmt.setString(1, ((Adress) object).getCustomerShipAdress().getId());
+            if (((Address) object).getCustomerShipAdress() != null) {
+                prestmt.setString(1, ((Address) object).getCustomerShipAdress().getId());
             } else {
                 prestmt.setString(1, null);
             }
 
-            if (((Adress) object).getCustomerBillAdress() != null) {
-                prestmt.setString(2, ((Adress) object).getCustomerBillAdress().getId());
+            if (((Address) object).getCustomerBillAdress() != null) {
+                prestmt.setString(2, ((Address) object).getCustomerBillAdress().getId());
             } else {
                 prestmt.setString(2, null);
             }
-            prestmt.setString(3, ((Adress) object).getNameReceiverAdress());
-            prestmt.setString(4, ((Adress) object).getTypeStreetAdress());
-            prestmt.setString(5, ((Adress) object).getNumAdress());
-            prestmt.setString(6, ((Adress) object).getNameStreetAdress());
-            prestmt.setString(7, ((Adress) object).getNameStreet2Adress());
-            prestmt.setString(8, ((Adress) object).getZipcodeAdress());
-            prestmt.setString(9, ((Adress) object).getCityAdress());
-            prestmt.setString(10, ((Adress) object).getCountryAdress());
+            prestmt.setString(3, ((Address) object).getNameReceiverAdress());
+            prestmt.setString(4, ((Address) object).getTypeStreetAdress());
+            prestmt.setString(5, ((Address) object).getNumAdress());
+            prestmt.setString(6, ((Address) object).getNameStreetAdress());
+            prestmt.setString(7, ((Address) object).getNameStreet2Adress());
+            prestmt.setString(8, ((Address) object).getZipcodeAdress());
+            prestmt.setString(9, ((Address) object).getCityAdress());
+            prestmt.setString(10, ((Address) object).getCountryAdress());
 
-            if (((Adress) object).getNameCompanyReceiverAdress() != null) {
-                prestmt.setString(11, ((Adress) object).getNameCompanyReceiverAdress().getId());
+            if (((Address) object).getNameCompanyReceiverAdress() != null) {
+                prestmt.setString(11, ((Address) object).getNameCompanyReceiverAdress().getId());
             } else {
                 prestmt.setString(11, null);
             }
 
-            prestmt.setString(12, ((Adress) object).getId());
+            prestmt.setString(12, ((Address) object).getId());
 
             retour = prestmt.executeUpdate();
 
