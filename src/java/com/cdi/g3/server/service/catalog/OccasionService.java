@@ -86,8 +86,8 @@ public class OccasionService extends AbstractService {
 //    }
     
     
-     public Collection FindBooksByChamp(String column, String champ) throws ObjectNotFoundException {
-        Collection listBook = _bookDao.findAllByChamp(column, champ);
+     public Collection findBooksByEvent(String column) throws ObjectNotFoundException {
+        Collection listBook = _bookDao.selectBooksByOccasion(column);
         
         return listBook;
     }

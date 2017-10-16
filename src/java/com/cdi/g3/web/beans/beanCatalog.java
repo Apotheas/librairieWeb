@@ -8,6 +8,7 @@ package com.cdi.g3.web.beans;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.service.catalog.CatalogService;
+import com.cdi.g3.server.service.catalog.OccasionService;
 import java.beans.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,11 +23,13 @@ import java.util.logging.Logger;
  */
 public class beanCatalog implements Serializable {
     private static final CatalogService ctatalogService = new CatalogService();
+    private static final OccasionService occasionService = new OccasionService();
     private Collection<Book> booksCatalog = new ArrayList();
     private Collection<Book> books = new ArrayList();
     
     public beanCatalog() throws ObjectNotFoundException {
         this.booksCatalog = ctatalogService.FindAllBooks();
+        
     }
     
     public beanCatalog(Collection bookList) throws ObjectNotFoundException {
@@ -66,7 +69,14 @@ public class beanCatalog implements Serializable {
         }
         return null;
     }
-    
+     public Collection getBooksbyOccasion(String occasion) {
+        try {
+            return occasionService.findBooksByEvent(occasion);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     
     

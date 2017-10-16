@@ -6,11 +6,15 @@
 package com.cdi.g3.server.domain.catalog;
 
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.DomainObject;
+import com.cdi.g3.server.domain.customers.Appreciation;
 import com.cdi.g3.server.domain.other.CodeTVA;
+import com.cdi.g3.server.service.customers.AppreciationService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class Book extends DomainObject implements Serializable {
 
@@ -28,7 +32,8 @@ public class Book extends DomainObject implements Serializable {
     private float sizeLargeBook;
     private float sizeLongBook;
     private String commentBook;
-
+    private int moyenne;
+    private int nbNote;
     
     private  Collection listSubTheme = new ArrayList();
     private  Collection listAuthor = new ArrayList();
@@ -36,6 +41,9 @@ public class Book extends DomainObject implements Serializable {
     private  Collection listEvent = new ArrayList();
     private  Collection listAppreciation = new ArrayList();
     private  Collection listOrderLine = new ArrayList();
+    
+    
+    private AppreciationService appreciationService = new AppreciationService();
     
     //CONSTRUCTORS
     public Book() {}
@@ -49,6 +57,33 @@ public class Book extends DomainObject implements Serializable {
         setTitleBook(title);
         setUnitCostBook(unitCost);
         setStockBook(stock);
+        setMoyenne(getAppList(id));
+    }
+    
+  public int getAppList(String isbn){
+        int nbNote=0;
+        int somme = 0;
+        try {
+            for (Iterator it = appreciationService.FindAppreciationByChamp("NUMISBNBOOKAPPRECIATE", isbn).iterator(); it.hasNext();) {
+                Appreciation comment = (Appreciation) it.next();
+                nbNote +=1;
+                somme += Integer.valueOf(comment.getRatingAppreciate()) ;
+            }
+            setNbNote(nbNote);
+            return somme/nbNote;
+        } catch (ObjectNotFoundException ex) {
+           return -1;
+        }
+     
+        
+    }
+
+    public int getNbNote() {
+        return nbNote;
+    }
+
+    public void setNbNote(int nbNote) {
+        this.nbNote = nbNote;
     }
     
     //TOSTRING
@@ -245,6 +280,14 @@ public class Book extends DomainObject implements Serializable {
     public void setListKeyWord(Collection listKeyWord) {
         this.listKeyWord = listKeyWord;
     }   
+
+    public int getMoyenne() {
+        return moyenne;
+    }
+
+    public void setMoyenne(int moyenne) {
+        this.moyenne = moyenne;
+    }
 
     @Override
     public String getId() {

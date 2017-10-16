@@ -62,28 +62,35 @@
                         <div class="carousel-inner">
 
                             <div class="item active">
+                                <a href="controller?carroussel=1">
                                 <img src="images/youssef.jpg" alt="youssef" style="width:100%;">
+                                </a>
                                 <div class="carousel-caption">
 
                                 </div>
                             </div>
 
                             <div class="item">
-                                
+                                <a href="controller?carroussel=2">
                                 <img src="images/jo.png" alt="jonathan" style="width:100%;">
+                                    </a>
                                 <div class="carousel-caption">
 
                                 </div>
                             </div>
 
                             <div class="item">
+                                <a href="controller?carroussel=3">
                                 <img src="images/foued.jpg" alt="foued" style="width:100%;">
+                                </a>
                                 <div class="carousel-caption">
 
                                 </div>
                             </div>
                             <div class="item">
+                                <a href="controller?carroussel=4">
                                 <img src="images/izet.jpg" alt="izet" style="width:100%;">
+                                </a>
                                 <div class="carousel-caption">
 
                                 </div>
@@ -121,7 +128,29 @@
                                             <a href="controller?section=panier&add=+ ${bookRow.numISBNBook}">Add Cart</a> 
                                         </div>
                                         <div class="card-footer">
-                                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                            <small class="text-muted">
+                                                 <c:if test="${bookRow.moyenne == -1}">
+                                                    Note :  Pas encore d'évaluation.
+                                                </c:if>
+                                                <c:if test="${bookRow.moyenne== 0}">
+                                                    Note : &#x2b50; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                </c:if>
+                                                <c:if test="${bookRow.moyenne == 1}" >
+                                                    Note : &#9733; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                </c:if>
+                                                <c:if test="${bookRow.moyenne == 2 }" >
+                                                    Note : &#9733; &#9733; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                </c:if>
+                                                <c:if test="${bookRow.moyenne == 3}">
+                                                    Note : &#9733; &#9733; &#9733; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                </c:if>
+                                                <c:if test="${bookRow.moyenne == 4}" >
+                                                    Note : &#9733; &#9733; &#9733; &#9733; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                </c:if>
+                                                <c:if test="${bookRow.moyenne == 5}" >
+                                                    Note : &#9733; &#9733; &#9733; &#9733; &#9733; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                </c:if>
+                                            </small>
                                         </div>
                                     </div>
                                 </div>

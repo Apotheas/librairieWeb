@@ -11,6 +11,8 @@ import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -224,6 +226,15 @@ public class BookDAO extends AbstractDataAccessObject {
         
         return sql;
     }
+       protected String getBooksByOccasion( String occasion){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" , OCCASIONBOOK , OCCASION "+ 
+                " WHERE  NUMISBNBOOK = NUMISBNBOOKOB " +
+                " and NAMEOCCASIONOB = '"+ occasion + "'" ;                       
+                
+        
+        return sql;
+    }
      
      public Collection selectBooksByTheme( String theme) throws ObjectNotFoundException {
         final String mname = "selectAll";
@@ -238,6 +249,48 @@ public class BookDAO extends AbstractDataAccessObject {
         
             // Select a Row
             resultSet = statement.executeQuery( getBooksByTheme(theme));
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
+            }
+
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }             
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
+    }
+     public Collection selectBooksByOccasion( String occasion) throws ObjectNotFoundException {
+        final String mname = "selectAll";
+        Trace.entering(getCname(), mname);
+
+        
+        ResultSet resultSet = null;
+        final Collection objects = new ArrayList();
+         // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+        
+            // Select a Row
+            resultSet = statement.executeQuery( getBooksByOccasion(occasion));
 
             while (resultSet.next()) {
                 // Set data to the collection

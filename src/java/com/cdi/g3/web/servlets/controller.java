@@ -12,6 +12,7 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.web.beans.beanCatalog;
 import com.cdi.g3.web.beans.beanCustomer;
+import com.cdi.g3.web.beans.beanEvent;
 import com.cdi.g3.web.beans.beanLogin;
 import com.cdi.g3.web.beans.beanPagination;
 import com.cdi.g3.web.beans.beanPanier;
@@ -179,6 +180,39 @@ public class controller extends HttpServlet {
 
             }
 
+        }
+        if (request.getParameter("event") == null) {
+            beanEvent bEvent = null;
+            if (application.getAttribute("event") == null) {
+                if (bEvent == null) {
+                    try {
+                        bEvent = new beanEvent();
+                        application.setAttribute("event", bEvent.getOccasions());
+                    } catch (ObjectNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        }
+        if(request.getParameter("event") != null ){
+            int pageHome = 1;
+            if ((request.getParameter("pageHome") != null)) {
+                pageHome = Integer.parseInt(request.getParameter("pageHome"));
+            }
+            String nameOccasion = request.getParameter("event");
+            request.setAttribute("event", application.getAttribute("event"));
+            bPagination.setPagination("event");
+           Collection bookEventList = bCatalog.getBooksbyOccasion(nameOccasion);
+           if (bookEventList != null) {
+                    bCatalog.setBooks(bookEventList);
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookEventList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookEventList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookEventList));
+                } else {
+                    request.setAttribute("listVide", "il n'y a pas de livre pour cet evenement");
+
+                }
         }
         
         

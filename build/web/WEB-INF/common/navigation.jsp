@@ -1,7 +1,16 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<h1 class="my-4">Shop Name</h1>
+
 
 <ul id="menu-accordeon">
+    
+    
+    <span>Evenements
+    <c:forEach var="event" items="${event}">
+        <li><a href='controller?event=${event.nameOccasion}'>${event.nameOccasion}  </a> </li>            
+    </c:forEach>
+      </span>
+    <br>
+    <span> Categories 
     <c:forEach var="theme" items="${theme}">
         <li><a href='controller?theme=${theme.nameTheme}'>${theme.nameTheme}  </a>
             <ul>
@@ -11,4 +20,7 @@
             </ul>
         </li>
     </c:forEach>
+    </span>
+    
+        
 </ul>

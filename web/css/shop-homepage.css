@@ -8,10 +8,9 @@
     position:initial;
 }
 
-#pagination {
-  text-align:center;
+body {
+    /*padding-top: 54px;*/
 }
-
 
 #content {
   padding-top: 54px;
@@ -65,6 +64,20 @@ form .succes {
 
 }
 
+#menu-accordeon  span {
+   background-image:  linear-gradient(to bottom, #ffffff 0%, #2ea1cf 100%);
+   border-radius:  15px;
+   margin-bottom:2px;
+  box-shadow: 9px 9px 9px #999;
+  border:solid 1px #333A40;
+  display: block ;
+  
+  text-decoration: blue ;
+  font-family: verdana ;
+  font-size:1.2em
+
+}
+
 #menu-accordeon {
   padding:0;
   margin:0;
@@ -109,10 +122,10 @@ form .succes {
   font-size:1em
 }
 #menu-accordeon li:hover {
-   background: #729EBF
+   background: #2ea1cf;
 }
 #menu-accordeon li li:hover {
-   background: #999;
+   background: #2ea1cf;
 }
 #menu-accordeon ul li:last-child {
    border-radius: 0 0 6px 6px;
