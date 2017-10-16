@@ -30,8 +30,7 @@ public class HomePage extends javax.swing.JFrame {
         Notifications notifs = new Notifications();
         JPanelFormOrders panelOrders = new JPanelFormOrders();
         JPanelFormBooks panelBooks = new JPanelFormBooks();
-        JPanelFormCustomers panelAccounts = new JPanelFormCustomers();
-        JPanelFormEvents panelEvents = new JPanelFormEvents();
+        JPanelFormCustomers panelAccounts = new JPanelFormCustomers();       
         JPanelFormThemes panelThemes = new JPanelFormThemes();
         JPanelFormAuthor panelAuthors = new JPanelFormAuthor();
         JPanelFormEmploye panelEmployees = new JPanelFormEmploye();
@@ -43,8 +42,7 @@ public class HomePage extends javax.swing.JFrame {
 
         jInternalFrameOrders.setContentPane(panelOrders);
         jInternalFrameBooks.setContentPane(panelBooks);
-        jInternalFrameCustomers.setContentPane(panelAccounts);
-        jInternalFrameEvents.setContentPane(panelEvents);
+        jInternalFrameCustomers.setContentPane(panelAccounts);       
         jInternalFrameThemes.setContentPane(panelThemes);
         jInternalFrameAuthors.setContentPane(panelAuthors);
         jInternalFrameEmployees.setContentPane(panelEmployees);

@@ -262,7 +262,7 @@ public class controller extends HttpServlet {
          |    Section Panier
          |
          /*===========================================================================================================*/
-        if ("panier".equals(request.getParameter("section"))) {
+         if ("panier".equals(request.getParameter("section"))) {
             beanPanier bPanier
                     = (beanPanier) session.getAttribute("panier");
             if (bPanier == null) {
@@ -270,17 +270,32 @@ public class controller extends HttpServlet {
                 session.setAttribute("panier", bPanier);
             }
             if (request.getParameter("add") != null) {
-                bPanier.add(request.getParameter("add"));
+                try {
+                    bPanier.add(request.getParameter("add"));
+                } catch (FinderException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (CheckException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 session.setAttribute("size", bPanier.getSize());
+                request.setAttribute("subTotalHT", bPanier.getTotalHT());
 
             }
             if (request.getParameter("dec") != null) {
-                bPanier.dec(request.getParameter("dec"));
+                try {
+                    bPanier.dec(request.getParameter("dec"));
+                } catch (FinderException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (CheckException ex) {
+                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 session.setAttribute("size", bPanier.getSize());
+                request.setAttribute("subTotalHT", bPanier.getTotalHT());
             }
             if (request.getParameter("del") != null) {
                 bPanier.del(request.getParameter("del"));
                 session.setAttribute("size", bPanier.getSize());
+                 request.setAttribute("subTotalHT", bPanier.getTotalHT());
             }
             if (request.getParameter("clear") != null) {
                 bPanier.clear();
@@ -301,7 +316,6 @@ public class controller extends HttpServlet {
 
             }
         }
-
         /*==========================================================================================================/
          |
          |    Section Customer

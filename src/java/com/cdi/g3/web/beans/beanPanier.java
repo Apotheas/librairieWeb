@@ -5,6 +5,8 @@
  */
 package com.cdi.g3.web.beans;
 
+import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.web.utiles.Item;
 import java.beans.*;
 import java.io.Serializable;
@@ -24,24 +26,21 @@ public class beanPanier implements Serializable {
         this.map = new HashMap(); 
     }
     
-    
-    
-    public void add(String ref, int quantity){ 
+    public void add(String ref, int quantity) throws FinderException, CheckException{ 
         if(this.map.containsKey(ref)){
             Item i = this.map.get(ref);
             i.delta(quantity);
-            
         }else{
             this.map.put(ref, new Item(ref, quantity));
         }
             
     }
     
-    public void add(String ref){
+    public void add(String ref) throws FinderException, CheckException{
         this.add(ref,1);
     }
     
-    public void dec(String ref){  
+    public void dec(String ref) throws FinderException, CheckException{  
          this.add(ref,-1);
     }
     
@@ -68,11 +67,21 @@ public class beanPanier implements Serializable {
     }
     
     public float getTotalHT(){
-      return -1; 
+        float total=0 ;
+        for ( Item item : this.map.values()){
+           total += item.getTotalLine();
+            
+        }
+      return total; 
     }
     
     public float getTotalTTC(){
-      return -1; 
+      float total =0 ;
+        for ( Item item : this.map.values()){
+           total += item.getTotalLine() + (item.getTotalLine()*item.getBook().getCodeTva().getRateCodeTva())/100;
+        }
+        return total; 
     }
+    
     
 }

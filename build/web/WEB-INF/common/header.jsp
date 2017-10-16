@@ -30,7 +30,7 @@
                     </li>
                     
                      <li class="nav-item">
-                        <a class="nav-link"  href="controller?section=panier&affichePanier"> <img src="images/cart.png" alt=""> ${sessionScope.size}  Mon Panier</a>
+                        <a class="nav-link"  href="controller?section=panier&affichePanier"> <img src="images/cart.png" alt=""> <span class="badge">  ${sessionScope.size}</span>   Mon Panier</a>
                     </li>
                 </ul>
             </div>
@@ -50,7 +50,7 @@
                     </li>
                     
                      <li class="nav-item">
-                        <a class="nav-link"  href="controller?section=panier&affichePanier"> <img src="images/cart.png" alt=""> ${sessionScope.size}  Mon Panier</a>
+                        <a class="nav-link"  href="controller?section=panier&affichePanier"> <img src="images/cart.png" alt=""><span class="badge">  ${sessionScope.size}</span>  Mon Panier</a>
                     </li>
                 </ul>
             </div>
