@@ -12,7 +12,7 @@
         <meta name="author" content="">
         <title>Home</title> 
         <!-- Bootstrap core CSS -->     
-        
+
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
         <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -64,7 +64,7 @@
 
                             <div class="item active">
                                 <a href="controller?carroussel=1">
-                                <img src="images/youssef.jpg" alt="youssef" style="width:100%;">
+                                    <img src="images/youssef.jpg" alt="youssef" style="width:100%;">
                                 </a>
                                 <div class="carousel-caption">
 
@@ -73,8 +73,8 @@
 
                             <div class="item">
                                 <a href="controller?carroussel=2">
-                                <img src="images/jo.png" alt="jonathan" style="width:100%;">
-                                    </a>
+                                    <img src="images/jo.png" alt="jonathan" style="width:100%;">
+                                </a>
                                 <div class="carousel-caption">
 
                                 </div>
@@ -82,7 +82,7 @@
 
                             <div class="item">
                                 <a href="controller?carroussel=3">
-                                <img src="images/foued.jpg" alt="foued" style="width:100%;">
+                                    <img src="images/foued.jpg" alt="foued" style="width:100%;">
                                 </a>
                                 <div class="carousel-caption">
 
@@ -90,7 +90,7 @@
                             </div>
                             <div class="item">
                                 <a href="controller?carroussel=4">
-                                <img src="images/izet.jpg" alt="izet" style="width:100%;">
+                                    <img src="images/izet.jpg" alt="izet" style="width:100%;">
                                 </a>
                                 <div class="carousel-caption">
 
@@ -119,18 +119,23 @@
                             <c:forEach var="bookRow" items="${booksPage}" >
                                 <div class="col-lg-4 col-md-6 mb-4">
                                     <div class="card h-100">
-                                        <a href="#"><img class="card-img-top" src="${bookRow.pathIconBook}" alt=""></a>
+                                        <a href="controller?showBook&isbnBook=${bookRow.numISBNBook}"><img class="card-img-top" src="${bookRow.pathIconBook}" alt=""></a>
                                         <div class="card-body">
                                             <h4 class="card-title">
-                                                <a href="#">${bookRow.titleBook}</a>
+                                                <a href="controller?showBook&isbnBook=${bookRow.numISBNBook}">${bookRow.titleBook}</a>
                                             </h4>
-                                            <h5>${bookRow.unitCostBook}</h5>
+                                            <h5>${bookRow.unitCostBook}€</h5>
                                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                                            <a href="controller?section=panier&add=+ ${bookRow.numISBNBook}">Add Cart</a> 
+                                            <a   href="controller?section=panier&add=+ ${bookRow.numISBNBook}">
+                                                <button  style="margin-left: 100px"  type="button" class="btn btn-default btn-sm">
+                                                    <span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier
+                                                </button>
+                                            </a> 
+
                                         </div>
                                         <div class="card-footer">
                                             <small class="text-muted">
-                                                 <c:if test="${bookRow.moyenne == -1}">
+                                                <c:if test="${bookRow.moyenne == -1}">
                                                     Note :  Pas encore d'évaluation.
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne== 0}">
