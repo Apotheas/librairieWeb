@@ -9,6 +9,7 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.catalog.OccasionService;
+import com.cdi.g3.server.service.other.OtherService;
 import java.beans.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 public class beanCatalog implements Serializable {
     private static final CatalogService ctatalogService = new CatalogService();
     private static final OccasionService occasionService = new OccasionService();
+     private static final OtherService otherService = new OtherService();
     private Collection<Book> booksCatalog = new ArrayList();
     private Collection<Book> books = new ArrayList();
     
@@ -64,6 +66,32 @@ public class beanCatalog implements Serializable {
     public Collection getBooksbySub(String theme, String sub) {
         try {
             return ctatalogService.FindBooksBySub(theme, sub);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+      public Collection getBooksbyKeyWord(String nameKeyWord) {
+        try {
+            return otherService.findBooksByKeyword("NAMEKEYWORD",nameKeyWord);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+           public Collection getBooksbyAuthor(String lastNameAuthor) {
+        try {
+            return ctatalogService.FindBooksByChamp("LASTNAMEAUTHOR",lastNameAuthor);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+           
+               public Collection getBooksbyEditor(String nameEditor) {
+        try {
+            return ctatalogService.FindBooksByChamp("NAMEEDITOR",nameEditor);
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
         }
