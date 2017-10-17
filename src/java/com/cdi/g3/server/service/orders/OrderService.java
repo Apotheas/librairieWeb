@@ -29,6 +29,8 @@ import com.cdi.g3.server.domain.orders.PachageShipperDAO;
 import com.cdi.g3.server.service.AbstractService;
 import com.cdi.g3.server.service.customers.AdressService;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import com.cdi.g3.web.utiles.Item;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -54,7 +56,7 @@ public class OrderService extends AbstractService {
     // ======================================
     // =           Business methods         =
     // ======================================
-    public String createOrder(final String customerId, Map shoppingCart) throws CreateException, CheckException, FinderException {
+    public String createOrder(final String customerId, Collection<Item> shoppingCart) throws CreateException, CheckException, FinderException {
         final String mname = "createOrder";
         Trace.entering(_cname, mname, customerId);
         
@@ -67,30 +69,29 @@ public class OrderService extends AbstractService {
         }
         // Creates a new order
         final Orders order = new Orders( _adressService.findAdressShipping(customerId), customer,
-                                        new Date(), new InfoStatus("Processing")); 
-        order.setAdressBilling(_adressService.findAdressBilling(customerId));
+                                        java.sql.Date.valueOf(LocalDate.now()), new InfoStatus("Processing")); 
+        order.setAdressBilling(_adressService.findAdressBilling(customerId));        
         
+        order.setPaymentSystemOrder("CB");
+        order.setPachageShipper(new PachageShipper("1"));
         // Checks if the credit card is valid
 //        creditCardServiceLocal.verifyCreditCard(order.getCreditCard());
+        
+        String numCommande = getUniqueId("NUMCOMMANDE");
+        order.setInternalNumOrder(numCommande);
+        order.setIpOrder("ip privé");
         
         // Creates the order
         _orderDAO.insert(order);
         
         // Creates all the orderLines linked with the order
-        Iterator iterator = shoppingCart.entrySet().iterator();
+        Iterator iterator = shoppingCart.iterator();
         while(iterator.hasNext()) {
-            Map.Entry keyValue = (Map.Entry)iterator.next();
-            String bookId = (String)keyValue.getKey();
-            int quantity = (Integer)keyValue.getValue();
-            // Finds the item
-            Book book = null;
-            try {
-                book = (Book)_bookDAO.findByPrimaryKey(bookId);
-            } catch (FinderException e) {
-                throw new CreateException("Book must exist to create an order line");
-            }
+           Item item =  (Item)iterator.next();
+// Finds the item
+            
             // Creates OrderLine
-            final OrderLine orderLine = new OrderLine(book,quantity, book.getUnitCostBook(), book.getCodeTVA().getRateCodeTva() );
+            final OrderLine orderLine = new OrderLine(item.getBook(),item.getQuantity(), item.getBook().getUnitCostBook(), item.getBook().getCodeTVA().getRateCodeTva() );
             orderLine.setOrder(order);
             // Creates the order line
             _orderLineDAO.insert(orderLine);
@@ -98,6 +99,9 @@ public class OrderService extends AbstractService {
          
         return order.getId();
     }
+    
+    
+    
     
     public Orders createOrder(final Orders order) throws FinderException, CheckException,CreateException {
         final String mname = "createOrder";

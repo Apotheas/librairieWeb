@@ -11,7 +11,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Home</title> 
-        <!-- Bootstrap core CSS -->        
+        <!-- Bootstrap core CSS -->     
+        
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
         <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

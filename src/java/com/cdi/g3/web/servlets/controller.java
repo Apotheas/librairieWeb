@@ -316,6 +316,36 @@ public class controller extends HttpServlet {
 
             }
         }
+         
+/*==========================================================================================================/
+    |
+    |    Section Order
+    |
+    /*===========================================================================================================*/
+        if ("order".equals(request.getParameter("section"))) {
+         if (request.getParameter("checkOut") != null) {
+             url = "/WEB-INF/jspCheckOut.jsp";
+          beanPanier   bPanier = (beanPanier) session.getAttribute("panier");
+           String   login = (String) session.getAttribute("Welcome");
+             
+          String orderId =null;
+          try {
+                 orderId = bPanier.checkOut(login, bPanier.list());
+             } catch (CreateException ex) {
+                 Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (CheckException ex) {
+                 Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+             } catch (FinderException ex) {
+                 Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+             }
+          request.setAttribute("orderId", orderId);
+             
+         }
+        }
+         
+                
+         
+         
         /*==========================================================================================================/
          |
          |    Section Customer

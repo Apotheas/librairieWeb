@@ -11,9 +11,14 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Home</title> 
+        
+         
         <!-- Bootstrap core CSS -->        
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
-        <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> -->
+        <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" />
+       
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
         <!--<link rel="stylesheet" href="css/form.css" />-->
@@ -73,7 +78,8 @@
                                                     <h5 class="media-heading"> ISBN : <a href="#">${i.book.numISBNBook}</a></h5>
                                                     <span>Status: </span><span class="text-success"><strong>${i.book.stockBook} In Stock</strong></span>
                                                 </div>
-                                            </div></td>
+                                            </div>
+                                        </td>
                                         <td class="col-sm-1 col-md-1" style="text-align: center">
                                             <a href="controller?section=panier&affichePanier=true&add=${i.ref}">+</a>  
                                             <input type="email" class="form-control" id="exampleInputEmail1" value="${i.quantity}">
@@ -81,6 +87,7 @@
 
                                         </td>
                                         <td class="col-sm-1 col-md-1 text-center"><strong>€ ${i.book.unitCostBook}</strong></td>
+                                        
                                         <td class="col-sm-1 col-md-1 text-center"><strong>€ ${i.totalLine}</strong></td>
 
                                         <td class="col-sm-1 col-md-1">
@@ -93,54 +100,59 @@
 
                                     </tr>
                                 </c:forEach>
-
-
-
                                 <tr>
-                                    <td>   </td>
-                                    <td>   </td>
-                                    <td>   </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
                                     <td><h5>Subtotal</h5></td>
                                     <td class="text-right"><h5><strong>€ ${subTotalHT}</strong></h5></td>
                                 </tr>
                                 <tr>
-                                    <td>   </td>
-                                    <td>   </td>
-                                    <td>   </td>
+                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                   
                                     <td><h5>Estimated shipping</h5></td>
                                     <td class="text-right"><h5><strong>€6.94</strong></h5></td>
                                 </tr>
                                 <tr>
-                                    <td>   </td>
-                                    <td>   </td>
-                                    <td>   </td>
+                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    
                                     <td><h3>Total</h3></td>
                                     <td class="text-right"><h3><strong>$31.53</strong></h3></td>
                                 </tr>
+                                
                                 <tr>
-                                    <td>   </td>
-                                    <td>   </td>
-                                   
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     
                                     <td>
-                                       
-                                    <td> 
-                                    
-                                    <td>
+                                        <a href="controller">
                                         <button type="button" class="btn btn-default">
                                             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                                        </button></td>
+                                        </button>
+                                             </a> 
+                                        </td>
                                     <td>
+                                         <a href="controller?section=order&checkOut=true">
                                         <button type="button" class="btn btn-success">
                                             Checkout <span class="glyphicon glyphicon-play"></span>
-                                        </button></td>
+                                        </button>
+                                             </a> 
+                                         </td>
                                 </tr>
                             </tbody>
                         </table>
                         <a href="controller?section=panier&clear">
                                         <button type="button" class="btn btn-default">
                                             <span class="glyphicon glyphicon-shopping-cart"></span> Vider le panier !
-                                        </button></td>
+                                        </button>
                                         </a> 
                         
                     </div>

@@ -6,7 +6,9 @@
 package com.cdi.g3.web.beans;
 
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.server.service.orders.OrderService;
 import com.cdi.g3.web.utiles.Item;
 import java.beans.*;
 import java.io.Serializable;
@@ -19,7 +21,7 @@ import java.util.Map;
  * @author cdi314
  */
 public class beanPanier implements Serializable {
-    
+    private OrderService orderService = new OrderService();
     Map<String,Item>  map ;
     
     public beanPanier() {
@@ -60,8 +62,6 @@ public class beanPanier implements Serializable {
         return this.map.size();
     }
     
-    
-    
     public Collection<Item> list(){
         return this.map.values();
     }
@@ -81,6 +81,11 @@ public class beanPanier implements Serializable {
            total += item.getTotalLine() + (item.getTotalLine()*item.getBook().getCodeTva().getRateCodeTva())/100;
         }
         return total; 
+    }
+    
+    public String checkOut(String login, Collection<Item>  shoppingCart) throws CreateException, CheckException, FinderException{
+        String orderId = orderService.createOrder(login, shoppingCart);
+        return orderId;
     }
     
     

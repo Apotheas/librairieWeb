@@ -8,7 +8,9 @@ package com.cdi.g3.web.utiles;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.server.domain.catalog.Book;
+import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.service.catalog.CatalogService;
+import com.cdi.g3.server.service.other.OtherService;
 import java.io.Serializable;
 
 /**
@@ -17,6 +19,7 @@ import java.io.Serializable;
  */
 public class Item  implements Serializable{
     CatalogService catalogService = new CatalogService();
+    OtherService otherService = new OtherService();
     private String ref;
     private int quantity;
     private float totalLine;    
@@ -27,7 +30,9 @@ public class Item  implements Serializable{
         this.ref = ref;
         this.quantity = quantity;
         if (ref != null){
-            this.book = catalogService.findBook(ref.trim());        
+            this.book = catalogService.findBook(ref.trim());  
+           CodeTVA codeTVA = otherService.findCodeTVA(this.book.getCodeTVA().getTypeTva());
+            this.book.setCodeTVA(codeTVA);
         }        
         this.totalLine = 
         book.getUnitCostBook()*quantity;
@@ -37,6 +42,7 @@ public class Item  implements Serializable{
     public String getRef() {
         return ref;
     }
+    
 
     public void setRef(String ref) {
         this.ref = ref;
