@@ -121,8 +121,9 @@
                                     <div class="card h-100">
                                         <a href="#"><img class="card-img-top" src="${bookRow.pathIconBook}" alt=""></a>
                                         <div class="card-body">
-                                            <h4 class="card-title">
-                                                <a href="#">${bookRow.titleBook}</a>
+                                            <h4 class="card-title"
+                                             <a href="controller?showBook&isbnBook=${bookRow.numISBNBook}">${bookRow.titleBook}</a>
+                                               
                                             </h4>
                                             <h5>${bookRow.unitCostBook}</h5>
                                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>

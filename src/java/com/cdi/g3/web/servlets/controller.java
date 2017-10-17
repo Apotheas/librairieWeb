@@ -9,6 +9,7 @@ import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.web.beans.beanCatalog;
 import com.cdi.g3.web.beans.beanCustomer;
@@ -611,6 +612,24 @@ public class controller extends HttpServlet {
                 response.addCookie(cc);
             }
         }
+
+/*==========================================================================================================/
+    |
+    |    Section Book  -- Foued 
+    |
+ /*===========================================================================================================*/
+            if (request.getParameter("showBook") != null) {            
+            url = "/WEB-INF/jspBook.jsp";
+            String numISBN =  request.getParameter("isbnBook");
+            bCatalog = (beanCatalog) application.getAttribute("catalog");
+            Book book;
+     
+            book = bCatalog.getBook(numISBN);
+
+            request.setAttribute("book", book); 
+
+              
+            }        
 
         /*==========================================================================================================/
          |

@@ -19,6 +19,7 @@ import com.cdi.g3.server.domain.catalog.EditorDAO;
 import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.domain.other.CodeTVADAO;
 import com.cdi.g3.server.service.AbstractService;
+import com.cdi.g3.server.service.publishing.PublishingService;
 import com.sun.javafx.scene.input.InputEventUtils;
 import java.util.Collection;
 import java.util.Iterator;
@@ -31,10 +32,18 @@ public class CatalogService extends AbstractService {
     private static final EditorDAO _editorDao = new EditorDAO();
     private static final AuthorDAO _authorDao = new AuthorDAO();
     private static final CodeTVADAO _codeTVADAO = new CodeTVADAO();
-
+    private static final PublishingService publishingService = new PublishingService();
+    
     public Book findBook(final String bookId) throws FinderException, CheckException {
         checkId(bookId);
         final Book book = (Book) _bookDao.findByPrimaryKey(bookId);
+       
+        Editor editor = (Editor) _editorDao.findByPrimaryKey(book.getEditor().getId());        
+        book.setEditor(editor);
+        Collection authorList = publishingService.findAuthorByISBN("NUMISBNBOOK",bookId);
+        book.setListAuthor(authorList);
+        
+        
         return book;
     }
     public Collection FindAllBooks() throws ObjectNotFoundException{

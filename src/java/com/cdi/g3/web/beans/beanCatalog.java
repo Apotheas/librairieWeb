@@ -5,6 +5,8 @@
  */
 package com.cdi.g3.web.beans;
 
+import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.service.catalog.CatalogService;
@@ -107,6 +109,22 @@ public class beanCatalog implements Serializable {
     }
 
     
+     public Book getBook(String numISBN) {
+     
+   Book book =null ;
+        System.out.println("numisbn : " + numISBN);
+
+        try {
+            book = ctatalogService.findBook(numISBN);
+        } catch (FinderException | CheckException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+
+    return book ;    
+ }
+     
+     
     
     }
 
