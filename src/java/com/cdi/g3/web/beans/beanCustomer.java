@@ -13,7 +13,9 @@ import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.service.customers.CustomerService;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.service.customers.AdressService;
+import com.cdi.g3.server.service.orders.OrderService;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -24,7 +26,7 @@ import java.util.logging.Logger;
  * @author cdi314
  */
 public class beanCustomer implements Serializable {
-
+    private OrderService orderService;
     private CustomerService customerService ;
     private AdressService adressService;
     private Customer customer; 
@@ -34,6 +36,7 @@ public class beanCustomer implements Serializable {
     private String confirmationPassword;
     private String resultat;
     private Map<String, String> erreurs;
+    private Collection orderList;
     
     public beanCustomer() {
         customer = new Customer();
@@ -42,6 +45,7 @@ public class beanCustomer implements Serializable {
         addressShip = new  Address();
         customerService = new CustomerService();
         adressService = new AdressService();
+        orderService = new OrderService();
         erreurs = new HashMap<String, String>();
     }
 
@@ -50,6 +54,7 @@ public class beanCustomer implements Serializable {
         this.customer = customerService.findCustomer(login);
         this.addressBill = adressService.findAdressBilling(this.customer.getLoginCustomer());
         this.addressShip = adressService.findAdressBilling(this.customer.getLoginCustomer());
+        this.orderList = orderService.findOrdersByCustomer("LOGINCUSTOMER", this.customer.getLoginCustomer());
     }
     
     public String getResultat() {
@@ -97,6 +102,14 @@ public class beanCustomer implements Serializable {
 
     public Address getAddressShip() {
         return addressShip;
+    }
+
+    public Collection getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(Collection orderList) {
+        this.orderList = orderList;
     }
 
     public void setAddressShip(Address addressShip) {

@@ -13,11 +13,11 @@
         <title>Home</title> 
         <!-- Bootstrap core CSS -->     
 
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
         <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
         <!--<link rel="stylesheet" href="css/form.css" />-->
@@ -26,15 +26,15 @@
 
 
     <body>
-
+ 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="relou">
+        <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top" id="relou" >
             <jsp:include page="common/header.jsp"/>
         </nav>
 
         <!-- Page Content -->
-        <div class="container">
-
+       
+<div class="container">
             <div class="row">
 
                 <div class="col-lg-3">
@@ -48,67 +48,35 @@
                 <!-------------------------------------------------------------------->
                 <div class="col-lg-9">
 
-
-
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                         </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-
-                            <div class="item active">
-                                <a href="controller?carroussel=1">
-                                    <img src="images/youssef.jpg" alt="youssef" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <img class="d-block img-fluid" src="images/youssef.jpg"  alt="First slide">
                             </div>
-
-                            <div class="item">
-                                <a href="controller?carroussel=2">
-                                    <img src="images/jo.png" alt="jonathan" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid" src="images/jo.png"alt="Second slide">
                             </div>
-
-                            <div class="item">
-                                <a href="controller?carroussel=3">
-                                    <img src="images/foued.jpg" alt="foued" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid" src="images/izet.jpg"  alt="Third slide">
                             </div>
-                            <div class="item">
-                                <a href="controller?carroussel=4">
-                                    <img src="images/izet.jpg" alt="izet" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
-                            </div>
-
                         </div>
-
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
+
+
+                  
 
                     <br>
 
@@ -126,35 +94,35 @@
                                             </h4>
                                             <h5>${bookRow.unitCostBook}€</h5>
                                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                                            <a   href="controller?section=panier&add=+ ${bookRow.numISBNBook}">
-                                                <button  style="margin-left: 100px"  type="button" class="btn btn-default btn-sm">
-                                                    <span class="glyphicon glyphicon-shopping-cart"></span> Ajouter au panier
-                                                </button>
+                                            <a   href="controller?section=panier&add=+ ${bookRow.numISBNBook}" style="margin-left: 30px" class="btn btn-outline-success">
+                                               
+                                                 <img  src="images/cart.png" >Ajouter au panier
+                                                
                                             </a> 
 
                                         </div>
-                                        <div class="card-footer">
+                                        <div class="card-footer ">
                                             <small class="text-muted">
                                                 <c:if test="${bookRow.moyenne == -1}">
                                                     Note :  Pas encore d'évaluation.
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne== 0}">
-                                                    Note : &#x2b50; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                    Note : &#x2b50; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 1}" >
-                                                    Note : &#9733; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                    Note : &#9733; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 2 }" >
-                                                    Note : &#9733; &#9733; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                    Note : &#9733; &#9733; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 3}">
-                                                    Note : &#9733; &#9733; &#9733; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                    Note : &#9733; &#9733; &#9733; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 4}" >
-                                                    Note : &#9733; &#9733; &#9733; &#9733; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                    Note : &#9733; &#9733; &#9733; &#9733; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 5}" >
-                                                    Note : &#9733; &#9733; &#9733; &#9733; &#9733; <a href='controller?comment=${bookRow.numISBNBook}'>( ${bookRow.nbNote} évaluations )</a>
+                                                    Note : &#9733; &#9733; &#9733; &#9733; &#9733; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                             </small>
                                         </div>
@@ -218,6 +186,7 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/popper/popper.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        
 
     </body>
 
