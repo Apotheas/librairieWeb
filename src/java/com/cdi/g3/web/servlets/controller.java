@@ -328,7 +328,13 @@ public class controller extends HttpServlet {
              url = "/WEB-INF/jspCheckOut.jsp";
           beanPanier   bPanier = (beanPanier) session.getAttribute("panier");
            String   login = (String) session.getAttribute("Welcome");
-             
+           
+           if(login==null){
+               url = "/WEB-INF/jspFormLogin.jsp"; 
+               request.setAttribute("passeOrder", "true");
+           } else {
+           
+           
           String orderId =null;
           try {
                  orderId = bPanier.checkOut(login, bPanier.list());
@@ -342,11 +348,11 @@ public class controller extends HttpServlet {
           request.setAttribute("orderId", orderId);
              
          }
+           
+         }
+         
         }
-         
-                
-         
-         
+        
         /*==========================================================================================================/
          |
          |    Section Customer
@@ -390,11 +396,24 @@ public class controller extends HttpServlet {
                 try {
                    bCustomer= bCustomer.registerCustomer();
                     // puts the customerDTO into the session
+                String welcome = request.getParameter("login");
                 request.getSession().setAttribute("bCustomer", bCustomer);
+                request.getSession().setAttribute("Welcome",welcome);
+                
+                Cookie cc = new Cookie("ok", welcome);
+                response.addCookie(cc);
+                
+               
+                if(request.getAttribute("passOrder") != "true"){
+                    request.setAttribute("passOrder","true");
+                }
+                
                 } catch (CreateException ex) {
                     Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (CheckException ex) {
                     Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                     
                 }
                 
             }
@@ -528,6 +547,9 @@ public class controller extends HttpServlet {
                 if (bLogin == null) {
                     bLogin = new beanLogin();
                     application.setAttribute("beanLogin", bLogin);
+                }
+                if(request.getAttribute("passOrder") != "true"){
+                    request.setAttribute("passOrder","true");
                 }
                 
                 if (bLogin.checkLogin(request.getParameter("login"),

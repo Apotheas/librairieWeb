@@ -5,15 +5,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+         <meta charset="utf-8" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Home</title> 
-        <!-- Bootstrap core CSS -->        
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
-        <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> -->
+        <!-- Bootstrap core CSS -->     
+
+        <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> 
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
         <!--<link rel="stylesheet" href="css/form.css" />-->
@@ -31,11 +34,6 @@
         <div class="container" >
 
             <div class="row">
-
-                <div class="col-lg-3">
-                    <jsp:include page="common/navigation.jsp"/>
-                </div>
-                <!-- /.col-lg-3 -->
 
                 <div class="col-lg-9">
 
@@ -63,6 +61,23 @@
                     <!--Fin de la partie de Content a changer par rapport au besoin -->
                 </div>
                 <!-- /.col-lg-9 -->
+
+                <div class="col-lg-3">
+                    <h2> Première visite ? </h2>
+                    <p>Bonjour cher inconnu. On ne se connaît pas encore... aucun problème, faisons connaissance :)</p>
+
+                    <a   href="controller?section=customer&addCustomer=true">
+                        <button  style="margin-left: 100px"  type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Continuer
+                        </button>
+                    </a> 
+
+
+                </div>
+
+                 <!-- /.col-lg-3 -->
+
+
             </div>
             <!-- /.row -->
         </div>
@@ -77,9 +92,6 @@
         <script src="vendor/jquery/jquery.min.js"></script>
         <script src="vendor/popper/popper.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
     </body>
 
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
