@@ -50,6 +50,7 @@
                         <fieldset>
                             <legend>Inscription</legend>
                             <p>Vous pouvez vous inscrire via ce formulaire.</p>
+                             <input type="hidden" id="passOrder" name="passOrder" value="<c:out value="${passOrder}"/>" />
 
                             <label for="login">Login <span class="requis">*</span></label>
                             <input type="login" id="login" name="login" value="<c:out value="${bCustomer.customer.loginCustomer}"/>" size="20" maxlength="60" />
@@ -83,6 +84,16 @@
                             <input type="submit" name='doIt' value="register" class="sansLabel" />
                             <br />
                             <p class="${empty bCustomer.erreurs ? 'succes' : 'erreur'}">${bCustomer.resultat}</p>
+                            
+                            
+                            <c:if test="${empty bCustomer.erreurs }">
+                                <c:if test="${passOrder==true}">
+                                    <a href="controller?section=panier&affichePanier"> Revenir à mon panier</a>
+                                    
+                                </c:if>
+                                
+                            </c:if>
+                            
                         </fieldset>
                     </form>               
 

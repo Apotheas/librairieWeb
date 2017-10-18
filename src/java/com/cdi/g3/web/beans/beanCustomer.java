@@ -37,6 +37,7 @@ public class beanCustomer implements Serializable {
     private String resultat;
     private Map<String, String> erreurs;
     private Collection orderList;
+     private String provenance;
     
     public beanCustomer() {
         customer = new Customer();
@@ -75,6 +76,16 @@ public class beanCustomer implements Serializable {
     private void setErreur(String champ, String message) {
         erreurs.put(champ, message);
     }
+
+    public String getProvenance() {
+        return provenance;
+    }
+
+    public void setProvenance(String provenance) {
+        this.provenance = provenance;
+    }
+    
+    
 
     public Customer getCustomer() {
         return customer;

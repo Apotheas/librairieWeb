@@ -190,12 +190,13 @@ public class controller extends HttpServlet {
                         bEvent = new beanEvent();
                         application.setAttribute("event", bEvent.getOccasions());
                     } catch (ObjectNotFoundException ex) {
-                        ex.printStackTrace();
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
                     }
                 }
             }
         }
-        if(request.getParameter("event") != null ){
+        if (request.getParameter("event") != null) {
             int pageHome = 1;
             if ((request.getParameter("pageHome") != null)) {
                 pageHome = Integer.parseInt(request.getParameter("pageHome"));
@@ -203,20 +204,19 @@ public class controller extends HttpServlet {
             String nameOccasion = request.getParameter("event");
             request.setAttribute("event", application.getAttribute("event"));
             bPagination.setPagination("event");
-           Collection bookEventList = bCatalog.getBooksbyOccasion(nameOccasion);
-           if (bookEventList != null) {
-                    bCatalog.setBooks(bookEventList);
-                    bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
-                    request.setAttribute("pages", bPagination.getPages(bookEventList));
-                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookEventList));
-                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookEventList));
-                } else {
-                    request.setAttribute("listVide", "il n'y a pas de livre pour cet evenement");
+            Collection bookEventList = bCatalog.getBooksbyOccasion(nameOccasion);
+            if (bookEventList != null) {
+                bCatalog.setBooks(bookEventList);
+                bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
+                request.setAttribute("pages", bPagination.getPages(bookEventList));
+                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookEventList));
+                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookEventList));
+            } else {
+                request.setAttribute("listVide", "il n'y a pas de livre pour cet evenement");
 
-                }
+            }
         }
-        
-        
+
         /*==========================================================================================================/
          |
          |    Section pagination
@@ -227,7 +227,7 @@ public class controller extends HttpServlet {
             if ((request.getParameter("pageHome") != null)) {
                 pageHome = Integer.parseInt(request.getParameter("pageHome"));
             }
-            
+
             if ("sub".equals(bPagination.getPagination())) {
                 bPagination.setPagination("sub");
                 Collection bookSubList = bCatalog.getBooks();
@@ -239,15 +239,15 @@ public class controller extends HttpServlet {
             }
             if ("theme".equals(bPagination.getPagination())) {
                 bPagination.setPagination("theme");
-                Collection bookThemeList = bCatalog.getBooks();                
+                Collection bookThemeList = bCatalog.getBooks();
                 bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
                 request.setAttribute("currentPage", pageHome);
                 request.setAttribute("pages", bPagination.getPages(bookThemeList));
                 request.setAttribute("noOfPages", bPagination.getNoOfPages(bookThemeList));
                 request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookThemeList));
             }
-            
-                if ("catalog".equals(bPagination.getPagination())) {
+
+            if ("catalog".equals(bPagination.getPagination())) {
                 bPagination.setPagination("catalog");
                 request.setAttribute("currentPage", pageHome);
                 bPagination.setOffset(bPagination.getRecordsPerPage() * (pageHome - 1));
@@ -257,13 +257,13 @@ public class controller extends HttpServlet {
 
             }
         }
-         
+
         /*==========================================================================================================/
          |
          |    Section Panier
          |
          /*===========================================================================================================*/
-         if ("panier".equals(request.getParameter("section"))) {
+        if ("panier".equals(request.getParameter("section"))) {
             beanPanier bPanier
                     = (beanPanier) session.getAttribute("panier");
             if (bPanier == null) {
@@ -274,9 +274,11 @@ public class controller extends HttpServlet {
                 try {
                     bPanier.add(request.getParameter("add"));
                 } catch (FinderException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    url = "/WEB-INF/jspFatalError.jsp";
+                    request.setAttribute("fatalError", ex.getMessage());
                 } catch (CheckException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    url = "/WEB-INF/jspFatalError.jsp";
+                    request.setAttribute("fatalError", ex.getMessage());
                 }
                 session.setAttribute("size", bPanier.getSize());
                 request.setAttribute("subTotalHT", bPanier.getTotalHT());
@@ -286,9 +288,11 @@ public class controller extends HttpServlet {
                 try {
                     bPanier.dec(request.getParameter("dec"));
                 } catch (FinderException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    url = "/WEB-INF/jspFatalError.jsp";
+                    request.setAttribute("fatalError", ex.getMessage());
                 } catch (CheckException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    url = "/WEB-INF/jspFatalError.jsp";
+                    request.setAttribute("fatalError", ex.getMessage());
                 }
                 session.setAttribute("size", bPanier.getSize());
                 request.setAttribute("subTotalHT", bPanier.getTotalHT());
@@ -296,7 +300,7 @@ public class controller extends HttpServlet {
             if (request.getParameter("del") != null) {
                 bPanier.del(request.getParameter("del"));
                 session.setAttribute("size", bPanier.getSize());
-                 request.setAttribute("subTotalHT", bPanier.getTotalHT());
+                request.setAttribute("subTotalHT", bPanier.getTotalHT());
             }
             if (request.getParameter("clear") != null) {
                 bPanier.clear();
@@ -310,49 +314,52 @@ public class controller extends HttpServlet {
                 if (bPanier == null) {
                     bPanier = new beanPanier();
                     session.setAttribute("panier", bPanier);
-                    
+
                 }
                 request.setAttribute("panierVide", bPanier.isEmpty());
                 request.setAttribute("panier", bPanier.list());
 
             }
         }
-         
-/*==========================================================================================================/
-    |
-    |    Section Order
-    |
-    /*===========================================================================================================*/
+
+        /*==========================================================================================================/
+         |
+         |    Section Order
+         |
+         /*===========================================================================================================*/
         if ("order".equals(request.getParameter("section"))) {
-         if (request.getParameter("checkOut") != null) {
-             url = "/WEB-INF/jspCheckOut.jsp";
-          beanPanier   bPanier = (beanPanier) session.getAttribute("panier");
-           String   login = (String) session.getAttribute("Welcome");
-           
-           if(login==null){
-               url = "/WEB-INF/jspFormLogin.jsp"; 
-               request.setAttribute("passeOrder", "true");
-           } else {
-           
-           
-          String orderId =null;
-          try {
-                 orderId = bPanier.checkOut(login, bPanier.list());
-             } catch (CreateException ex) {
-                 Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (CheckException ex) {
-                 Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
-             } catch (FinderException ex) {
-                 Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
-             }
-          request.setAttribute("orderId", orderId);
-             
-         }
-           
-         }
-         
+            if (request.getParameter("checkOut") != null) {
+                url = "/WEB-INF/jspCheckOut.jsp";
+                beanPanier bPanier = (beanPanier) session.getAttribute("panier");
+                String login = (String) session.getAttribute("Welcome");
+
+                if (login == null) {
+                    request.setAttribute("passOrder", "true");
+                    url = "/WEB-INF/jspFormLogin.jsp";
+                    
+                } else {
+
+                    String orderId = null;
+                    try {
+                        orderId = bPanier.checkOut(login, bPanier.list());
+                    } catch (CreateException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                    } catch (CheckException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                    } catch (FinderException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                    }
+                    request.setAttribute("orderId", orderId);
+
+                }
+
+            }
+
         }
-        
+
         /*==========================================================================================================/
          |
          |    Section Customer
@@ -368,24 +375,26 @@ public class controller extends HttpServlet {
 //                    try {
 //                        bCustomer = new beanCustomer((String) session.getAttribute("bCustomer"));
 //                    } catch (ObjectNotFoundException ex) {
-//                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+//                        url = "/WEB-INF/jspFatalError.jsp";
+//                 request.setAttribute("fatalError",ex.getMessage());
 //                    } catch (CheckException ex) {
-//                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+//                        url = "/WEB-INF/jspFatalError.jsp";
+//                 request.setAttribute("fatalError",ex.getMessage());
 //                    } catch (FinderException ex) {
-//                        Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+//                        url = "/WEB-INF/jspFatalError.jsp";
+//                 request.setAttribute("fatalError",ex.getMessage());
 ////                    }
 //                    session.setAttribute("bCustomer", bCustomer);
 //                }
 
             }
-            
+
             if (request.getParameter("addCustomer") != null) {
                 url = "/WEB-INF/jspRegister.jsp";
             }
-            
-            
+
             if (request.getParameter("doIt") != null) {
-                 url = "/WEB-INF/jspRegister.jsp";                
+                url = "/WEB-INF/jspRegister.jsp";
                 beanCustomer bCustomer = new beanCustomer();
                 bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
                 bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
@@ -394,56 +403,56 @@ public class controller extends HttpServlet {
                 bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
                 bCustomer.setConfirmationPassword(request.getParameter("confirmation"));
                 try {
-                   bCustomer= bCustomer.registerCustomer();
+                    bCustomer = bCustomer.registerCustomer();
                     // puts the customerDTO into the session
-                String welcome = request.getParameter("login");
-                request.getSession().setAttribute("bCustomer", bCustomer);
-                request.getSession().setAttribute("Welcome",welcome);
-                
-                Cookie cc = new Cookie("ok", welcome);
-                response.addCookie(cc);
-                
-               
-                if(request.getAttribute("passOrder") != "true"){
-                    request.setAttribute("passOrder","true");
-                }
-                
-                } catch (CreateException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (CheckException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    String welcome = request.getParameter("login");
+                    request.getSession().setAttribute("bCustomer", bCustomer);
+                    request.getSession().setAttribute("Welcome", welcome);
+                    Cookie cc = new Cookie("ok", welcome);
+                    response.addCookie(cc);
                     
-                     
-                }
-                
-            }
-            
-            if (request.getParameter("updateProfil") != null) {
-            if (request.getParameter("doIt") != null) {
-                 url = "/WEB-INF/jspRegister.jsp";                
-                beanCustomer bCustomer = (beanCustomer) session.getAttribute("bCustomer");
-                bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
-                bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
-                bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
-                bCustomer.getCustomer().setEmailCustomer(request.getParameter("email"));
-                bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
-                bCustomer.setConfirmationPassword(request.getParameter("telephone"));
-                bCustomer.getCustomer().setNameCompanyCustomer(request.getParameter("nameCompanyCustomer"));
-                
-                try {
-                   bCustomer= bCustomer.registerCustomer();
-                    // puts the customerDTO into the session
-                
-                request.getSession().setAttribute("bCustomer", bCustomer);
+                    if ("true".equals(request.getAttribute("passOrder"))) {
+                        request.setAttribute("passOrder", "true");
+                    }
+
                 } catch (CreateException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    url = "/WEB-INF/jspFatalError.jsp";
+                    request.setAttribute("fatalError", ex.getMessage());
+
                 } catch (CheckException ex) {
-                    Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                    url = "/WEB-INF/jspFatalError.jsp";
+                    request.setAttribute("fatalError", ex.getMessage());
                 }
-                
             }
+
+            if (request.getParameter("updateProfil") != null) {
+                if (request.getParameter("doIt") != null) {
+                    url = "/WEB-INF/jspRegister.jsp";
+                    beanCustomer bCustomer = (beanCustomer) session.getAttribute("bCustomer");
+                    bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
+                    bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
+                    bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
+                    bCustomer.getCustomer().setEmailCustomer(request.getParameter("email"));
+                    bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
+                    bCustomer.setConfirmationPassword(request.getParameter("telephone"));
+                    bCustomer.getCustomer().setNameCompanyCustomer(request.getParameter("nameCompanyCustomer"));
+
+                    try {
+                        bCustomer = bCustomer.registerCustomer();
+                        // puts the customerDTO into the session
+
+                        request.getSession().setAttribute("bCustomer", bCustomer);
+                    } catch (CreateException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                    } catch (CheckException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                    }
+
+                }
             }
-            
+
         }
         /*==========================================================================================================/
          |
@@ -451,85 +460,83 @@ public class controller extends HttpServlet {
          |
          /*===========================================================================================================*/
 
-         if (request.getParameter("keyword") != null) {
-            
+        if (request.getParameter("keyword") != null) {
+
             String nameKeyWord = request.getParameter("keyword");
-           
 
             try {
                 bCatalog = new beanCatalog();
 
-                if(bCatalog.getBooksbyKeyWord(nameKeyWord)!=null){
-                
-                Collection bookKeyList = bCatalog.getBooksbyKeyWord(nameKeyWord);
-                application.setAttribute("catalog", bCatalog);
-               
-                int page = 1;
-                String pageNumberValue = request.getParameter("pageHome");
-                if (pageNumberValue != null) {
-                    try {
-                        page = Integer.parseInt(pageNumberValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+                if (bCatalog.getBooksbyKeyWord(nameKeyWord) != null) {
+
+                    Collection bookKeyList = bCatalog.getBooksbyKeyWord(nameKeyWord);
+                    application.setAttribute("catalog", bCatalog);
+
+                    int page = 1;
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", e.getMessage());
+                        }
                     }
+                    bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                bPagination = (beanPagination) application.getAttribute("pagination");
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
-                
-                 if(bCatalog.getBooksbyAuthor(nameKeyWord)!=null){
-                
-                Collection bookKeyList = bCatalog.getBooksbyAuthor(nameKeyWord);
-                application.setAttribute("catalog", bCatalog);
-               
-                int page = 1;
-                String pageNumberValue = request.getParameter("pageHome");
-                if (pageNumberValue != null) {
-                    try {
-                        page = Integer.parseInt(pageNumberValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+
+                if (bCatalog.getBooksbyAuthor(nameKeyWord) != null) {
+
+                    Collection bookKeyList = bCatalog.getBooksbyAuthor(nameKeyWord);
+                    application.setAttribute("catalog", bCatalog);
+
+                    int page = 1;
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", e.getMessage());
+                        }
                     }
+                    bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                bPagination = (beanPagination) application.getAttribute("pagination");
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
-                  if(bCatalog.getBooksbyEditor(nameKeyWord)!=null){
-                
-                Collection bookKeyList = bCatalog.getBooksbyEditor(nameKeyWord);
-                application.setAttribute("catalog", bCatalog);
-               
-                int page = 1;
-                String pageNumberValue = request.getParameter("pageHome");
-                if (pageNumberValue != null) {
-                    try {
-                        page = Integer.parseInt(pageNumberValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+                if (bCatalog.getBooksbyEditor(nameKeyWord) != null) {
+
+                    Collection bookKeyList = bCatalog.getBooksbyEditor(nameKeyWord);
+                    application.setAttribute("catalog", bCatalog);
+
+                    int page = 1;
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", e.getMessage());
+                        }
                     }
+                    bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                bPagination = (beanPagination) application.getAttribute("pagination");
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
             } catch (ObjectNotFoundException ex) {
-                System.out.println("Error loading book of keyword");
+                url = "/WEB-INF/jspFatalError.jsp";
+                request.setAttribute("fatalError", ex.getMessage());
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         /*==========================================================================================================/
          |
          |    Section Login
@@ -548,10 +555,10 @@ public class controller extends HttpServlet {
                     bLogin = new beanLogin();
                     application.setAttribute("beanLogin", bLogin);
                 }
-                if(request.getAttribute("passOrder") != "true"){
-                    request.setAttribute("passOrder","true");
+                if ("true".equals(request.getAttribute("passOrder")) ) {
+                    request.setAttribute("passOrder", "true");
                 }
-                
+
                 if (bLogin.checkLogin(request.getParameter("login"),
                         request.getParameter("password"))) {
                     url = "/WEB-INF/jspWelcome.jsp";
@@ -569,11 +576,14 @@ public class controller extends HttpServlet {
                         try {
                             bCustomer = new beanCustomer(request.getParameter("login"));
                         } catch (ObjectNotFoundException ex) {
-                            ex.printStackTrace();
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
                         } catch (CheckException ex) {
-                            ex.printStackTrace();
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
                         } catch (FinderException ex) {
-                            Logger.getLogger(controller.class.getName()).log(Level.SEVERE, null, ex);
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
                         }
                         session.setAttribute("bCustomer", bCustomer);
                     }
@@ -635,32 +645,29 @@ public class controller extends HttpServlet {
             }
         }
 
-/*==========================================================================================================/
-    |
-    |    Section Book  -- Foued 
-    |
- /*===========================================================================================================*/
-            if (request.getParameter("showBook") != null) {            
+        /*==========================================================================================================/
+         |
+         |    Section Book  -- Foued 
+         |
+         /*===========================================================================================================*/
+        if (request.getParameter("showBook") != null) {
             url = "/WEB-INF/jspBook.jsp";
-            String numISBN =  request.getParameter("isbnBook");
+            String numISBN = request.getParameter("isbnBook");
             bCatalog = (beanCatalog) application.getAttribute("catalog");
             Book book;
-     
+
             book = bCatalog.getBook(numISBN);
 
-            request.setAttribute("book", book); 
+            request.setAttribute("book", book);
 
-              
-            }        
+        }
 
         /*==========================================================================================================/
          |
          |   Quiter le controlleur
          |
          /*===========================================================================================================*/
-       
 //        System.out.println(request.getRequestURI());
-
         request.getRequestDispatcher(url).include(request, response);
     }
 
