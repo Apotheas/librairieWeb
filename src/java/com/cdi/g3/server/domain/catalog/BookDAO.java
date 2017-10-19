@@ -87,6 +87,13 @@ public class BookDAO extends AbstractDataAccessObject {
 
         return sql;
     }
+     
+    protected String getSelectBookByTitreSqlStatement(String column, String champ) {
+       final String sql;
+       sql = "SELECT " + COLUMNS + " FROM "+ TABLE + " WHERE TITREBOOK like  '%" + champ + "%'";
+        
+       return sql;
+   }
 
     @Override
     protected String getSelectAllSqlStatement() {

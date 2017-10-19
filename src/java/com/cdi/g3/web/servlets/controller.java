@@ -560,82 +560,104 @@ public class controller extends HttpServlet {
          |
          /*===========================================================================================================*/
 
-        if (request.getParameter("keyword") != null) {
-
+         if (request.getParameter("keyword") != null) {
+            
             String nameKeyWord = request.getParameter("keyword");
+           
 
             try {
                 bCatalog = new beanCatalog();
 
-                if (bCatalog.getBooksbyKeyWord(nameKeyWord) != null) {
-
-                    Collection bookKeyList = bCatalog.getBooksbyKeyWord(nameKeyWord);
-                    application.setAttribute("catalog", bCatalog);
-
-                    int page = 1;
-                    String pageNumberValue = request.getParameter("pageHome");
-                    if (pageNumberValue != null) {
-                        try {
-                            page = Integer.parseInt(pageNumberValue);
-                        } catch (NumberFormatException e) {
-                            url = "/WEB-INF/jspFatalError.jsp";
-                            request.setAttribute("fatalError", e.getMessage());
-                        }
+                if(bCatalog.getBooksbyKeyWord(nameKeyWord)!=null){
+                
+                Collection bookKeyList = bCatalog.getBooksbyKeyWord(nameKeyWord);
+                application.setAttribute("catalog", bCatalog);
+               
+                int page = 1;
+                String pageNumberValue = request.getParameter("pageHome");
+                if (pageNumberValue != null) {
+                    try {
+                        page = Integer.parseInt(pageNumberValue);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
                     }
-                    bPagination = (beanPagination) application.getAttribute("pagination");
-                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-
-                if (bCatalog.getBooksbyAuthor(nameKeyWord) != null) {
-
-                    Collection bookKeyList = bCatalog.getBooksbyAuthor(nameKeyWord);
-                    application.setAttribute("catalog", bCatalog);
-
-                    int page = 1;
-                    String pageNumberValue = request.getParameter("pageHome");
-                    if (pageNumberValue != null) {
-                        try {
-                            page = Integer.parseInt(pageNumberValue);
-                        } catch (NumberFormatException e) {
-                            url = "/WEB-INF/jspFatalError.jsp";
-                            request.setAttribute("fatalError", e.getMessage());
-                        }
+                bPagination = (beanPagination) application.getAttribute("pagination");
+                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
+                
+                 if(bCatalog.getBooksbyAuthor(nameKeyWord)!=null){
+                
+                Collection bookKeyList = bCatalog.getBooksbyAuthor(nameKeyWord);
+                application.setAttribute("catalog", bCatalog);
+               
+                int page = 1;
+                String pageNumberValue = request.getParameter("pageHome");
+                if (pageNumberValue != null) {
+                    try {
+                        page = Integer.parseInt(pageNumberValue);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
                     }
-                    bPagination = (beanPagination) application.getAttribute("pagination");
-                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                if (bCatalog.getBooksbyEditor(nameKeyWord) != null) {
-
-                    Collection bookKeyList = bCatalog.getBooksbyEditor(nameKeyWord);
-                    application.setAttribute("catalog", bCatalog);
-
-                    int page = 1;
-                    String pageNumberValue = request.getParameter("pageHome");
-                    if (pageNumberValue != null) {
-                        try {
-                            page = Integer.parseInt(pageNumberValue);
-                        } catch (NumberFormatException e) {
-                            url = "/WEB-INF/jspFatalError.jsp";
-                            request.setAttribute("fatalError", e.getMessage());
-                        }
+                bPagination = (beanPagination) application.getAttribute("pagination");
+                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
+                 
+                   if(bCatalog.getBooksbyTitle(nameKeyWord)!=null){
+                
+                Collection bookKeyList = bCatalog.getBooksbyTitle(nameKeyWord);
+                application.setAttribute("catalog", bCatalog);
+               
+                int page = 1;
+                String pageNumberValue = request.getParameter("pageHome");
+                if (pageNumberValue != null) {
+                    try {
+                        page = Integer.parseInt(pageNumberValue);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
                     }
-                    bPagination = (beanPagination) application.getAttribute("pagination");
-                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
+                bPagination = (beanPagination) application.getAttribute("pagination");
+                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
+                 
+                   if(bCatalog.getBooksbyEditor(nameKeyWord)!=null){
+                
+                Collection bookKeyList = bCatalog.getBooksbyEditor(nameKeyWord);
+                application.setAttribute("catalog", bCatalog);
+               
+                int page = 1;
+                String pageNumberValue = request.getParameter("pageHome");
+                if (pageNumberValue != null) {
+                    try {
+                        page = Integer.parseInt(pageNumberValue);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+                bPagination = (beanPagination) application.getAttribute("pagination");
+                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
             } catch (ObjectNotFoundException ex) {
-                url = "/WEB-INF/jspFatalError.jsp";
-                request.setAttribute("fatalError", ex.getMessage());
+                System.out.println("Error loading book of keyword");
             }
         }
+        
+        
+        
+        
+        
+        
+        
 
         /*==========================================================================================================/
          |

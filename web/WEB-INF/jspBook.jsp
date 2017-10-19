@@ -20,95 +20,32 @@
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
         <!--<link rel="stylesheet" href="css/form.css" />-->
-
-    </head>
+ </head>
 
     <body>
 
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="relou">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="relou">
             <jsp:include page="common/header.jsp"/>
         </nav>
+
 
         <!-- Page Content -->
         <div class="container">
 
-            <div class="row">
+          
 
-                <div class="col-lg-3">
-                    <jsp:include page="common/navigation.jsp"/>
-                </div>
                 <!-- /.col-lg-3 -->
 
                 <!-- Partie de Content a changer par rapport au besoin -->
                 <!----------------------------------------------------------------->       
                 <!------------------------------------------------------------------->
                 <!-------------------------------------------------------------------->
-                <div class="col-lg-9">
+               
 
 
 
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                            <li data-target="#myCarousel" data-slide-to="3"></li>
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-
-                            <div class="item active">
-                                <a href="controller?carroussel=1">
-                                    <img src="images/youssef.jpg" alt="youssef" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <a href="controller?carroussel=2">
-                                    <img src="images/jo.png" alt="jonathan" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <a href="controller?carroussel=3">
-                                    <img src="images/foued.jpg" alt="foued" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
-                            </div>
-                            <div class="item">
-                                <a href="controller?carroussel=4">
-                                    <img src="images/izet.jpg" alt="izet" style="width:100%;">
-                                </a>
-                                <div class="carousel-caption">
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-
-                    <br>
+                  
 
 
 
@@ -129,48 +66,86 @@
             <!-- /.row -->
         </div>
         <!-- /.container -->
-                <center>
+                
                 <h3>  Accueil > Livres > ${book.titleBook} </h3> 
                 <hr>
-                <h3> <b> ${book.titleBook} </b></h3> 
+                <h2> <b> ${book.titleBook} </b></h2> 
 <!--        <h4> <b> ${book.subTitleBook} </b></h4> -->
 
-                 <h4><a href =""> Avis  </a> </h4> 
+                
 
-                <h4><a href =""> Donnez un avis  </a></h4> <br>
-
-                <h4> Type : Livre </h4> 
-                <h4> Support : Livre poche </h4> 
-                <h4> Editeur : ${book.editor} </h4> 
+                <h4> Type : Livre          Support : Livre poche        Editeur : ${book.editor}</h4> 
                 <h4> Author : 
                         <c:forEach var="author" items="${book.listAuthor}">
-                            ${author.lastNameAuthor}  ${author.firstNameAuthor} \
+                            ${author.lastNameAuthor}  ${author.firstNameAuthor} 
                         </c:forEach>  </h4> 
 
-                     <div>
-                    <img src="${book.pathIconBook}" width="500" height="500"/> <br>  <h3> 
-                    <center>
-                        <h3> ${book.unitCostBook} euros </h3> 
-                    <h3>Stock : ${book.stockBook}  </h3> 
-                    <h4> <a href="controller?section=panier&add=+ ${book.numISBNBook}"> ajouter au panier  </a></h4> <br>  
-                    <center>
-                     </div>     
-
+                     <div class="row">
+                       
+                    <img  class="col-sm-4"   src="${book.pathIconBook}" width="500" height="500"/> 
+                         
+                    
+                      <article class="col-sm-8">
+                         <p>
+                    <font size=17>        Prix : ${book.unitCostBook} euros <br>   Stock : ${book.stockBook} <br> </font>  
+                    
+                      <a  class="btn btn-primary"  href="controller?section=panier&add=+ ${book.numISBNBook}"> ajouter au panier  </a> <br>
+                       
+                       
+                     
+                   
                     <article>
 
                         <p> <h3> Description : </h3></p> <br>
                     
-                        <h4>  &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp
+                        <h4>  
                               ${book.synopsisBook}
-                              &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp&nbsp &nbsp  
+                             
                         </h4>
                     
                     </article> <br><br> 
-                        
-                    </center>
+                     
+                     
+                
+                    
+                        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+  Afficher les commentaires
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Commentaires</h5>
+        
+      </div>
+      <div class="modal-body">
+     
+                          <c:forEach var="appreciation" items="${book.getAppList()}">
+                              ${appreciation.loginCustomerAppreciate}  ( ${appreciation.dateAppreciate} ) :  ${appreciation.commentAppreciate} <hr>
+                          </c:forEach>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Add comment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+                      
+                        
+
+                    </div>    
+ 
+                        
+                 
+                   
                     <!-- Footer -->
                     <footer class="py-5 bg-dark">
+                       
                         <jsp:include page="common/footer.jsp"/>
                     </footer>
 
@@ -180,5 +155,5 @@
                     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
                     </body>
-
+                        
                     </html>

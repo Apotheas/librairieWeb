@@ -95,7 +95,18 @@ public class Book extends DomainObject implements Serializable {
      
         
     }
-
+ public Collection getAppList(){
+        try {
+            for (Iterator it = appreciationService.FindAppreciationByChamp("NUMISBNBOOKAPPRECIATE", this.numISBNBook).iterator(); it.hasNext();) {
+                Appreciation comment = (Appreciation) it.next();
+                this.listAppreciation.add(comment);
+            }
+        } catch (ObjectNotFoundException ex) {
+            System.out.println("NO APPRECIATION FOUND ");
+        }
+        return this.listAppreciation;
+        
+    }
     public int getNbNote() {
         return nbNote;
     }

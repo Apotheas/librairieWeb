@@ -63,7 +63,11 @@ public class CatalogService extends AbstractService {
        Collection listBook = _bookDao.selectBooksByTitre(titre);
        return listBook;
    }
-
+ public Collection FindBooksByChampTitre(String column, String champ) throws ObjectNotFoundException {
+        Collection listBook = _bookDao.findAllByChampTitre(column, champ);
+        
+        return listBook;
+    }
     public Collection FindBooksByChamp(String column, String champ) throws ObjectNotFoundException {
         Collection listBook = _bookDao.findAllByChamp(column, champ);
         

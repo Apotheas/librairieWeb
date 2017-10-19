@@ -100,6 +100,53 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         return object;
     }
     
+       public final Collection findAllByChampTitre(String column,String champ) throws ObjectNotFoundException {
+        return selectAllTitreByChamp(column, champ);
+    }
+     
+    private final Collection selectAllTitreByChamp(String column, String champ) throws ObjectNotFoundException {
+        final String mname = "selectAll";
+        Trace.entering(getCname(), mname);
+
+        
+        ResultSet resultSet = null;
+        final Collection objects = new ArrayList();
+         // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+        
+            // Select a Row
+            resultSet = statement.executeQuery(getSelectBookByTitreSqlStatement(column ,champ));
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
+            }
+
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }             
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
+    }
+    
     
     
     public final DomainObject findByChamp(String column,String champ) throws ObjectNotFoundException {
@@ -376,6 +423,10 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     protected String getSelectSqlStatementByChamp(String column, String champ){
         return "A redéfinir dans les classes filles si necéssaire";
     }
+     protected  String getSelectBookByTitreSqlStatement(String column,String id){
+        
+        return "A redéfinir dans les classes filles si necéssaire";
+    }    
     
     protected  String getSelectAllSqlStatementByChamp(String column,String id){
         return "A redéfinir dans les classes filles si necéssaire";

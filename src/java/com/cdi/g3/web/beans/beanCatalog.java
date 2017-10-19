@@ -82,6 +82,16 @@ public class beanCatalog implements Serializable {
         }
         return null;
     }
+      
+      
+       public Collection getBooksbyTitle(String titleBook) {
+        try {
+            return ctatalogService.FindBooksByChampTitre("TITLEBOOK", titleBook);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(beanCatalog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
            public Collection getBooksbyAuthor(String lastNameAuthor) {
         try {
             return ctatalogService.FindBooksByChamp("LASTNAMEAUTHOR",lastNameAuthor);
