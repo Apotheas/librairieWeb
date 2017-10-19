@@ -18,7 +18,7 @@
         <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> 
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-        
+
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
         <!--<link rel="stylesheet" href="css/form.css" />-->
@@ -37,26 +37,35 @@
         <!----------------------------------------------------------------->       
         <!------------------------------------------------------------------->
         <!-------------------------------------------------------------------->
-
         <!-- Page Content -->
         <div class="container">
-
+            
             <div class="row">
-                <table cellspacing="0" cellpadding="5" width="100%">
-                    <tr>
-                    <td align="left" valign="top" width="60%">
-                        <%--CENTRAL BODY--%>
-                        <P><strong>Your Order is Complete</strong></P>
-                        <P>Your order id is ${requestScope.orderId}</P>
-                        <P>Thank you for shopping with the librairy</P>
-                        <%--FOOTER--%>
-                    </td>
-                    <td></td>
-                    </tr>
+                <div class="col-lg-12">  
 
-                </table> 
+                    
+                    
+                    
+                    
+                   
+                    <table cellspacing="0" cellpadding="5" width="100%">
+                        <tr>
+                            <td align="left" valign="top" width="60%">
+                                <%--CENTRAL BODY--%>
+                                 
+                                <P><strong>Your Order is Complete</strong></P>
+                                <P>Your order id is ${requestScope.orderId}</P>
+                                <P>Thank you for shopping with the librairy</P>
+                                    <%--FOOTER--%>
+                                    
+                            </td>
+                            <td></td>
+                        </tr>
 
+                    </table> 
+                  
 
+                </div>
             </div>
             <!-- /.row -->
         </div>

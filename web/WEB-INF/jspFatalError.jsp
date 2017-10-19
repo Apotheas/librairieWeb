@@ -16,7 +16,7 @@
         <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> 
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-        
+
         <!-- Custom styles for this template -->       
         <link href="css/shop-homepage.css" rel="stylesheet"/>
         <!--<link rel="stylesheet" href="css/form.css" />-->
@@ -35,18 +35,27 @@
         <div class="container">
 
             <div class="row">
-
-                <div class="col-lg-3">
-                    <jsp:include page="common/navigation.jsp"/>
-                </div>
-                <!-- /.col-lg-3 -->
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <!-- Partie de Content a changer par rapport au besoin -->
                     <!----------------------------------------------------------------->       
                     <!------------------------------------------------------------------->
                     <!-------------------------------------------------------------------->
-                    <h1>Fatal Error!</h1>
+                    <div class="error-404">
+                        <div class="error-code m-b-10 m-t-20">404 <i class="fa fa-warning"></i></div>
+                        <h2 class="font-bold">Oops 404! That page can’t be found.</h2>
+                                             ${fatalError}
 
+                        <div class="error-desc">
+                            Sorry, but the page you are looking for was either not found or does not exist. <br/>
+                            Try refreshing the page or click the button below to go back to the Homepage.
+                            <div><br/>
+                                <!-- <a class=" login-detail-panel-button btn" href="http://vultus.de/"> -->
+                                <a href="controller" class="btn btn-primary"><span class="glyphicon glyphicon-home"></span> Go back to Homepage</a>
+                            </div>
+                        </div>
+                             <br/><br/>                
+                                             
+                    </div>
                     <!----------------------------------------------------------------->       
                     <!------------------------------------------------------------------->
                     <!-------------------------------------------------------------------->

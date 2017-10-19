@@ -9,8 +9,12 @@ import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.server.domain.catalog.Book;
+import com.cdi.g3.server.domain.company.Company;
+import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.web.beans.beanAddress;
 import com.cdi.g3.web.beans.beanCatalog;
 import com.cdi.g3.web.beans.beanCustomer;
 import com.cdi.g3.web.beans.beanEvent;
@@ -328,15 +332,16 @@ public class controller extends HttpServlet {
          |
          /*===========================================================================================================*/
         if ("order".equals(request.getParameter("section"))) {
+            String login = (String) session.getAttribute("Welcome");
+            beanCustomer bCustomer = (beanCustomer) session.getAttribute("bCustomer");
             if (request.getParameter("checkOut") != null) {
                 url = "/WEB-INF/jspCheckOut.jsp";
                 beanPanier bPanier = (beanPanier) session.getAttribute("panier");
-                String login = (String) session.getAttribute("Welcome");
-
+                
                 if (login == null) {
                     request.setAttribute("passOrder", "true");
                     url = "/WEB-INF/jspFormLogin.jsp";
-                    
+
                 } else {
 
                     String orderId = null;
@@ -355,8 +360,103 @@ public class controller extends HttpServlet {
                     request.setAttribute("orderId", orderId);
 
                 }
-
             }
+             if (request.getParameter("AddAddressesOrder") != null) {
+                  url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                  
+               if (login == null) {
+                    request.setAttribute("passOrder", "true");
+                    url = "/WEB-INF/jspFormLogin.jsp";
+
+                } else {   
+                  
+                  
+                  if(request.getParameter("updateAddressBill") != null){
+                      beanAddress bAddress = new beanAddress() ;
+                      bAddress.getAddressBill().setId(request.getParameter("idAddress"));
+                      bAddress.getAddressBill().setNameReceiverAdress(request.getParameter("nameReceiverAdress"));
+                      if (request.getParameter("nameCompanyReceiverAdress") != null)
+                      bAddress.getAddressBill().setNameCompanyReceiverAdress(new Company(request.getParameter("nameCompanyReceiverAdress")));
+                      bAddress.getAddressBill().setTypeStreetAdress(request.getParameter("typeStreetAdress"));
+                      bAddress.getAddressBill().setNumAdress(request.getParameter("numAdress"));
+                      bAddress.getAddressBill().setNameStreetAdress(request.getParameter("nameStreetAdress"));
+                      bAddress.getAddressBill().setNameStreet2Adress(request.getParameter("nameStreet2Adress"));
+                      bAddress.getAddressBill().setZipcodeAdress(request.getParameter("zipcodeAdress"));
+                      bAddress.getAddressBill().setCityAdress(request.getParameter("cityAdress"));
+                      bAddress.getAddressBill().setCountryAdress(request.getParameter("countryAdress"));
+                      bAddress.getAddressBill().setCustomerBillAdress(bCustomer.getCustomer());
+                      try {
+                           bAddress.updateAddressBill(bCustomer.getCustomer().getLoginCustomer());
+                      } catch (CreateException ex) {
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      } catch (CheckException ex) {
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      } catch (UpdateException ex) {
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      } catch (FinderException ex) {
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      }
+                      bCustomer.setAddressBill(bAddress.getAddressBill());
+                      
+                      
+                  }
+                  if(request.getParameter("selectAddressBill") != null){
+                      
+                  }
+                  if(request.getParameter("updateAddressShip") != null){
+                      beanAddress bAddress = bCustomer.getbAddress();
+                      bAddress.getAddressShip().setId(request.getParameter("idAddress"));
+                      bAddress.getAddressShip().setNameReceiverAdress(request.getParameter("nameReceiverAdress"));
+                      if (request.getParameter("nameCompanyReceiverAdress") != null)
+                      bAddress.getAddressShip().setNameCompanyReceiverAdress(new Company(request.getParameter("nameCompanyReceiverAdress")));
+                      bAddress.getAddressShip().setTypeStreetAdress(request.getParameter("typeStreetAdress"));
+                      bAddress.getAddressShip().setNumAdress(request.getParameter("numAdress"));
+                      bAddress.getAddressShip().setNameStreetAdress(request.getParameter("nameStreetAdress"));
+                      bAddress.getAddressShip().setNameStreet2Adress(request.getParameter("nameStreet2Adress"));
+                      bAddress.getAddressShip().setZipcodeAdress(request.getParameter("zipcodeAdress"));
+                      bAddress.getAddressShip().setCityAdress(request.getParameter("cityAdress"));
+                      bAddress.getAddressShip().setCountryAdress(request.getParameter("countryAdress"));
+                      bAddress.getAddressShip().setCustomerBillAdress(bCustomer.getCustomer());
+                      try {                      
+                          bAddress.updateAddressShip(bCustomer.getCustomer().getLoginCustomer());
+                      } catch (CreateException ex) {
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      } catch (CheckException ex) {
+                          ex.printStackTrace();
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      } catch (UpdateException ex) {
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      } catch (FinderException ex) {
+                          url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                      }
+                      bCustomer.setAddressShip(bAddress.getAddressShip());
+                      
+                  }
+                  if(request.getParameter("selectAddressShip") != null){
+                      
+                      
+                      
+                  }
+               }
+                 
+             }
+             if (request.getParameter("VerifCreditCardOrder") != null) {
+                  url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
+                 
+             }
+             
+             
+            
+            
+            
 
         }
 
@@ -410,7 +510,7 @@ public class controller extends HttpServlet {
                     request.getSession().setAttribute("Welcome", welcome);
                     Cookie cc = new Cookie("ok", welcome);
                     response.addCookie(cc);
-                    
+
                     if ("true".equals(request.getAttribute("passOrder"))) {
                         request.setAttribute("passOrder", "true");
                     }
@@ -555,7 +655,7 @@ public class controller extends HttpServlet {
                     bLogin = new beanLogin();
                     application.setAttribute("beanLogin", bLogin);
                 }
-                if ("true".equals(request.getAttribute("passOrder")) ) {
+                if ("true".equals(request.getAttribute("passOrder"))) {
                     request.setAttribute("passOrder", "true");
                 }
 
@@ -563,18 +663,19 @@ public class controller extends HttpServlet {
                         request.getParameter("password"))) {
                     url = "/WEB-INF/jspWelcome.jsp";
                     String welcome = request.getParameter("login");
-
-                    request.setAttribute("Welcome", welcome);
-                    ////ajouter session aussi
-                    session.setAttribute("Welcome", welcome);
-                    Cookie cc = new Cookie("ok", welcome);
-                    response.addCookie(cc);
-
+                    Cookie cc;
                     beanCustomer bCustomer
                             = (beanCustomer) session.getAttribute("bCustomer");
+                    
                     if (bCustomer == null) {
                         try {
                             bCustomer = new beanCustomer(request.getParameter("login"));
+                            request.setAttribute("Welcome", welcome);
+                            ////ajouter session aussi
+                            session.setAttribute("Welcome", welcome);
+                            cc = new Cookie("ok", welcome);
+                            response.addCookie(cc);
+                            session.setAttribute("bCustomer", bCustomer);
                         } catch (ObjectNotFoundException ex) {
                             url = "/WEB-INF/jspFatalError.jsp";
                             request.setAttribute("fatalError", ex.getMessage());
@@ -585,7 +686,7 @@ public class controller extends HttpServlet {
                             url = "/WEB-INF/jspFatalError.jsp";
                             request.setAttribute("fatalError", ex.getMessage());
                         }
-                        session.setAttribute("bCustomer", bCustomer);
+                        
                     }
 
                     cc = new Cookie("try", "");

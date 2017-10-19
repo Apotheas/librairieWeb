@@ -136,7 +136,7 @@
                                              </a> 
                                         </td>
                                     <td>
-                                         <a href="controller?section=order&checkOut=true">
+                                         <a href="controller?section=order&AddAddressesOrder=true">
                                         <button type="button" class="btn btn-success">
                                             Checkout <span class="glyphicon glyphicon-play"></span>
                                         </button>

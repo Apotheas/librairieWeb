@@ -15,6 +15,7 @@ import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.service.customers.AdressService;
 import com.cdi.g3.server.service.orders.OrderService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,8 @@ public class beanCustomer implements Serializable {
     private CustomerService customerService ;
     private AdressService adressService;
     private Customer customer; 
+    private Collection addressShipList;
+    private Collection addressBillList;
     private Address addressBill;
     private Address addressShip;
     private beanAddress bAddress;
@@ -42,6 +45,8 @@ public class beanCustomer implements Serializable {
     public beanCustomer() {
         customer = new Customer();
         bAddress= new  beanAddress();
+        addressShipList = new ArrayList();
+        addressBillList= new ArrayList();
         addressBill = new  Address();
         addressShip = new  Address();
         customerService = new CustomerService();
@@ -53,8 +58,10 @@ public class beanCustomer implements Serializable {
     public beanCustomer(String login) throws ObjectNotFoundException, CheckException, FinderException {
         this();
         this.customer = customerService.findCustomer(login);
-        this.addressBill = adressService.findAdressBilling(this.customer.getLoginCustomer());
-        this.addressShip = adressService.findAdressBilling(this.customer.getLoginCustomer());
+        this.addressBillList = adressService.findAllAdressBilling(this.customer.getLoginCustomer());
+        this.addressShipList = adressService.findAllAdressShipping(this.customer.getLoginCustomer());
+        this.addressBill =(Address) ((ArrayList) addressBillList).get(0);
+        this.addressShip = (Address) ((ArrayList) addressShipList).get(0);
         this.orderList = orderService.findOrdersByCustomer("LOGINCUSTOMER", this.customer.getLoginCustomer());
     }
     
@@ -106,6 +113,24 @@ public class beanCustomer implements Serializable {
     public Address getAddressBill() {
         return addressBill;
     }
+
+    public Collection getAddressShipList() {
+        return addressShipList;
+    }
+
+    public void setAddressShipList(Collection addressShipList) {
+        this.addressShipList = addressShipList;
+    }
+
+    public Collection getAddressBillList() {
+        return addressBillList;
+    }
+
+    public void setAddressBillList(Collection addressBillList) {
+        this.addressBillList = addressBillList;
+    }
+    
+    
 
     public void setAddressBill(Address addressBill) {
         this.addressBill = addressBill;
