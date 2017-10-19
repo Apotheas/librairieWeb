@@ -224,8 +224,6 @@ public final class Address extends DomainObject implements Serializable {
 
     @Override
     public String toString() {
-        return this.idAdress + " "
-                + nameReceiverAdress ;
-
+        return this.numAdress + " " + this.nameStreetAdress + " " + this.zipcodeAdress  + " " + this.cityAdress  ;
     }
 }

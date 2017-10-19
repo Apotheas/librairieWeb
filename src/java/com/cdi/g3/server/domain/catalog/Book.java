@@ -6,15 +6,19 @@
 package com.cdi.g3.server.domain.catalog;
 
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.customers.Appreciation;
 import com.cdi.g3.server.domain.other.CodeTVA;
+import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.customers.AppreciationService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Book extends DomainObject implements Serializable {
 
@@ -44,11 +48,25 @@ public class Book extends DomainObject implements Serializable {
     
     
     private AppreciationService appreciationService = new AppreciationService();
+    private CatalogService catalogService = new CatalogService();
     
     //CONSTRUCTORS
     public Book() {}
     public Book(final String id) {
         numISBNBook = id;
+        Book book;
+        try {
+            book = catalogService.findBook(id);
+            pathIconBook = book.pathIconBook;
+            titleBook = book.titleBook;
+            
+        } catch (FinderException ex) {
+            Logger.getLogger(Book.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckException ex) {
+            Logger.getLogger(Book.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
     }    
     public Book(final String id,final Editor editor,final CodeTVA codeTVA, final String title, final float unitCost, final int stock) {
         numISBNBook = id;

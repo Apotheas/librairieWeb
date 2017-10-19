@@ -2,15 +2,23 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-   
+    
      <jsp:useBean id="bPanier" class="com.cdi.g3.web.beans.beanPanier" scope="session" />
-    <a class="navbar-brand" href="controller?home=true">Home<img border="0" src="images/logo.gif"/></a>
-     <div class="form-group">
-    <form class="form-inline" action="controller?section=searchitems">
+     <div class="col-sm-3">
+         <a class="navbar-brand" href="controller?home=true"><img width="90%" src="images/LogoHome.png"/></a>
+     </div>
+    <form  action="controller?section=searchitems">
+        
         <input type="text" name="keyword">
-        <input type="submit" action="controller?section=searchitems" value="Rechercher">
+       
+        
+         <input type="submit" action="controller?section=searchitems" value="Rechercher">
+         
+          
     </form>
-          </div>
+    
+   
+    
     <c:if test="${empty sessionScope.Welcome}">
         <c:out   value="${sessionScope.Welcome}"/>    
         <div  class="collapse navbar-collapse" id="navbarResponsive">
@@ -45,7 +53,7 @@
                     </li>
                     
                      <li class="nav-item">
-                        <a class="nav-link"  href="controller?section=panier&affichePanier"> <img  src="images/cartTop.png" > <span class="badge">  ${sessionScope.size}</span>  Mon Panier</a>
+                        <a class="nav-link"  href="controller?section=panier&affichePanier"> <img  src="images/cartTop.png" ><span class="badge">  ${sessionScope.size}</span>  Mon Panier</a>
                     </li>
                 </ul>
             </div>

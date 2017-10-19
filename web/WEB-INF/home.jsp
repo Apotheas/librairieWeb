@@ -14,6 +14,7 @@
         <!-- Bootstrap core CSS -->     
 
         <link href="css/vendor/bootstrap/css/bootstrap.css"  rel="stylesheet" /> 
+        
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         
@@ -25,12 +26,12 @@
 
 
     <body>
- 
+       
         <!-- Navigation -->
         <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top" id="relou" >
             <jsp:include page="common/header.jsp"/>
         </nav>
-
+ <div class="py-1"></div>
         <!-- Page Content -->
        
 <div class="container">
@@ -52,13 +53,17 @@
                             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                         </ol>
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
-                                <img class="d-block img-fluid" src="images/youssef.jpg"  alt="First slide">
+                                <img class="d-block img-fluid" src="images/youss.png"  alt="First slide">
                             </div>
                             <div class="carousel-item">
                                 <img class="d-block img-fluid" src="images/jo.png"alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block img-fluid" src="images/foued.png"  alt="Third slide">
                             </div>
                             <div class="carousel-item">
                                 <img class="d-block img-fluid" src="images/izet.jpg"  alt="Third slide">
@@ -136,8 +141,9 @@
 
                 </div>
                 <!-- /.col-lg-9 -->
-
-                <div class="col-sm-9"  id="pagination">
+                 <div class="col-sm-9"></div>
+                 
+                <div class="col-sm-3"  id="pagination">
 
                     <ul class="pagination" >
 
@@ -177,7 +183,7 @@
         <!-- /.container -->
 
         <!-- Footer -->
-        <footer class="py-5 bg-dark">
+        <footer class=" py-2 bg-dark">
             <jsp:include page="common/footer.jsp"/>
         </footer>
 
