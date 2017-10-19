@@ -76,21 +76,22 @@
             <!-- /.row -->
 
 
-
-
+ 
             <div class="row">
 
                 <div class="col-lg-6">                        
                     <br> <br>                        
                     <strong>Adresse de Livraison</strong>
 
-                    <form name="shipping" action='controller?section=order&AddAddressesOrder' method="POST">
+                    <form name="AddressShipping"  action="controller?section=order&AddAddressesOrder" onchange="this.form.submit()" method="GET">
                         <label for="addressShip">Selectionner une adresse de livraison </label>
-                        <select name="addressShip">
+                        
+                        <select name="addressShip1">
                             <c:forEach var="addressShip" items="${sessionScope.bCustomer.addressShipList}">
-                                <option>${addressShip.idAdress}</option>
+                                <option value="${addressShip.idAdress}">${addressShip.idAdress}</option>
                             </c:forEach>
                         </select>
+                       
                         <input type="submit" value="Ok" name="selectAddressShip" />
                     </form>
 
@@ -99,7 +100,12 @@
                         <fieldset>
                             <legend>Adresse de Livraison</legend>
                             <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressShip.id}"/>" />
-                           
+                            
+                            
+                            <input type="hidden" value="${addressShip.idAdress}" name="valeurId" />
+                            
+                            
+                            
                             
                             <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
                             <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameReceiverAdress}"/>" size="20" maxlength="60" />
@@ -160,69 +166,73 @@
                 <div  class="col-lg-6">
                     <br> <br>
                     <strong>Adresse de Facturation</strong>
-                    <form name="shipping" action='controller?section=order&AddAddressesOrder' method="POST">
+                    
+                    <form name="shipping" action='controller?section=order&AddAddressesOrder' onchange="this.form.submit()" method="GET">
                         <label for="addressBill">Utiliser même adresse pour la factiration </label>
                         <input type="checkbox" name="memeAddress" value="ON"  />
                         <label for="addressBill">Ou Selectionner une autre adresse </label>
+                        
                         <select name="addressBill">
                             <c:forEach var="addressBill" items="${sessionScope.bCustomer.addressBillList}">
-                                <option>${addressBill.idAdress}</option>
+                                <option value="${addressBill.idAdress}">${addressBill.idAdress}</option>
                             </c:forEach>
                         </select>
-                        <input type="submit" value="Ok" name="selectAddressBill" />
+                      <input type="submit" value="Ok" name="selectAddressBill" />
                     </form> 
+                    
+                    
                     <br> <br>
-                    <form action='controller?section=order&AddAddressesOrder' method='post'>            
+                    <form action='controller?section=order&AddAddressesOrder'  method='post'>            
                         <fieldset>
                             <legend>Adresse de Facturation</legend>
-                            <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressShip.id}"/>" />
+                            <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressBill.id}"/>" />
                            
 
                             <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
-                            <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameReceiverAdress}"/>" size="20" maxlength="60" />
+                            <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressBill.nameReceiverAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['nameReceiverAdress']}</span>
                             <br />
 
                             <label for="nameCompanyReceiverAdress">Nom de la société :</label>
-                            <input type="nameCompanyReceiverAdress" id="nameCompanyReceiverAdress" name="nameCompanyReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameCompanyReceiverAdress.nameCompany}"/>" size="20" maxlength="60" />
+                            <input type="nameCompanyReceiverAdress" id="nameCompanyReceiverAdress" name="nameCompanyReceiverAdress" value="<c:out value="${bCustomer.addressBill.nameCompanyReceiverAdress.nameCompany}"/>" size="20" maxlength="60" />
                             <br />
 
 
                             <label for="typeStreetAdress"> Type Adresse :</label>
-                            <input type="typeStreetAdress" id="typeStreetAdress" name="typeStreetAdress" value="<c:out value="${bCustomer.addressShip.typeStreetAdress}"/>" size="20" maxlength="60" />
+                            <input type="typeStreetAdress" id="typeStreetAdress" name="typeStreetAdress" value="<c:out value="${bCustomer.addressBill.typeStreetAdress}"/>" size="20" maxlength="60" />
 
                             <br />
 
                             <label for="numAdress">N°  :<span class="requis">*</span></label>
-                            <input type="numAdress" id="numAdress" name="numAdress" value="<c:out value="${bCustomer.addressShip.numAdress}"/>" size="20" maxlength="60" />
+                            <input type="numAdress" id="numAdress" name="numAdress" value="<c:out value="${bCustomer.addressBill.numAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['numAdress']}</span>
                             <br />
 
 
 
                             <label for="nameStreetAdress">Adresse  :<span class="requis">*</span></label>
-                            <input type="nameStreetAdress" id="nameStreetAdress" name="nameStreetAdress" value="<c:out value="${bCustomer.addressShip.nameStreetAdress}"/>" size="20" maxlength="60" />
+                            <input type="nameStreetAdress" id="nameStreetAdress" name="nameStreetAdress" value="<c:out value="${bCustomer.addressBill.nameStreetAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['nameStreetAdress']}</span>
                             <br />
 
                             <label for="nameStreetAdress"> Complément :</label>
-                            <input type="nameStreet2Adress" id="nameStreet2Adress" name="nameStreet2Adress" value="<c:out value="${bCustomer.addressShip.nameStreet2Adress}"/>" size="20" maxlength="60" />
+                            <input type="nameStreet2Adress" id="nameStreet2Adress" name="nameStreet2Adress" value="<c:out value="${bCustomer.addressBill.nameStreet2Adress}"/>" size="20" maxlength="60" />
 
                             <br />
 
                             <label for="zipcodeAdress">Code postale  :<span class="requis">*</span></label>
-                            <input type="zipcodeAdress" id="zipcodeAdress" name="zipcodeAdress" value="<c:out value="${bCustomer.addressShip.zipcodeAdress}"/>" size="20" maxlength="60" />
+                            <input type="zipcodeAdress" id="zipcodeAdress" name="zipcodeAdress" value="<c:out value="${bCustomer.addressBill.zipcodeAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['zipcodeAdress']}</span>
                             <br />
 
 
                             <label for="cityAdress">Ville  :<span class="requis">*</span></label>
-                            <input type="cityAdress" id="cityAdress" name="cityAdress" value="<c:out value="${bCustomer.addressShip.cityAdress}"/>" size="20" maxlength="60" />
+                            <input type="cityAdress" id="cityAdress" name="cityAdress" value="<c:out value="${bCustomer.addressBill.cityAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['cityAdress']}</span>
                             <br />
 
                             <label for="countryAdress">Pays  :<span class="requis">*</span></label>
-                            <input type="countryAdress" id="countryAdress" name="countryAdress" value="<c:out value="${bCustomer.addressShip.countryAdress}"/>" size="20" maxlength="60" />
+                            <input type="countryAdress" id="countryAdress" name="countryAdress" value="<c:out value="${bCustomer.addressBill.countryAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['countryAdress']}</span>
                             <br /><br />
                             <input type="submit" value="Modifier Adresse de Facturation" name="updateAddressBill" />

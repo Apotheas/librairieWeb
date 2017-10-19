@@ -7,6 +7,7 @@ package com.cdi.g3.web.utiles;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.service.catalog.CatalogService;
@@ -70,7 +71,10 @@ public class Item  implements Serializable{
     }
 
     public float getTotalLine() {
+        
+         totalLine = Utility.formatFloatToFloatPrecision (totalLine,2);  
         return totalLine;
+        
     }
 
     public void setTotalLine(float totalLine) {

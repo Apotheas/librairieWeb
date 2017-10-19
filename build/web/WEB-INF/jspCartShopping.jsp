@@ -42,8 +42,9 @@
 
             <div class="row">
                 <h2>Table</h2>
-                <p>The cart shopping:</p>                        
-
+                <br><br>
+                <p>Le Panier:</p>                        
+                <br><br>
                 <c:if test="${panierVide}">
                     Panier vide.    
                 </c:if>
@@ -54,10 +55,10 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Quantity</th>
-                                    <th class="text-center">Price</th>
-                                    <th class="text-center">Total</th>
+                                    <th>Produit</th>
+                                    <th>Quantité</th>
+                                    <th class="text-center">Prix</th>
+                                    <th class="text-center">Total ligne</th>
                                     <th> </th>
                                 </tr>
                             </thead>
@@ -76,20 +77,20 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                                        <td class="col-sm-2 col-md-1" style="text-align: center">
                                             <a href="controller?section=panier&affichePanier=true&add=${i.ref}">+</a>  
                                             <input type="email" class="form-control" id="exampleInputEmail1" value="${i.quantity}">
                                             <a href="controller?section=panier&affichePanier=true&dec=${i.ref}">-</a>
 
                                         </td>
-                                        <td class="col-sm-1 col-md-1 text-center"><strong>€ ${i.book.unitCostBook}</strong></td>
+                                        <td class="col-sm-2 col-md-1 text-center"><strong>${i.book.unitCostBook}€</strong></td>
                                         
-                                        <td class="col-sm-1 col-md-1 text-center"><strong>€ ${i.totalLine}</strong></td>
+                                        <td class="col-sm-2 col-md-1 text-center"><strong>${i.totalLine}€</strong></td>
 
-                                        <td class="col-sm-1 col-md-1">
+                                        <td class="col-sm-2 col-md-1">
                                             <a href="controller?section=panier&affichePanier=true&del=${i.ref}">
                                                 <button type="button" class="btn btn-danger">                            
-                                                    <span class="glyphicon glyphicon-remove"></span>  Remove
+                                                    <span class="glyphicon glyphicon-remove"></span>  Supprimer
                                                 </button>
                                             </a>
                                         </td>
@@ -101,8 +102,8 @@
                                     <td></td>
                                     <td></td>
                                     
-                                    <td><h5>Subtotal</h5></td>
-                                    <td class="text-right"><h5><strong>€ ${subTotalHT}</strong></h5></td>
+                                    <td><h5>Total HT</h5></td>
+                                    <td class="text-right"><h5><strong>${subTotalHT}€</strong></h5></td>
                                 </tr>
                                 <tr>
                                     
@@ -110,8 +111,8 @@
                                     <td></td>
                                     <td></td>
                                    
-                                    <td><h5>Estimated shipping</h5></td>
-                                    <td class="text-right"><h5><strong>€6.94</strong></h5></td>
+                                    <td><h5>Frais de Port</h5></td>
+                                    <td class="text-right"><h5><strong>${fraisPort}€</strong></h5></td>
                                 </tr>
                                 <tr>
                                     
@@ -120,7 +121,7 @@
                                     <td></td>
                                     
                                     <td><h3>Total</h3></td>
-                                    <td class="text-right"><h3><strong>$31.53</strong></h3></td>
+                                    <td class="text-right"><h3><strong>${TotalHTAvecFraisPort}€</strong></h3></td>
                                 </tr>
                                 
                                 <tr>
@@ -131,14 +132,14 @@
                                     <td>
                                         <a href="controller">
                                         <button type="button" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                                            <span class="glyphicon glyphicon-shopping-cart"></span> Continuer vos achats
                                         </button>
                                              </a> 
                                         </td>
                                     <td>
                                          <a href="controller?section=order&AddAddressesOrder=true">
                                         <button type="button" class="btn btn-success">
-                                            Checkout <span class="glyphicon glyphicon-play"></span>
+                                            Valider <span class="glyphicon glyphicon-play"></span>
                                         </button>
                                              </a> 
                                          </td>

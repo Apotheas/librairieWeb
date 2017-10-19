@@ -128,7 +128,7 @@
                                 <div class="control-group">
 
                                     <div class="controls">                                        
-                                        <a href="controller?section=order&jspCheckOut=true"  >
+                                        <a href="controller?section=order&checkOut=true"  >
                                         <button type="submit"class="btn btn-success">Pay Now</button>
                                        </a>
                                     </div>

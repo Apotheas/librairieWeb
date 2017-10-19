@@ -10,6 +10,7 @@ import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.UpdateException;
+import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.company.Company;
 import com.cdi.g3.server.domain.customers.Address;
@@ -23,6 +24,7 @@ import com.cdi.g3.web.beans.beanPagination;
 import com.cdi.g3.web.beans.beanPanier;
 import com.cdi.g3.web.beans.beanTheme;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -285,7 +287,13 @@ public class controller extends HttpServlet {
                     request.setAttribute("fatalError", ex.getMessage());
                 }
                 session.setAttribute("size", bPanier.getSize());
-                request.setAttribute("subTotalHT", bPanier.getTotalHT());
+                session.setAttribute("subTotalHT", bPanier.getTotalHT());
+                session.setAttribute("fraisPort", bPanier.getFraisPort());
+                float TotalHTAvecFraisPort = bPanier.getTotalHT()+ bPanier.getFraisPort();
+                TotalHTAvecFraisPort = Utility.formatFloatToFloatPrecision (TotalHTAvecFraisPort,2);   
+                session.setAttribute("TotalHTAvecFraisPort",TotalHTAvecFraisPort );
+                
+               
 
             }
             if (request.getParameter("dec") != null) {
@@ -328,16 +336,52 @@ public class controller extends HttpServlet {
 
         /*==========================================================================================================/
          |
+         |    selectionner adresses
+         |
+         /*===========================================================================================================*/
+        beanCustomer bCustomer = (beanCustomer) session.getAttribute("bCustomer");
+
+        if (bCustomer != null) {
+            if (request.getParameter("selectAddressShip") != null) {
+                url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                String idAddress = request.getParameter("addressShip1");
+                for (Address address : (ArrayList<Address>) bCustomer.getAddressShipList()) {
+                    if (address.getId().equals(idAddress)) {
+                        bCustomer.setAddressShip(address);
+                        
+                    }
+                }
+
+            }
+            
+            if(request.getParameter("selectAddressBill") != null){
+                url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                      String idAddress = request.getParameter("addressBill");
+                      for( Address address : (ArrayList<Address>) bCustomer.getAddressBillList()){
+                          if(address.getId().equals(idAddress)){
+                              bCustomer.setAddressBill(address);
+                          
+                          }
+                      }
+                      
+                      
+                  }
+            
+            
+        }
+
+        /*==========================================================================================================/
+         |
          |    Section Order
          |
          /*===========================================================================================================*/
         if ("order".equals(request.getParameter("section"))) {
             String login = (String) session.getAttribute("Welcome");
-            beanCustomer bCustomer = (beanCustomer) session.getAttribute("bCustomer");
+           bCustomer = (beanCustomer) session.getAttribute("bCustomer");
             if (request.getParameter("checkOut") != null) {
                 url = "/WEB-INF/jspCheckOut.jsp";
                 beanPanier bPanier = (beanPanier) session.getAttribute("panier");
-                
+
                 if (login == null) {
                     request.setAttribute("passOrder", "true");
                     url = "/WEB-INF/jspFormLogin.jsp";
@@ -361,102 +405,95 @@ public class controller extends HttpServlet {
 
                 }
             }
-             if (request.getParameter("AddAddressesOrder") != null) {
-                  url = "/WEB-INF/jspAddAddressesOrder.jsp";
-                  
-               if (login == null) {
+            if (request.getParameter("AddAddressesOrder") != null) {
+                url = "/WEB-INF/jspAddAddressesOrder.jsp";
+
+                if (login == null) {
                     request.setAttribute("passOrder", "true");
                     url = "/WEB-INF/jspFormLogin.jsp";
 
-                } else {   
-                  
-                  
-                  if(request.getParameter("updateAddressBill") != null){
-                      beanAddress bAddress = new beanAddress() ;
-                      bAddress.getAddressBill().setId(request.getParameter("idAddress"));
-                      bAddress.getAddressBill().setNameReceiverAdress(request.getParameter("nameReceiverAdress"));
-                      if (request.getParameter("nameCompanyReceiverAdress") != null)
-                      bAddress.getAddressBill().setNameCompanyReceiverAdress(new Company(request.getParameter("nameCompanyReceiverAdress")));
-                      bAddress.getAddressBill().setTypeStreetAdress(request.getParameter("typeStreetAdress"));
-                      bAddress.getAddressBill().setNumAdress(request.getParameter("numAdress"));
-                      bAddress.getAddressBill().setNameStreetAdress(request.getParameter("nameStreetAdress"));
-                      bAddress.getAddressBill().setNameStreet2Adress(request.getParameter("nameStreet2Adress"));
-                      bAddress.getAddressBill().setZipcodeAdress(request.getParameter("zipcodeAdress"));
-                      bAddress.getAddressBill().setCityAdress(request.getParameter("cityAdress"));
-                      bAddress.getAddressBill().setCountryAdress(request.getParameter("countryAdress"));
-                      bAddress.getAddressBill().setCustomerBillAdress(bCustomer.getCustomer());
-                      try {
-                           bAddress.updateAddressBill(bCustomer.getCustomer().getLoginCustomer());
-                      } catch (CreateException ex) {
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      } catch (CheckException ex) {
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      } catch (UpdateException ex) {
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      } catch (FinderException ex) {
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      }
-                      bCustomer.setAddressBill(bAddress.getAddressBill());
-                      
-                      
-                  }
-                  if(request.getParameter("selectAddressBill") != null){
-                      
-                  }
-                  if(request.getParameter("updateAddressShip") != null){
-                      beanAddress bAddress = bCustomer.getbAddress();
-                      bAddress.getAddressShip().setId(request.getParameter("idAddress"));
-                      bAddress.getAddressShip().setNameReceiverAdress(request.getParameter("nameReceiverAdress"));
-                      if (request.getParameter("nameCompanyReceiverAdress") != null)
-                      bAddress.getAddressShip().setNameCompanyReceiverAdress(new Company(request.getParameter("nameCompanyReceiverAdress")));
-                      bAddress.getAddressShip().setTypeStreetAdress(request.getParameter("typeStreetAdress"));
-                      bAddress.getAddressShip().setNumAdress(request.getParameter("numAdress"));
-                      bAddress.getAddressShip().setNameStreetAdress(request.getParameter("nameStreetAdress"));
-                      bAddress.getAddressShip().setNameStreet2Adress(request.getParameter("nameStreet2Adress"));
-                      bAddress.getAddressShip().setZipcodeAdress(request.getParameter("zipcodeAdress"));
-                      bAddress.getAddressShip().setCityAdress(request.getParameter("cityAdress"));
-                      bAddress.getAddressShip().setCountryAdress(request.getParameter("countryAdress"));
-                      bAddress.getAddressShip().setCustomerBillAdress(bCustomer.getCustomer());
-                      try {                      
-                          bAddress.updateAddressShip(bCustomer.getCustomer().getLoginCustomer());
-                      } catch (CreateException ex) {
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      } catch (CheckException ex) {
-                          ex.printStackTrace();
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      } catch (UpdateException ex) {
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      } catch (FinderException ex) {
-                          url = "/WEB-INF/jspFatalError.jsp";
-                        request.setAttribute("fatalError", ex.getMessage());
-                      }
-                      bCustomer.setAddressShip(bAddress.getAddressShip());
-                      
-                  }
-                  if(request.getParameter("selectAddressShip") != null){
-                      
-                      
-                      
-                  }
-               }
-                 
-             }
-             if (request.getParameter("VerifCreditCardOrder") != null) {
-                  url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
-                 
-             }
-             
-             
-            
-            
-            
+                } else {
+
+                    if (request.getParameter("updateAddressBill") != null) {
+                        beanAddress bAddress = new beanAddress();
+                        bAddress.getAddressBill().setId(request.getParameter("idAddress"));
+                        bAddress.getAddressBill().setNameReceiverAdress(request.getParameter("nameReceiverAdress"));
+                        if (request.getParameter("nameCompanyReceiverAdress") != null) {
+                            bAddress.getAddressBill().setNameCompanyReceiverAdress(new Company(request.getParameter("nameCompanyReceiverAdress")));
+                        }
+                        bAddress.getAddressBill().setTypeStreetAdress(request.getParameter("typeStreetAdress"));
+                        bAddress.getAddressBill().setNumAdress(request.getParameter("numAdress"));
+                        bAddress.getAddressBill().setNameStreetAdress(request.getParameter("nameStreetAdress"));
+                        bAddress.getAddressBill().setNameStreet2Adress(request.getParameter("nameStreet2Adress"));
+                        bAddress.getAddressBill().setZipcodeAdress(request.getParameter("zipcodeAdress"));
+                        bAddress.getAddressBill().setCityAdress(request.getParameter("cityAdress"));
+                        bAddress.getAddressBill().setCountryAdress(request.getParameter("countryAdress"));
+                        bAddress.getAddressBill().setCustomerBillAdress(bCustomer.getCustomer());
+                        try {
+                            bAddress.updateAddressBill(bCustomer.getCustomer().getLoginCustomer());
+                        } catch (CreateException ex) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        } catch (CheckException ex) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        } catch (UpdateException ex) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        } catch (FinderException ex) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        }
+                        bCustomer.setAddressBill(bAddress.getAddressBill());
+
+                    }
+                    if (request.getParameter("selectAddressBill") != null) {
+
+                    }
+                    if (request.getParameter("updateAddressShip") != null) {
+                        beanAddress bAddress = bCustomer.getbAddress();
+                        bAddress.getAddressShip().setId(request.getParameter("idAddress"));
+                        bAddress.getAddressShip().setNameReceiverAdress(request.getParameter("nameReceiverAdress"));
+                        if (request.getParameter("nameCompanyReceiverAdress") != null) {
+                            bAddress.getAddressShip().setNameCompanyReceiverAdress(new Company(request.getParameter("nameCompanyReceiverAdress")));
+                        }
+                        bAddress.getAddressShip().setTypeStreetAdress(request.getParameter("typeStreetAdress"));
+                        bAddress.getAddressShip().setNumAdress(request.getParameter("numAdress"));
+                        bAddress.getAddressShip().setNameStreetAdress(request.getParameter("nameStreetAdress"));
+                        bAddress.getAddressShip().setNameStreet2Adress(request.getParameter("nameStreet2Adress"));
+                        bAddress.getAddressShip().setZipcodeAdress(request.getParameter("zipcodeAdress"));
+                        bAddress.getAddressShip().setCityAdress(request.getParameter("cityAdress"));
+                        bAddress.getAddressShip().setCountryAdress(request.getParameter("countryAdress"));
+                        bAddress.getAddressShip().setCustomerBillAdress(bCustomer.getCustomer());
+                        try {
+                            bAddress.updateAddressShip(bCustomer.getCustomer().getLoginCustomer());
+                        } catch (CreateException ex) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        } catch (CheckException ex) {
+                            ex.printStackTrace();
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        } catch (UpdateException ex) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        } catch (FinderException ex) {
+                            url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                        }
+                        bCustomer.setAddressShip(bAddress.getAddressShip());
+
+                    }
+                    if (request.getParameter("selectAddressShip") != null) {
+
+                    }
+                }
+
+            }
+            if (request.getParameter("VerifCreditCardOrder") != null) {
+                url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
+
+            }
 
         }
 
@@ -469,7 +506,7 @@ public class controller extends HttpServlet {
             if (request.getParameter("afficheCustomer") != null) {
                 url = "/WEB-INF/jspCustomer.jsp";
 
-                beanCustomer bCustomer
+                bCustomer
                         = (beanCustomer) session.getAttribute("bCustomer");
 //                if (bCustomer == null) {
 //                    try {
@@ -495,7 +532,7 @@ public class controller extends HttpServlet {
 
             if (request.getParameter("doIt") != null) {
                 url = "/WEB-INF/jspRegister.jsp";
-                beanCustomer bCustomer = new beanCustomer();
+                bCustomer = new beanCustomer();
                 bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
                 bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
                 bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
@@ -528,7 +565,7 @@ public class controller extends HttpServlet {
             if (request.getParameter("updateProfil") != null) {
                 if (request.getParameter("doIt") != null) {
                     url = "/WEB-INF/jspRegister.jsp";
-                    beanCustomer bCustomer = (beanCustomer) session.getAttribute("bCustomer");
+                    bCustomer = (beanCustomer) session.getAttribute("bCustomer");
                     bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
                     bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
                     bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
@@ -560,104 +597,100 @@ public class controller extends HttpServlet {
          |
          /*===========================================================================================================*/
 
-         if (request.getParameter("keyword") != null) {
-            
+        if (request.getParameter("keyword") != null) {
+
             String nameKeyWord = request.getParameter("keyword");
-           
 
             try {
                 bCatalog = new beanCatalog();
 
-                if(bCatalog.getBooksbyKeyWord(nameKeyWord)!=null){
-                
-                Collection bookKeyList = bCatalog.getBooksbyKeyWord(nameKeyWord);
-                application.setAttribute("catalog", bCatalog);
-               
-                int page = 1;
-                String pageNumberValue = request.getParameter("pageHome");
-                if (pageNumberValue != null) {
-                    try {
-                        page = Integer.parseInt(pageNumberValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+                if (bCatalog.getBooksbyKeyWord(nameKeyWord) != null) {
+
+                    Collection bookKeyList = bCatalog.getBooksbyKeyWord(nameKeyWord);
+                    application.setAttribute("catalog", bCatalog);
+
+                    int page = 1;
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                bPagination = (beanPagination) application.getAttribute("pagination");
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
-                
-                 if(bCatalog.getBooksbyAuthor(nameKeyWord)!=null){
-                
-                Collection bookKeyList = bCatalog.getBooksbyAuthor(nameKeyWord);
-                application.setAttribute("catalog", bCatalog);
-               
-                int page = 1;
-                String pageNumberValue = request.getParameter("pageHome");
-                if (pageNumberValue != null) {
-                    try {
-                        page = Integer.parseInt(pageNumberValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+
+                if (bCatalog.getBooksbyAuthor(nameKeyWord) != null) {
+
+                    Collection bookKeyList = bCatalog.getBooksbyAuthor(nameKeyWord);
+                    application.setAttribute("catalog", bCatalog);
+
+                    int page = 1;
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                bPagination = (beanPagination) application.getAttribute("pagination");
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
-                 
-                   if(bCatalog.getBooksbyTitle(nameKeyWord)!=null){
-                
-                Collection bookKeyList = bCatalog.getBooksbyTitle(nameKeyWord);
-                application.setAttribute("catalog", bCatalog);
-               
-                int page = 1;
-                String pageNumberValue = request.getParameter("pageHome");
-                if (pageNumberValue != null) {
-                    try {
-                        page = Integer.parseInt(pageNumberValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+
+                if (bCatalog.getBooksbyTitle(nameKeyWord) != null) {
+
+                    Collection bookKeyList = bCatalog.getBooksbyTitle(nameKeyWord);
+                    application.setAttribute("catalog", bCatalog);
+
+                    int page = 1;
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                bPagination = (beanPagination) application.getAttribute("pagination");
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
-                 
-                   if(bCatalog.getBooksbyEditor(nameKeyWord)!=null){
-                
-                Collection bookKeyList = bCatalog.getBooksbyEditor(nameKeyWord);
-                application.setAttribute("catalog", bCatalog);
-               
-                int page = 1;
-                String pageNumberValue = request.getParameter("pageHome");
-                if (pageNumberValue != null) {
-                    try {
-                        page = Integer.parseInt(pageNumberValue);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+
+                if (bCatalog.getBooksbyEditor(nameKeyWord) != null) {
+
+                    Collection bookKeyList = bCatalog.getBooksbyEditor(nameKeyWord);
+                    application.setAttribute("catalog", bCatalog);
+
+                    int page = 1;
+                    String pageNumberValue = request.getParameter("pageHome");
+                    if (pageNumberValue != null) {
+                        try {
+                            page = Integer.parseInt(pageNumberValue);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    bPagination = (beanPagination) application.getAttribute("pagination");
+                    bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+                    request.setAttribute("pages", bPagination.getPages(bookKeyList));
+                    request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
+                    request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));
                 }
-                bPagination = (beanPagination) application.getAttribute("pagination");
-                bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
-                request.setAttribute("pages", bPagination.getPages(bookKeyList));
-                request.setAttribute("noOfPages", bPagination.getNoOfPages(bookKeyList));
-                request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(bookKeyList));}
             } catch (ObjectNotFoundException ex) {
                 System.out.println("Error loading book of keyword");
             }
         }
-        
-        
-        
-        
-        
-        
-        
 
         /*==========================================================================================================/
          |
@@ -686,9 +719,9 @@ public class controller extends HttpServlet {
                     url = "/WEB-INF/jspWelcome.jsp";
                     String welcome = request.getParameter("login");
                     Cookie cc;
-                    beanCustomer bCustomer
+                    bCustomer
                             = (beanCustomer) session.getAttribute("bCustomer");
-                    
+
                     if (bCustomer == null) {
                         try {
                             bCustomer = new beanCustomer(request.getParameter("login"));
@@ -708,7 +741,7 @@ public class controller extends HttpServlet {
                             url = "/WEB-INF/jspFatalError.jsp";
                             request.setAttribute("fatalError", ex.getMessage());
                         }
-                        
+
                     }
 
                     cc = new Cookie("try", "");
