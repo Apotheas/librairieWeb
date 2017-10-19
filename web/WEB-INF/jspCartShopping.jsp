@@ -48,9 +48,9 @@
                 <c:if test="${panierVide}">
                     Panier vide.    
                 </c:if>
-                    
+
                 <c:if test="${!panierVide}">
-                    
+
                     <div class="col-sm-12 col-md-10 col-md-offset-1">
                         <table class="table table-hover">
                             <thead>
@@ -84,7 +84,7 @@
 
                                         </td>
                                         <td class="col-sm-2 col-md-1 text-center"><strong>${i.book.unitCostBook}€</strong></td>
-                                        
+
                                         <td class="col-sm-2 col-md-1 text-center"><strong>${i.totalLine}€</strong></td>
 
                                         <td class="col-sm-2 col-md-1">
@@ -97,64 +97,89 @@
 
                                     </tr>
                                 </c:forEach>
+
+
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    
+
                                     <td><h5>Total HT</h5></td>
                                     <td class="text-right"><h5><strong>${subTotalHT}€</strong></h5></td>
-                                </tr>
-                                <tr>
-                                    
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                   
-                                    <td><h5>Frais de Port</h5></td>
-                                    <td class="text-right"><h5><strong>${fraisPort}€</strong></h5></td>
-                                </tr>
-                                <tr>
-                                    
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    
-                                    <td><h3>Total</h3></td>
-                                    <td class="text-right"><h3><strong>${TotalHTAvecFraisPort}€</strong></h3></td>
                                 </tr>
                                 
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    
+
+                                    <td><h5>TVA</h5></td>
+                                    <td class="text-right"><h5><strong>${tva}%</strong></h5></td>
+                                </tr>
+                                
+                                
+                                
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td><h5>Total TCC</h5></td>
+                                    <td class="text-right"><h5><strong>${subTotalTCC}€</strong></h5></td>
+                                </tr>
+                                
+                                
+
+                                <tr>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td><h5>Frais de Port</h5></td>
+                                    <td class="text-right"><h5><strong>${fraisPort}€</strong></h5></td>
+                                </tr>
+
+                                <tr>                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td><h3>Total TCC</h3></td>
+                                    <td class="text-right"><h3><strong>${TotalTCCAvecFraisPort}€</strong></h3></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
                                     <td>
                                         <a href="controller">
-                                        <button type="button" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-shopping-cart"></span> Continuer vos achats
-                                        </button>
-                                             </a> 
-                                        </td>
+                                            <button type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-shopping-cart"></span> Continuer vos achats
+                                            </button>
+                                        </a> 
+                                    </td>
                                     <td>
-                                         <a href="controller?section=order&AddAddressesOrder=true">
-                                        <button type="button" class="btn btn-success">
-                                            Valider <span class="glyphicon glyphicon-play"></span>
-                                        </button>
-                                             </a> 
-                                         </td>
+                                        <a href="controller?section=order&AddAddressesOrder=true">
+                                            <button type="button" class="btn btn-success">
+                                                Valider <span class="glyphicon glyphicon-play"></span>
+                                            </button>
+                                        </a> 
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                         <a href="controller?section=panier&clear">
-                                        <button type="button" class="btn btn-default">
-                                            <span class="glyphicon glyphicon-shopping-cart"></span> Vider le panier !
-                                        </button>
-                                        </a> 
-                        
+                            <button type="button" class="btn btn-default">
+                                <span class="glyphicon glyphicon-shopping-cart"></span> Vider le panier !
+                            </button>
+                        </a> 
+
                     </div>
 
-                                  
+
                 </c:if>                   
 
             </div>

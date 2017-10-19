@@ -26,9 +26,11 @@ import java.util.logging.Logger;
 public class beanPanier implements Serializable {
     private OrderService orderService = new OrderService();
     Map<String,Item>  map ;
+    float tva =5.5f;
     
     public beanPanier() {
         this.map = new HashMap(); 
+        
     }
     
     public void add(String ref, int quantity) throws FinderException, CheckException{ 
@@ -52,6 +54,16 @@ public class beanPanier implements Serializable {
     public void del(String ref){ 
         this.map.remove(ref);
     }
+
+    public float getTva() {
+        return tva;
+    }
+
+    public void setTva(float tva) {
+        this.tva = tva;
+    }
+    
+    
     
     public boolean isEmpty(){
         return this.map.isEmpty();

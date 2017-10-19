@@ -289,9 +289,11 @@ public class controller extends HttpServlet {
                 session.setAttribute("size", bPanier.getSize());
                 session.setAttribute("subTotalHT", bPanier.getTotalHT());
                 session.setAttribute("fraisPort", bPanier.getFraisPort());
-                float TotalHTAvecFraisPort = bPanier.getTotalHT()+ bPanier.getFraisPort();
-                TotalHTAvecFraisPort = Utility.formatFloatToFloatPrecision (TotalHTAvecFraisPort,2);   
-                session.setAttribute("TotalHTAvecFraisPort",TotalHTAvecFraisPort );
+                session.setAttribute("tva", bPanier.getTva());
+                session.setAttribute("subTotalTCC", bPanier.getTotalTTC());
+                float TotalTCCAvecFraisPort = bPanier.getTotalTTC()+ bPanier.getFraisPort();
+                TotalTCCAvecFraisPort = Utility.formatFloatToFloatPrecision (TotalTCCAvecFraisPort,2);   
+                session.setAttribute("TotalTCCAvecFraisPort",TotalTCCAvecFraisPort );
                 
                
 

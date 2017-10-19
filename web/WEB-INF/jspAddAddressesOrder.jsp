@@ -50,7 +50,7 @@
                         <input type="login" id="login" name="login" value="<c:out value="${bCustomer.customer.loginCustomer}"/>" size="20" maxlength="60" />
                         <span class="erreur">${bCustomer.erreurs['loginCustomer']}</span>
                         <br />
-                        
+
                         <label for="nom">Nom <span class="requis">*</span> </label>
                         <input type="text" id="nom" name="nom" value="<c:out value="${bCustomer.customer.lastNameCustomer}"/>" size="20" maxlength="20" />
                         <span class="erreur"><c:out value="${bCustomer.erreurs['lastNameCustomer']}"/></span>                            
@@ -76,7 +76,7 @@
             <!-- /.row -->
 
 
- 
+
             <div class="row">
 
                 <div class="col-lg-6">                        
@@ -85,13 +85,13 @@
 
                     <form name="AddressShipping"  action="controller?section=order&AddAddressesOrder" onchange="this.form.submit()" method="GET">
                         <label for="addressShip">Selectionner une adresse de livraison </label>
-                        
+
                         <select name="addressShip1">
                             <c:forEach var="addressShip" items="${sessionScope.bCustomer.addressShipList}">
                                 <option value="${addressShip.idAdress}">${addressShip.idAdress}</option>
                             </c:forEach>
                         </select>
-                       
+
                         <input type="submit" value="Ok" name="selectAddressShip" />
                     </form>
 
@@ -100,13 +100,13 @@
                         <fieldset>
                             <legend>Adresse de Livraison</legend>
                             <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressShip.id}"/>" />
-                            
-                            
+
+
                             <input type="hidden" value="${addressShip.idAdress}" name="valeurId" />
-                            
-                            
-                            
-                            
+
+
+
+
                             <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
                             <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameReceiverAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['nameReceiverAdress']}</span>
@@ -166,27 +166,26 @@
                 <div  class="col-lg-6">
                     <br> <br>
                     <strong>Adresse de Facturation</strong>
-                    
+
                     <form name="shipping" action='controller?section=order&AddAddressesOrder' onchange="this.form.submit()" method="GET">
-                        <label for="addressBill">Utiliser même adresse pour la factiration </label>
-                        <input type="checkbox" name="memeAddress" value="ON"  />
-                        <label for="addressBill">Ou Selectionner une autre adresse </label>
                         
+                        <label for="addressBill">Selectionner une autre adresse </label>
+
                         <select name="addressBill">
                             <c:forEach var="addressBill" items="${sessionScope.bCustomer.addressBillList}">
                                 <option value="${addressBill.idAdress}">${addressBill.idAdress}</option>
                             </c:forEach>
                         </select>
-                      <input type="submit" value="Ok" name="selectAddressBill" />
+                        <input type="submit" value="Ok" name="selectAddressBill" />
                     </form> 
-                    
-                    
+
+
                     <br> <br>
                     <form action='controller?section=order&AddAddressesOrder'  method='post'>            
                         <fieldset>
                             <legend>Adresse de Facturation</legend>
                             <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressBill.id}"/>" />
-                           
+
 
                             <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
                             <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressBill.nameReceiverAdress}"/>" size="20" maxlength="60" />
@@ -244,25 +243,34 @@
                     </form> 
 
                 </div>
-                <br> <br>
-                <a href="controller?section=order&VerifCreditCardOrder=true"  align="right" class="btn btn-primary">
 
-                    <span class="glyphicon glyphicon-home"></span> Suivant</a>
+
+                <br> <br>
+
+                <div class="modal-body">
+                    <a href="controller?section=order&VerifCreditCardOrder=true"  align="right" class="btn btn-primary">
+
+                        <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                            <i style="width: 50%"> Suivant</i>
+                        </button> 
+                    </a>
+                </div>
+
+
+
 
             </div>
+            <!-- /.container -->
 
-        </div>
-        <!-- /.container -->
+            <!-- Footer -->
+            <footer class="py-5 bg-dark">
+                <jsp:include page="common/footer.jsp"/>
+            </footer>
 
-        <!-- Footer -->
-        <footer class="py-5 bg-dark">
-            <jsp:include page="common/footer.jsp"/>
-        </footer>
-
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/popper/popper.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+            <!-- Bootstrap core JavaScript -->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/popper/popper.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     </body>
 

@@ -69,10 +69,19 @@
                                     <td><h5>Total HT</h5></td>
                                     <td class="text-right"><h5><strong>${sessionScope.subTotalHT}€</strong></h5></td>
                                 </tr>
+                                
+                                 <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td><h5>TVA</h5></td>
+                                    <td class="text-right"><h5><strong>${tva}%</strong></h5></td>
+                                </tr>
+                                
 
 
                                 <tr>
-
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -82,14 +91,13 @@
                                 </tr>
 
 
-                                <tr>
-
+                                <tr>                                    
                                     <td></td>
                                     <td></td>
                                     <td></td>
 
-                                    <td><h3>Total</h3></td>
-                                    <td class="text-right"><h3><strong>${TotalHTAvecFraisPort}€</strong></h3></td>
+                                    <td><h3>Total TCC</h3></td>
+                                    <td class="text-right"><h3><strong>${TotalTCCAvecFraisPort}€</strong></h3></td>
                                 </tr>
 
 
