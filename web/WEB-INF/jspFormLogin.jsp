@@ -50,7 +50,7 @@
                             <input type='text' id="login" name='login' value='${user}' size="20" maxlength="60" /><br>
                             <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
                             <input type='password' id="password" name='password' size="20" maxlength="20" /></br>
-                            <input type='submit' name='doIt' value='Connexion' /><br>                           
+                            <input type='submit' name='doIt' value='Connexion' class="btn btn-primary"/><br>                           
                         </fieldset>
                     </form> 
                     <font color="red">${msg}</font>
@@ -67,7 +67,7 @@
                     <p>Bonjour cher inconnu. On ne se connaît pas encore... aucun problème, faisons connaissance :)</p>
 
                     <a   href="controller?section=customer&addCustomer=true">
-                        <button  style="margin-left: 100px"  type="button" class="btn btn-default btn-sm">
+                        <button  style="margin-left: 100px"  type="button"  class="btn btn-primary">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Continuer
                         </button>
                     </a> 

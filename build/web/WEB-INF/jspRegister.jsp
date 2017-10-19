@@ -40,13 +40,15 @@
                 </div>
                 <!-- /.col-lg-3 -->
 
-                <div class="col-lg-9">
+                <div class="col-lg-9" >
                     <!-- Partie de Content a changer par rapport au besoin -->
                     <!----------------------------------------------------------------->       
                     <!------------------------------------------------------------------->
                     <!-------------------------------------------------------------------->
                    <jsp:useBean id="bCustomer" class="com.cdi.g3.web.beans.beanCustomer" scope="session" />
-                    <form action='controller?section=customer' method='post'>                                
+                    
+                   
+                   <form action='controller?section=customer' method='post'>                                
                         <fieldset>
                             <legend>Inscription</legend>
                             <p>Vous pouvez vous inscrire via ce formulaire.</p>
@@ -81,7 +83,7 @@
                             <input type="email" id="email" name="email" value="<c:out value="${bCustomer.customer.emailCustomer}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.erreurs['emailCustomer']}</span>
                             <br />
-                            <input type="submit" name='doIt' value="register" class="sansLabel" />
+                            <input type="submit" name='doIt' value="Creer un compte" class="sansLabel" class="btn btn-primary" />
                             <br />
                             <p class="${empty bCustomer.erreurs ? 'succes' : 'erreur'}">${bCustomer.resultat}</p>
                             

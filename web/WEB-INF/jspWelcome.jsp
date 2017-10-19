@@ -48,7 +48,7 @@
                     <!-------------------------------------------------------------------->
 
 
-                    <h1>Hello ${Welcome}!</h1>
+                    <h1>Bonjour, ${Welcome}!</h1>
                     On vous souhaite une bonne viste sur notre librairie
 
 

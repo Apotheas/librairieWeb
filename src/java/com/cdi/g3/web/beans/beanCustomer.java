@@ -9,6 +9,7 @@ import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.service.customers.CustomerService;
 import com.cdi.g3.server.domain.customers.Customer;
@@ -163,6 +164,37 @@ public class beanCustomer implements Serializable {
     public void setConfirmationPassword(String confirmationPassword) {
         this.confirmationPassword = confirmationPassword;
     }
+    
+    public beanCustomer updateCustomer() throws  UpdateException, CheckException, ObjectNotFoundException{
+            try {
+                validationNom(customer.getLastNameCustomer());
+            } catch (Exception e) {
+                this.setErreur("lastNameCustomer", e.getMessage());
+            }
+            customer.setLastNameCustomer(customer.getLastNameCustomer());
+
+            try {
+                validationNom(customer.getFirstNameCustomer());
+            } catch (Exception e) {
+                this.setErreur("firstNameCustomer", e.getMessage());
+            }
+            customer.setFirstNameCustomer(customer.getFirstNameCustomer());
+
+            if (this.getErreurs().isEmpty()) {
+                this.setResultat("Succès de l'inscription.");
+                customerService.updateCustomer(this.customer);
+                this.setCustomer(customerService.findCustomer(this.customer.getId()));
+                
+            } else {
+                this.setResultat("Échec de l'inscription.");
+            }
+
+            return this;
+    }
+    
+    
+    
+    
 
     public beanCustomer registerCustomer() throws CreateException, CheckException {
 

@@ -30,106 +30,236 @@
         <!-- Page Content -->
         <div class="container">
 
+
+
+
+            <!-- /.col-lg-3 -->
+
+
+            <!-- Partie de Content a changer par rapport au besoin -->
+            <!----------------------------------------------------------------->       
+            <!------------------------------------------------------------------->
+            <!-------------------------------------------------------------------->
+            <jsp:useBean id="bCustomer" class="com.cdi.g3.web.beans.beanCustomer" scope="session" />
+
+            <div class="row">
+                <div  class="col-lg-12">
+
+                    <form action='controller?section=customer&update=true' method='POST'>                                
+                        <fieldset>
+                            <legend>Mon profil</legend>
+
+                            <label for="login">Login </label>
+                            <input disabled="true" type="login" id="login" name="login" value="<c:out value="${bCustomer.customer.loginCustomer}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.erreurs['loginCustomer']}</span>
+                            <br />
+
+                            <label for="nom">Nom <span class="requis">*</span> </label>
+                            <input type="text" id="nom" name="nom" value="<c:out value="${bCustomer.customer.lastNameCustomer}"/>" size="20" maxlength="20" />
+                            <span class="erreur"><c:out value="${bCustomer.erreurs['lastNameCustomer']}"/></span>                            
+                            <br />
+
+                            <label for="nom">Prénom <span class="requis">*</span></label>
+                            <input type="text" id="nom" name="prenom" value="<c:out value="${bCustomer.customer.firstNameCustomer}"/>" size="20" maxlength="20" />
+                            <span class="erreur">${bCustomer.erreurs['firstNameCustomer']}</span>
+                            <br />
+
+                            <label for="nom">Téléphone </label>
+                            <input type="text" id="telephoneCustomer" name="telephoneCustomer" value="<c:out value="${bCustomer.customer.telephoneCustomer}"/>" size="20" maxlength="20" />
+                            <br />
+
+                            <label disabled="true" for="email">Adresse email </label>
+                            <input disabled="true" type="email" id="email" name="email" value="<c:out value="${bCustomer.customer.emailCustomer}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.erreurs['emailCustomer']}</span>
+                            <br />
+                            <input type="submit" name='doIt' value="Modifier mes informations"  class="btn btn-primary"/>
+                            <br />
+                            <p class="${empty bCustomer.erreurs ? 'succes' : 'erreur'}">${bCustomer.resultat}</p>
+
+                        </fieldset>
+                    </form>               
+
+
+                </div>
+
+
+
+
+            </div>      
+            <!-- /.row -->
+
+
             <div class="row">
 
 
-                <!-- /.col-lg-3 -->
+                <!-- Address de Livraison-->    
+                <div class="col-lg-6">                        
+                    <br> <br>                        
+                    <strong>Adresse de Livraison</strong>
+
+                    <form name="AddressShipping"  action="controller?section=order&AddAddressesOrder"  method="GET">
+                        <input type="hidden" value="customer" name="provenance" />
+                        <label for="addressShip">Selectionner une adresse de livraison </label>
+                        <select name="addressShip">
+                            <c:forEach var="addressShip" items="${sessionScope.bCustomer.addressShipList}">
+                                <option value="${addressShip.idAdress}">${addressShip.idAdress}</option>
+                            </c:forEach>
+                        </select>
+
+                        <input type="submit" value="Ok" name="selectAddressShip" class="btn btn-primary"/>
+                    </form>
+
+                    <br> <br>
+                    <form action='controller?section=order&AddAddressesOrder' method='post'>  
+                         <input type="hidden" value="customer" name="provenance" />
+                        <fieldset>
+                            <legend>Adresse de Livraison</legend>
+                            <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressShip.id}"/>" />
+
+                            <input type="hidden" value="${addressShip.idAdress}" name="valeurId" />
+
+                            <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
+                            <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameReceiverAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['nameReceiverAdress']}</span>
+                            <br />
+
+                            <label for="nameCompanyReceiverAdress">Nom de la société :</label>
+                            <input type="nameCompanyReceiverAdress" id="nameCompanyReceiverAdress" name="nameCompanyReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameCompanyReceiverAdress.nameCompany}"/>" size="20" maxlength="60" />
+                            <br />
+
+                            <label for="typeStreetAdress"> Type Adresse :</label>
+                            <input type="typeStreetAdress" id="typeStreetAdress" name="typeStreetAdress" value="<c:out value="${bCustomer.addressShip.typeStreetAdress}"/>" size="20" maxlength="60" />
+
+                            <br />
+
+                            <label for="numAdress">N°  :<span class="requis">*</span></label>
+                            <input type="numAdress" id="numAdress" name="numAdress" value="<c:out value="${bCustomer.addressShip.numAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['numAdress']}</span>
+                            <br />
+
+                            <label for="nameStreetAdress">Adresse  :<span class="requis">*</span></label>
+                            <input type="nameStreetAdress" id="nameStreetAdress" name="nameStreetAdress" value="<c:out value="${bCustomer.addressShip.nameStreetAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['nameStreetAdress']}</span>
+                            <br />
+
+                            <label for="nameStreetAdress"> Complément :</label>
+                            <input type="nameStreet2Adress" id="nameStreet2Adress" name="nameStreet2Adress" value="<c:out value="${bCustomer.addressShip.nameStreet2Adress}"/>" size="20" maxlength="60" />
+
+                            <br />
+
+                            <label for="zipcodeAdress">Code postale  :<span class="requis">*</span></label>
+                            <input type="zipcodeAdress" id="zipcodeAdress" name="zipcodeAdress" value="<c:out value="${bCustomer.addressShip.zipcodeAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['zipcodeAdress']}</span>
+                            <br />
 
 
-                <!-- Partie de Content a changer par rapport au besoin -->
-                <!----------------------------------------------------------------->       
-                <!------------------------------------------------------------------->
-                <!-------------------------------------------------------------------->
-                <jsp:useBean id="bCustomer" class="com.cdi.g3.web.beans.beanCustomer" scope="session" />
-                <div class=" col-sm-3">
-                    <table id="customerProfile" border="0" cellspacing="4">
-                        <!-- Personal information -->
-                        <tr>
-                            <td colspan="2"><strong>Details du compte</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Login :</td><td>${bCustomer.customer.loginCustomer}</td>
-                        </tr>
-                        <tr>
-                            <td>Firstname :</td><td>${bCustomer.customer.firstNameCustomer}</td>
-                        </tr>
-                        <tr>
-                            <td>Lastname :</td><td>${bCustomer.customer.lastNameCustomer}</td>
-                        </tr>
-                        <tr>
-                            <td>Email :</td><td>${bCustomer.customer.emailCustomer}</td>
-                        </tr>
-                    </table>
+                            <label for="cityAdress">Ville  :<span class="requis">*</span></label>
+                            <input type="cityAdress" id="cityAdress" name="cityAdress" value="<c:out value="${bCustomer.addressShip.cityAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['cityAdress']}</span>
+                            <br />
+
+                            <label for="countryAdress">Pays  :<span class="requis">*</span></label>
+                            <input type="countryAdress" id="countryAdress" name="countryAdress" value="<c:out value="${bCustomer.addressShip.countryAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['countryAdress']}</span>
+                            <br /><br />
+
+                            <input type="submit" value="Modifier Adresse de Livraison" name="updateAddressShip" class="btn btn-primary"/>
+
+                           
+                            <br />
+                            <p class="${empty bCustomer.bAddress.erreurs ? 'succes' : 'erreur'}">${bCustomer.bAddress.resultat}</p>
+                        </fieldset>
+                    </form> 
                 </div>
-                <!-- Address de Livraison-->
-                <div class="col-sm-4">
-                    <table id="customerProfile" border="0" cellspacing="4">
-                        <tr>
-                            <td colspan="2"><strong>Address de Livraison</strong></td>
-                        </tr>
-                        <tr>
-                            <td>Nom déstinataire :</td><td>${bCustomer.addressShip.nameReceiverAdress}</td>
-                        </tr>
 
-                        <tr>
-                            <td>Nom de la société :</td><td>${bCustomer.addressShip.nameCompanyReceiverAdress}</td>
-                        </tr>
-                        <tr>
-                            <td>N° :</td><td>${bCustomer.addressShip.numAdress}</td>
-                        </tr>
-                        <tr>
-                            <td>Adresse :</td><td>${bCustomer.addressShip.nameStreetAdress}</td>
-                        </tr>    
-                        <td>Complément :</td><td>${bCustomer.addressShip.nameStreet2Adress}</td>
-                        </tr>
-                        <tr>
-                            <td>Code postale :</td><td>${bCustomer.addressShip.zipcodeAdress}</td>
-                        </tr>
-                        <tr>
-                            <td>Ville :</td><td>${bCustomer.addressShip.cityAdress}</td>
-                        </tr>
 
-                        <tr>
-                            <td>Pays :</td><td>${bCustomer.addressShip.countryAdress}</td>
-                        </tr>
-                    </table> 
+                <div  class="col-lg-6">
+                    <br> <br>
+                    <strong>Adresse de Facturation</strong>
+
+                    <form name="shipping" action='controller?section=order&AddAddressesOrder' method="GET">
+                         <input type="hidden" value="customer" name="provenance" />
+                        <label for="addressBill">Selectionner une adresse de facturation</label>
+                        <select name="addressBill">
+                            <c:forEach var="addressBill" items="${sessionScope.bCustomer.addressBillList}">
+                                <option value="${addressBill.idAdress}">${addressBill.idAdress}</option>
+                            </c:forEach>
+                        </select>
+                        <input type="submit" value="Ok" name="selectAddressBill" class="btn btn-primary"/>
+                    </form> 
+
+
+                    <br> <br>
+                    <form action='controller?section=order&AddAddressesOrder'  method='post'> 
+                         <input type="hidden" value="customer" name="provenance" />
+                        <fieldset>
+                            <legend>Adresse de Facturation</legend>
+                            <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressBill.id}"/>" />
+
+
+                            <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
+                            <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressBill.nameReceiverAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['nameReceiverAdress']}</span>
+                            <br />
+
+                            <label for="nameCompanyReceiverAdress">Nom de la société :</label>
+                            <input type="nameCompanyReceiverAdress" id="nameCompanyReceiverAdress" name="nameCompanyReceiverAdress" value="<c:out value="${bCustomer.addressBill.nameCompanyReceiverAdress.nameCompany}"/>" size="20" maxlength="60" />
+                            <br />
+
+
+                            <label for="typeStreetAdress"> Type Adresse :</label>
+                            <input type="typeStreetAdress" id="typeStreetAdress" name="typeStreetAdress" value="<c:out value="${bCustomer.addressBill.typeStreetAdress}"/>" size="20" maxlength="60" />
+
+                            <br />
+
+                            <label for="numAdress">N°  :<span class="requis">*</span></label>
+                            <input type="numAdress" id="numAdress" name="numAdress" value="<c:out value="${bCustomer.addressBill.numAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['numAdress']}</span>
+                            <br />
+
+
+
+                            <label for="nameStreetAdress">Adresse  :<span class="requis">*</span></label>
+                            <input type="nameStreetAdress" id="nameStreetAdress" name="nameStreetAdress" value="<c:out value="${bCustomer.addressBill.nameStreetAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['nameStreetAdress']}</span>
+                            <br />
+
+                            <label for="nameStreetAdress"> Complément :</label>
+                            <input type="nameStreet2Adress" id="nameStreet2Adress" name="nameStreet2Adress" value="<c:out value="${bCustomer.addressBill.nameStreet2Adress}"/>" size="20" maxlength="60" />
+
+                            <br />
+
+                            <label for="zipcodeAdress">Code postale  :<span class="requis">*</span></label>
+                            <input type="zipcodeAdress" id="zipcodeAdress" name="zipcodeAdress" value="<c:out value="${bCustomer.addressBill.zipcodeAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['zipcodeAdress']}</span>
+                            <br />
+
+
+                            <label for="cityAdress">Ville  :<span class="requis">*</span></label>
+                            <input type="cityAdress" id="cityAdress" name="cityAdress" value="<c:out value="${bCustomer.addressBill.cityAdress}"/>" size="20" maxlength="60" />
+                            <span class="erreur">${bCustomer.bAddress.erreurs['cityAdress']}</span>
+                            <br />
+
+                            <label for="countryAdress">Pays  :<span class="requis">*</span></label>
+                            <input type="countryAdress" id="countryAdress" name="countryAdress" value="<c:out value="${bCustomer.addressBill.countryAdress}"/>" size="20" maxlength="60" />
+               
+                                 <span class="erreur">${bCustomer.bAddress.erreurs['countryAdress']}</span>
+                            <br /><br />
+                            <input type="submit" value="Modifier Adresse de Facturation" name="updateAddressBill" class="btn btn-primary"/>
+        
+                            <br />
+                            <p class="${empty bCustomer.bAddress.erreurs ? 'succes' : 'erreur'}">${bCustomer.bAddress.resultat}</p>
+
+                        </fieldset> 
+                    </form> 
+
                 </div>
-                <!-- Address de la commande-->
-                <table id="customerProfile" border="0" cellspacing="4">
-                    <tr>
-                        <td colspan="2"><strong>Addresse de facturation</strong></td>
-                    </tr>
 
-                    <tr>
-                        <td>Nom déstinataire :</td><td>${bCustomer.addressBill.nameReceiverAdress}</td>
-                    </tr>
 
-                    <tr>
-                        <td>Nom de la société :</td><td>${bCustomer.addressBill.nameCompanyReceiverAdress}</td>
-                    </tr>
+            </div> 
+            <!-- /.row -->
 
-                    <tr>
-                        <td>N° :</td><td>${bCustomer.addressBill.numAdress}</td>
-                    </tr>
-                    <tr>
-                        <td>Adresse :</td><td>${bCustomer.addressBill.nameStreetAdress}</td>
-                    </tr>    
-                    <td>Complément :</td><td>${bCustomer.addressBill.nameStreet2Adress}</td>
-                    </tr>
 
-                    <tr>
-                        <td>Code postale :</td><td>${bCustomer.addressBill.zipcodeAdress}</td>
-                    </tr>
-
-                    <tr>
-                        <td>Ville :</td><td>${bCustomer.addressBill.cityAdress}</td>
-                    </tr>
-
-                    <tr>
-                        <td>Pays :</td><td>${bCustomer.addressBill.countryAdress}</td>
-                    </tr>
-                </table>  
-            </div>
             <div class="row py-5">
                 <h2>Historique des commandes</h2>
 
@@ -167,6 +297,7 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
+
                                     <div class="modal-body">
                                         Adresse de livraison : ${bCustomer.addressShip}<hr>
                                         <c:forEach var="line" items="${order.listOrderLines}">
@@ -190,7 +321,7 @@
 
 
             </div>
-
+            <!-- /.row -->
             <!----------------------------------------------------------------->       
             <!------------------------------------------------------------------->
             <!-------------------------------------------------------------------->
@@ -198,20 +329,20 @@
 
             <!-- /.col-lg-9 -->
 
-        </div>
-        <!-- /.row -->
 
-        <!-- /.container -->
 
-        <!-- Footer -->
-        <footer class="py-5 bg-dark">
-            <jsp:include page="common/footer.jsp"/>
-        </footer>
 
-        <!-- Bootstrap core JavaScript -->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/popper/popper.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+            <!-- /.container -->
+
+            <!-- Footer -->
+            <footer class="py-5 bg-dark">
+                <jsp:include page="common/footer.jsp"/>
+            </footer>
+
+            <!-- Bootstrap core JavaScript -->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/popper/popper.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
     </body>
 

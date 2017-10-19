@@ -345,31 +345,42 @@ public class controller extends HttpServlet {
 
         if (bCustomer != null) {
             if (request.getParameter("selectAddressShip") != null) {
-                url = "/WEB-INF/jspAddAddressesOrder.jsp";
-                String idAddress = request.getParameter("addressShip1");
+
+                String idAddress = request.getParameter("addressShip");
                 for (Address address : (ArrayList<Address>) bCustomer.getAddressShipList()) {
                     if (address.getId().equals(idAddress)) {
                         bCustomer.setAddressShip(address);
-                        
                     }
                 }
 
+                if (request.getParameter("provenance").equals("order")) {
+                    url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                }
+                if (request.getParameter("provenance").equals("customer")) {
+                    url = "/WEB-INF/jspCustomer.jsp";
+                }
+
             }
-            
-            if(request.getParameter("selectAddressBill") != null){
-                url = "/WEB-INF/jspAddAddressesOrder.jsp";
-                      String idAddress = request.getParameter("addressBill");
-                      for( Address address : (ArrayList<Address>) bCustomer.getAddressBillList()){
-                          if(address.getId().equals(idAddress)){
-                              bCustomer.setAddressBill(address);
-                          
-                          }
-                      }
-                      
-                      
-                  }
-            
-            
+
+            if (request.getParameter("selectAddressBill") != null) {
+
+                String idAddress = request.getParameter("addressBill");
+                for (Address address : (ArrayList<Address>) bCustomer.getAddressBillList()) {
+                    if (address.getId().equals(idAddress)) {
+                        bCustomer.setAddressBill(address);
+
+                    }
+                }
+
+                if (request.getParameter("provenance").equals("order")) {
+                    url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                }
+
+                if (request.getParameter("provenance").equals("customer")) {
+                    url = "/WEB-INF/jspCustomer.jsp";
+                }
+            }
+
         }
 
         /*==========================================================================================================/
@@ -377,14 +388,11 @@ public class controller extends HttpServlet {
          |    Section Order
          |
          /*===========================================================================================================*/
-        
-        
         if ("order".equals(request.getParameter("section"))) {
             String login = (String) session.getAttribute("Welcome");
-           bCustomer = (beanCustomer) session.getAttribute("bCustomer");
-            
-           
-           if (request.getParameter("checkOut") != null) {
+            bCustomer = (beanCustomer) session.getAttribute("bCustomer");
+
+            if (request.getParameter("checkOut") != null) {
                 url = "/WEB-INF/jspCheckOut.jsp";
                 beanPanier bPanier = (beanPanier) session.getAttribute("panier");
 
@@ -411,11 +419,16 @@ public class controller extends HttpServlet {
 
                 }
             }
-           
-           
-           
+
             if (request.getParameter("AddAddressesOrder") != null) {
-                url = "/WEB-INF/jspAddAddressesOrder.jsp";
+
+                if (request.getParameter("provenance").equals("order")) {
+                    url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                }
+
+                if (request.getParameter("provenance").equals("customer")) {
+                    url = "/WEB-INF/jspCustomer.jsp";
+                }
 
                 if (login == null) {
                     request.setAttribute("passOrder", "true");
@@ -494,19 +507,13 @@ public class controller extends HttpServlet {
 
                     }
                     if (request.getParameter("selectAddressShip") != null) {
-
                     }
                 }
 
             }
-            
-            
-            
+
             if (request.getParameter("VerifCreditCardOrder") != null) {
                 url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
-                
-                
-                
 
             }
 
@@ -518,6 +525,7 @@ public class controller extends HttpServlet {
          |
          /*===========================================================================================================*/
         if ("customer".equals(request.getParameter("section"))) {
+
             if (request.getParameter("afficheCustomer") != null) {
                 url = "/WEB-INF/jspCustomer.jsp";
 
@@ -577,24 +585,27 @@ public class controller extends HttpServlet {
                 }
             }
 
-            if (request.getParameter("updateProfil") != null) {
+            if (request.getParameter("update") != null) {
                 if (request.getParameter("doIt") != null) {
-                    url = "/WEB-INF/jspRegister.jsp";
+                    url = "/WEB-INF/jspCustomer.jsp";
+
+                   
+
                     bCustomer = (beanCustomer) session.getAttribute("bCustomer");
-                    bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
+                    bCustomer.getCustomer().setLoginCustomer(bCustomer.getCustomer().getId());
                     bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
                     bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
-                    bCustomer.getCustomer().setEmailCustomer(request.getParameter("email"));
-                    bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
-                    bCustomer.setConfirmationPassword(request.getParameter("telephone"));
+                    bCustomer.getCustomer().setEmailCustomer(bCustomer.getCustomer().getEmailCustomer());
+                    bCustomer.getCustomer().setTelephoneCustomer(request.getParameter("telephoneCustomer"));
                     bCustomer.getCustomer().setNameCompanyCustomer(request.getParameter("nameCompanyCustomer"));
 
                     try {
-                        bCustomer = bCustomer.registerCustomer();
-                        // puts the customerDTO into the session
-
+                        bCustomer = bCustomer.updateCustomer();
                         request.getSession().setAttribute("bCustomer", bCustomer);
-                    } catch (CreateException ex) {
+                    } catch (ObjectNotFoundException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+                    } catch (UpdateException ex) {
                         url = "/WEB-INF/jspFatalError.jsp";
                         request.setAttribute("fatalError", ex.getMessage());
                     } catch (CheckException ex) {

@@ -46,24 +46,24 @@
                     <fieldset>
                         <legend>Information Client</legend>
 
-                        <label for="login">Login <span class="requis">*</span></label>
-                        <input type="login" id="login" name="login" value="<c:out value="${bCustomer.customer.loginCustomer}"/>" size="20" maxlength="60" />
-                        <span class="erreur">${bCustomer.erreurs['loginCustomer']}</span>
+                        <label for="login">Login </label>
+                        <input disabled="true" type="login" id="login" name="login" value="<c:out value="${bCustomer.customer.loginCustomer}"/>" size="20" maxlength="60" />
+                        
                         <br />
 
-                        <label for="nom">Nom <span class="requis">*</span> </label>
-                        <input type="text" id="nom" name="nom" value="<c:out value="${bCustomer.customer.lastNameCustomer}"/>" size="20" maxlength="20" />
-                        <span class="erreur"><c:out value="${bCustomer.erreurs['lastNameCustomer']}"/></span>                            
+                        <label for="nom">Nom  </label>
+                        <input disabled="true" type="text" id="nom" name="nom" value="<c:out value="${bCustomer.customer.lastNameCustomer}"/>" size="20" maxlength="60" />
+                                                   
                         <br />
 
-                        <label for="nom">Prénom <span class="requis">*</span></label>
-                        <input type="text" id="nom" name="prenom" value="<c:out value="${bCustomer.customer.firstNameCustomer}"/>" size="20" maxlength="20" />
-                        <span class="erreur">${bCustomer.erreurs['firstNameCustomer']}</span>
+                        <label for="nom">Prénom</label>
+                        <input disabled="true" type="text" id="prenom" name="prenom" value="<c:out value="${bCustomer.customer.firstNameCustomer}"/>" size="20" maxlength="60" />
+                        
                         <br />
 
-                        <label for="email">Adresse email <span class="requis">*</span></label>
-                        <input type="email" id="email" name="email" value="<c:out value="${bCustomer.customer.emailCustomer}"/>" size="20" maxlength="60" />
-                        <span class="erreur">${bCustomer.erreurs['emailCustomer']}</span>
+                        <label for="email">Adresse email </label>
+                        <input disabled="true" type="email" id="email" name="email" value="<c:out value="${bCustomer.customer.emailCustomer}"/>" size="20" maxlength="60" />
+                        
                         <br />
 
 
@@ -79,16 +79,16 @@
 
             <div class="row">
 
-                <div class="col-lg-6">                        
+                <div class="col-lg-6">                       
                     <br> <br>                        
                     <strong>Adresse de Livraison</strong>
 
-                    <form name="AddressShipping"  action="controller?section=order&AddAddressesOrder" onchange="this.form.submit()" method="GET">
+                    <form name="AddressShipping"  action="controller?section=order&AddAddressesOrder"  method="GET">
+                        <input type="hidden" value="order" name="provenance" />
                         <label for="addressShip">Selectionner une adresse de livraison </label>
-
-                        <select name="addressShip1">
+                        <select name="addressShip">
                             <c:forEach var="addressShip" items="${sessionScope.bCustomer.addressShipList}">
-                                <option value="${addressShip.idAdress}">${addressShip.idAdress}</option>
+                                <option value="<c:out value="${addressShip.idAdress}"/>"> ${addressShip} </option>
                             </c:forEach>
                         </select>
 
@@ -96,17 +96,14 @@
                     </form>
 
                     <br> <br>
-                    <form action='controller?section=order&AddAddressesOrder' method='post'>                                
+                    <form action='controller?section=order&AddAddressesOrder' method='post'> 
+                        <input type="hidden" value="order" name="provenance" />
                         <fieldset>
                             <legend>Adresse de Livraison</legend>
+                            
                             <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressShip.id}"/>" />
-
-
                             <input type="hidden" value="${addressShip.idAdress}" name="valeurId" />
-
-
-
-
+                            
                             <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
                             <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameReceiverAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['nameReceiverAdress']}</span>
@@ -163,17 +160,16 @@
                     </form> 
                 </div>
 
-                <div  class="col-lg-6">
+              <div class="col-lg-6">  
                     <br> <br>
                     <strong>Adresse de Facturation</strong>
 
-                    <form name="shipping" action='controller?section=order&AddAddressesOrder' onchange="this.form.submit()" method="GET">
-                        
+                    <form name="shipping" action='controller?section=order&AddAddressesOrder' method="GET">
+                        <input type="hidden" value="order" name="provenance" />
                         <label for="addressBill">Selectionner une autre adresse </label>
-
                         <select name="addressBill">
                             <c:forEach var="addressBill" items="${sessionScope.bCustomer.addressBillList}">
-                                <option value="${addressBill.idAdress}">${addressBill.idAdress}</option>
+                                <option value="<c:out value="${addressBill.idAdress}"/>">${addressBill.idAdress}</option>                                
                             </c:forEach>
                         </select>
                         <input type="submit" value="Ok" name="selectAddressBill" />
@@ -185,7 +181,7 @@
                         <fieldset>
                             <legend>Adresse de Facturation</legend>
                             <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressBill.id}"/>" />
-
+                            <input type="hidden" value="order" name="provenance" />
 
                             <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
                             <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressBill.nameReceiverAdress}"/>" size="20" maxlength="60" />
