@@ -8,6 +8,9 @@ package com.cdi.g3.web.beans;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.utiles.CompareNote;
+import com.cdi.g3.common.utiles.ComparePrixAsc;
+import com.cdi.g3.common.utiles.ComparePrixDesc;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.catalog.OccasionService;
@@ -16,6 +19,7 @@ import java.beans.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +59,33 @@ public class beanCatalog implements Serializable {
     public void setBooks(Collection<Book> books) {
         this.books = books;
     }
-    
+       public void triPrixCroissant() {
+        ArrayList booksC = (ArrayList) this.books;
+        ComparePrixAsc comp = new ComparePrixAsc();
+        Collections.sort(booksC, comp);
+        this.books = booksC;
+         ArrayList booksD = (ArrayList) this.booksCatalog;
+        Collections.sort(booksD, comp);
+        this.booksCatalog = booksD;
+    }
+      public void triPrixDesc() {
+        ArrayList booksC = (ArrayList) this.books;
+        ComparePrixDesc comp = new ComparePrixDesc();
+        Collections.sort(booksC, comp);
+        this.books = booksC;
+         ArrayList booksD = (ArrayList) this.booksCatalog;
+        Collections.sort(booksD, comp);
+        this.booksCatalog = booksD;
+    }
+      public void triNotet() {
+        ArrayList booksC = (ArrayList) this.books;
+        CompareNote comp = new CompareNote();
+        Collections.sort(booksC, comp);
+        this.books = booksC;
+         ArrayList booksD = (ArrayList) this.booksCatalog;
+        Collections.sort(booksD, comp);
+        this.booksCatalog = booksD;
+    }
      public Collection getBooksbyTheme(String theme) {
         try {
             return ctatalogService.FindBooksByTheme(theme);

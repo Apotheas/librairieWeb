@@ -832,6 +832,73 @@ public class controller extends HttpServlet {
             request.setAttribute("book", book);
 
         }
+        
+        /*==========================================================================================================/
+         |
+         |    Section Tris 
+         |
+         /*===========================================================================================================*/
+
+        if (request.getParameter("tris") != null) {
+
+            Collection listTris = null;
+
+            if ("croissant".equals(request.getParameter("tris"))) {
+                bCatalog.triPrixCroissant();
+                listTris = bCatalog.getBooks();
+                if ("theme".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("theme");
+                } else if ("event".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("event");
+                } else if ("sub".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("sub");
+                } else {
+                    listTris = bCatalog.getBooksCatalog();
+                }
+            }
+            if ("decroissant".equals(request.getParameter("tris"))) {
+                bCatalog.triPrixDesc();
+                listTris = bCatalog.getBooks();
+                if ("theme".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("theme");
+                } else if ("event".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("event");
+                } else if ("sub".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("sub");
+                } else {
+                    listTris = bCatalog.getBooksCatalog();
+                }
+            }
+            if ("best".equals(request.getParameter("tris"))) {
+                bCatalog.triNotet();
+                listTris = bCatalog.getBooks();
+                if ("theme".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("theme");
+                } else if ("event".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("event");
+                } else if ("sub".equals(bPagination.getPagination())) {
+                    bPagination.setPagination("sub");
+                } else {
+                    listTris = bCatalog.getBooksCatalog();
+                }
+
+            }
+            int page = 1;
+            String pageNumberValue = request.getParameter("pageHome");
+            if (pageNumberValue != null) {
+                try {
+                    page = Integer.parseInt(pageNumberValue);
+                } catch (NumberFormatException e) {
+                    url = "/WEB-INF/jspFatalError.jsp";
+                    request.setAttribute("fatalError", e.getMessage());
+                }
+            }
+            bPagination = (beanPagination) application.getAttribute("pagination");
+            bPagination.setOffset(bPagination.getRecordsPerPage() * (page - 1));
+            request.setAttribute("pages", bPagination.getPages(listTris));
+            request.setAttribute("noOfPages", bPagination.getNoOfPages(listTris));
+            request.setAttribute("booksDetails", bPagination.getBooksByOffsetAndLength(listTris));
+        }
 
         /*==========================================================================================================/
          |
