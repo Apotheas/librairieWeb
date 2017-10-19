@@ -375,10 +375,14 @@ public class controller extends HttpServlet {
          |    Section Order
          |
          /*===========================================================================================================*/
+        
+        
         if ("order".equals(request.getParameter("section"))) {
             String login = (String) session.getAttribute("Welcome");
            bCustomer = (beanCustomer) session.getAttribute("bCustomer");
-            if (request.getParameter("checkOut") != null) {
+            
+           
+           if (request.getParameter("checkOut") != null) {
                 url = "/WEB-INF/jspCheckOut.jsp";
                 beanPanier bPanier = (beanPanier) session.getAttribute("panier");
 
@@ -405,6 +409,9 @@ public class controller extends HttpServlet {
 
                 }
             }
+           
+           
+           
             if (request.getParameter("AddAddressesOrder") != null) {
                 url = "/WEB-INF/jspAddAddressesOrder.jsp";
 
@@ -490,8 +497,14 @@ public class controller extends HttpServlet {
                 }
 
             }
+            
+            
+            
             if (request.getParameter("VerifCreditCardOrder") != null) {
                 url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
+                
+                
+                
 
             }
 

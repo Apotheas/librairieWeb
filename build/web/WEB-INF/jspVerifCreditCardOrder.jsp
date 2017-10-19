@@ -41,11 +41,70 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-12">
+
+                <div class="col-lg-6">
+                     <br>  <br>
+                    <fieldset>
+                        <div id="legend">
+                            <legend class="">Information de la commande</legend>
+                        </div>
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="text-center"></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>  
+
+                                    <td><h5>Total HT</h5></td>
+                                    <td class="text-right"><h5><strong>${sessionScope.subTotalHT}€</strong></h5></td>
+                                </tr>
+
+
+                                <tr>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td><h5>Frais de Port</h5></td>
+                                    <td class="text-right"><h5><strong>${sessionScope.fraisPort}€</strong></h5></td>
+                                </tr>
+
+
+                                <tr>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td><h3>Total</h3></td>
+                                    <td class="text-right"><h3><strong>${TotalHTAvecFraisPort}€</strong></h3></td>
+                                </tr>
+
+
+                        </table>
+
+                    </fieldset>
+
+                </div>
+
+
+                <div class="col-lg-6">
                     <div class="row-fluid">
                         <form action="controller?section=order&checkOut=true" class="form-horizontal" method="post">
                             <br>  <br>
-                            
+
                             <fieldset>
                                 <div id="legend">
                                     <legend class="">Payment</legend>
@@ -53,23 +112,26 @@
 
                                 <!-- Name -->
                                 <div class="control-group">
-                                    <label class="control-label"  for="username">Card Holder's Name</label>
+                                    <label class="control-label"  for="username">Nom titulaire carte</label>
                                     <div class="controls">
                                         <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
                                     </div>
                                 </div>
+                                <br>
 
                                 <!-- Card Number -->
                                 <div class="control-group">
-                                    <label class="control-label" for="email">Card Number</label>
+                                    <label class="control-label" for="email">Numéro carte</label>
                                     <div class="controls">
                                         <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
                                     </div>
                                 </div>
 
+                                <br>
+
                                 <!-- Expiry-->
                                 <div class="control-group">
-                                    <label class="control-label" for="password">Card Expiry Date</label>
+                                    <label class="control-label" for="password">Date d'éxpiration</label>
                                     <div class="controls">
                                         <select class="span3" name="expiry_month" id="expiry_month">
                                             <option></option>
@@ -102,14 +164,15 @@
 
                                     </div>
                                 </div>
-
+                                <br>
                                 <!-- CVV -->
                                 <div class="control-group">
-                                    <label class="control-label"  for="password_confirm">Card CVV</label>
+                                    <label class="control-label"  for="password_confirm">Numéro CVV</label>
                                     <div class="controls">
                                         <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="span2">
                                     </div>
                                 </div>
+                                <br>
 
                                 <!-- Save card 
                                 <div class="control-group">
@@ -129,8 +192,8 @@
 
                                     <div class="controls">                                        
                                         <a href="controller?section=order&checkOut=true"  >
-                                        <button type="submit"class="btn btn-success">Pay Now</button>
-                                       </a>
+                                            <button type="submit"class="btn btn-success">Payer</button>
+                                        </a>
                                     </div>
                                 </div>
 
