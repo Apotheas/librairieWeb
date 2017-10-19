@@ -111,22 +111,22 @@
                                                     Note :  Pas encore d'évaluation.
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne== 0}">
-                                                    Note : &#x2b50; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
+                                                    Note : &#x2b50; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?showBook&isbnBook=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 1}" >
-                                                    Note : &#9733; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
+                                                    Note : &#9733; &#x2b50; &#x2b50; &#x2b50; &#x2b50; <a href='controller?showBook&isbnBook=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 2 }" >
-                                                    Note : &#9733; &#9733; &#x2b50; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
+                                                    Note : &#9733; &#9733; &#x2b50; &#x2b50; &#x2b50; <a href='controller?showBook&isbnBook=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 3}">
-                                                    Note : &#9733; &#9733; &#9733; &#x2b50; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
+                                                    Note : &#9733; &#9733; &#9733; &#x2b50; &#x2b50; <a href='controller?showBook&isbnBook=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 4}" >
-                                                    Note : &#9733; &#9733; &#9733; &#9733; &#x2b50; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
+                                                    Note : &#9733; &#9733; &#9733; &#9733; &#x2b50; <a href='controller?showBook&isbnBook=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                                 <c:if test="${bookRow.moyenne == 5}" >
-                                                    Note : &#9733; &#9733; &#9733; &#9733; &#9733; <a href='controller?comment=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
+                                                    Note : &#9733; &#9733; &#9733; &#9733; &#9733; <a href='controller?showBook&isbnBook=${bookRow.numISBNBook}'>(${bookRow.nbNote} Notes)</a>
                                                 </c:if>
                                             </small>
                                         </div>
