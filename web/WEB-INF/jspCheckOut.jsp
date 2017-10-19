@@ -53,9 +53,16 @@
                             <td align="left" valign="top" width="60%">
                                 <%--CENTRAL BODY--%>
                                  
-                                <P><strong>Your Order is Complete</strong></P>
-                                <P>Your order id is ${requestScope.orderId}</P>
-                                <P>Thank you for shopping with the librairy</P>
+                                <P><strong>Votre commande était bien enregistrée </strong></P>
+                                <P>Votre numéro de commande est  ${requestScope.orderId}</P>
+                                <P>Merci pour vos achats sur notre librairie</P>
+                                
+                                
+                                <div class="controls">                                        
+                                        <a href="controller?section=order&imprimer=true&idOrder=${requestScope.orderId}"  >
+                                            <button type="submit"class="btn btn-success">Imprimer votre facture</button>
+                                        </a>
+                                    </div>
                                     <%--FOOTER--%>
                                     
                             </td>

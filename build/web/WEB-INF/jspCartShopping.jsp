@@ -162,7 +162,7 @@
                                         </a> 
                                     </td>
                                     <td>
-                                        <a href="controller?section=order&AddAddressesOrder=true">
+                                        <a href="controller?section=order&AddAddressesOrder=true&provenance=order">
                                             <button type="button" class="btn btn-success">
                                                 Valider <span class="glyphicon glyphicon-play"></span>
                                             </button>

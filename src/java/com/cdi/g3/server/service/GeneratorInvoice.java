@@ -56,7 +56,7 @@ public class GeneratorInvoice {
             try {
                 
             PdfWriter writer = PdfWriter.getInstance(document,
-          new FileOutputStream("C:\\Users\\cdi314\\Documents\\NetBeansProjects\\filRougeLibrairie\\documents/test.pdf"));
+          new FileOutputStream("documents/test.pdf"));
                      writer.setViewerPreferences(PdfWriter.PageLayoutSinglePage
                               | PdfWriter.PageModeUseThumbs);
             
@@ -74,7 +74,7 @@ public class GeneratorInvoice {
             
             Image image = null;
             try {
-                image = Image.getInstance("C:\\Users\\cdi314\\Documents\\NetBeansProjects\\filRougeLibrairie\\images/logo.jpg");
+                image = Image.getInstance("images/logo.jpg");
                 image.setAlignment(1); 
             
             } catch (BadElementException ex) {

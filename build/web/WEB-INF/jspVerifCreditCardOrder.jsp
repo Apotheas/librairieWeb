@@ -122,7 +122,7 @@
                                 <div class="control-group">
                                     <label class="control-label"  for="username">Nom titulaire carte</label>
                                     <div class="controls">
-                                        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                                        <input type="text" id="username1" name="username1" placeholder="" class="input-xlarge">
                                     </div>
                                 </div>
                                 <br>
@@ -131,7 +131,7 @@
                                 <div class="control-group">
                                     <label class="control-label" for="email">Numéro carte</label>
                                     <div class="controls">
-                                        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+                                        <input type="text" id="email1" name="email1" placeholder="" class="input-xlarge">
                                     </div>
                                 </div>
 
@@ -177,7 +177,7 @@
                                 <div class="control-group">
                                     <label class="control-label"  for="password_confirm">Numéro CVV</label>
                                     <div class="controls">
-                                        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="span2">
+                                        <input type="password" id="password_confirm1" name="password_confirm1" placeholder="" class="span2">
                                     </div>
                                 </div>
                                 <br>

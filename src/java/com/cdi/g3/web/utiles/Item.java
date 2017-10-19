@@ -58,8 +58,18 @@ public class Item  implements Serializable{
     }
     
     public void delta (int qty){
+        if(this.quantity + qty <= 1){
+             this.quantity = 1;
+             this.setTotalLine(book.getUnitCostBook()*quantity);
+        }
+        if(this.quantity + qty > book.getStockBook()){
+             this.quantity = book.getStockBook();
+             this.setTotalLine(book.getUnitCostBook()*quantity);
+        }else{
+        
         this.quantity += qty;
         this.setTotalLine(book.getUnitCostBook()*quantity);
+        }
     }
 
     public Book getBook() {

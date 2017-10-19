@@ -15,11 +15,13 @@ import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.company.Company;
 import com.cdi.g3.server.domain.customers.Address;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.service.GeneratorInvoice;
 import com.cdi.g3.web.beans.beanAddress;
 import com.cdi.g3.web.beans.beanCatalog;
 import com.cdi.g3.web.beans.beanCustomer;
 import com.cdi.g3.web.beans.beanEvent;
 import com.cdi.g3.web.beans.beanLogin;
+import com.cdi.g3.web.beans.beanOrder;
 import com.cdi.g3.web.beans.beanPagination;
 import com.cdi.g3.web.beans.beanPanier;
 import com.cdi.g3.web.beans.beanTheme;
@@ -416,6 +418,8 @@ public class controller extends HttpServlet {
                         request.setAttribute("fatalError", ex.getMessage());
                     }
                     request.setAttribute("orderId", orderId);
+                    
+                    bPanier.clear();
 
                 }
             }
@@ -516,6 +520,23 @@ public class controller extends HttpServlet {
                 url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
 
             }
+            
+            if (request.getParameter("imprimer") != null) {
+                try {
+                    beanOrder bOrder = new beanOrder();
+                    bOrder.print(request.getParameter("idOrder"));
+                } catch (FinderException ex) {
+                    url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                } catch (CheckException ex) {
+                    url = "/WEB-INF/jspFatalError.jsp";
+                            request.setAttribute("fatalError", ex.getMessage());
+                }
+
+            }
+            
+            
+            
 
         }
 
