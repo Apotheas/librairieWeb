@@ -213,7 +213,7 @@ public final class Customer extends DomainObject implements Serializable {
 
     @Override
     public String toString() {
-        return  loginCustomer +"  "+  lastNameCustomer  ;
+        return  loginCustomer  ;
     }
     
      public Vector getVector() {

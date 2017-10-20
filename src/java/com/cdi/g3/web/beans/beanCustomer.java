@@ -28,10 +28,11 @@ import java.util.logging.Logger;
  * @author cdi314
  */
 public class beanCustomer implements Serializable {
+
     private OrderService orderService;
-    private CustomerService customerService ;
+    private CustomerService customerService;
     private AdressService adressService;
-    private Customer customer; 
+    private Customer customer;
     private Collection addressShipList;
     private Collection addressBillList;
     private Address addressBill;
@@ -41,31 +42,33 @@ public class beanCustomer implements Serializable {
     private String resultat;
     private Map<String, String> erreurs;
     private Collection orderList;
-     private String provenance;
-    
+    private String provenance;
+
     public beanCustomer() {
         customer = new Customer();
-        bAddress= new  beanAddress();
+        bAddress = new beanAddress();
         addressShipList = new ArrayList();
-        addressBillList= new ArrayList();
-        addressBill = new  Address();
-        addressShip = new  Address();
+        addressBillList = new ArrayList();
+        addressBill = new Address();
+        addressShip = new Address();
         customerService = new CustomerService();
         adressService = new AdressService();
         orderService = new OrderService();
         erreurs = new HashMap<String, String>();
     }
 
-    public beanCustomer(String login) throws ObjectNotFoundException, CheckException, FinderException {
+    public beanCustomer(String login) throws  CheckException, ObjectNotFoundException {
         this();
         this.customer = customerService.findCustomer(login);
-        this.addressBillList = adressService.findAllAdressBilling(this.customer.getLoginCustomer());
-        this.addressShipList = adressService.findAllAdressShipping(this.customer.getLoginCustomer());
-        this.addressBill =(Address) ((ArrayList) addressBillList).get(0);
-        this.addressShip = (Address) ((ArrayList) addressShipList).get(0);
-        this.orderList = orderService.findOrdersByCustomer("LOGINCUSTOMER", this.customer.getLoginCustomer());
+        
+        
+        try {
+            this.orderList = orderService.findOrdersByCustomer("LOGINCUSTOMER", this.customer.getLoginCustomer());
+        } catch (ObjectNotFoundException ex) {
+            this.orderList =null;
+        }
     }
-    
+
     public String getResultat() {
         return resultat;
     }
@@ -84,6 +87,27 @@ public class beanCustomer implements Serializable {
     private void setErreur(String champ, String message) {
         erreurs.put(champ, message);
     }
+    
+    public void initializeAddresses(String login){
+         try {
+            this.addressBillList = adressService.findAllAdressBilling(this.customer.getLoginCustomer());
+        } catch (FinderException ex) {
+            
+        }
+        try {
+            this.addressShipList = adressService.findAllAdressShipping(this.customer.getLoginCustomer());
+        } catch (FinderException ex) {
+           
+        }
+        if (!addressBillList.isEmpty()) {
+            this.addressBill = (Address) ((ArrayList) addressBillList).get(0);
+        }
+        if (!addressShipList.isEmpty()) {
+            this.addressShip = (Address) ((ArrayList) addressShipList).get(0);
+        }
+    }
+    
+    
 
     public String getProvenance() {
         return provenance;
@@ -92,8 +116,6 @@ public class beanCustomer implements Serializable {
     public void setProvenance(String provenance) {
         this.provenance = provenance;
     }
-    
-    
 
     public Customer getCustomer() {
         return customer;
@@ -102,7 +124,7 @@ public class beanCustomer implements Serializable {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
+
     public beanAddress getbAddress() {
         return bAddress;
     }
@@ -130,8 +152,6 @@ public class beanCustomer implements Serializable {
     public void setAddressBillList(Collection addressBillList) {
         this.addressBillList = addressBillList;
     }
-    
-    
 
     public void setAddressBill(Address addressBill) {
         this.addressBill = addressBill;
@@ -152,7 +172,7 @@ public class beanCustomer implements Serializable {
     public void setAddressShip(Address addressShip) {
         this.addressShip = addressShip;
     }
-    
+
     public Customer getCustomer(String login) {
         return this.customer;
     }
@@ -164,37 +184,33 @@ public class beanCustomer implements Serializable {
     public void setConfirmationPassword(String confirmationPassword) {
         this.confirmationPassword = confirmationPassword;
     }
-    
-    public beanCustomer updateCustomer() throws  UpdateException, CheckException, ObjectNotFoundException{
-            try {
-                validationNom(customer.getLastNameCustomer());
-            } catch (Exception e) {
-                this.setErreur("lastNameCustomer", e.getMessage());
-            }
-            customer.setLastNameCustomer(customer.getLastNameCustomer());
 
-            try {
-                validationNom(customer.getFirstNameCustomer());
-            } catch (Exception e) {
-                this.setErreur("firstNameCustomer", e.getMessage());
-            }
-            customer.setFirstNameCustomer(customer.getFirstNameCustomer());
+    public beanCustomer updateCustomer() throws UpdateException, CheckException, ObjectNotFoundException {
+        try {
+            validationNom(customer.getLastNameCustomer());
+        } catch (Exception e) {
+            this.setErreur("lastNameCustomer", e.getMessage());
+        }
+        customer.setLastNameCustomer(customer.getLastNameCustomer());
 
-            if (this.getErreurs().isEmpty()) {
-                this.setResultat("Succès de l'inscription.");
-                customerService.updateCustomer(this.customer);
-                this.setCustomer(customerService.findCustomer(this.customer.getId()));
-                
-            } else {
-                this.setResultat("Échec de l'inscription.");
-            }
+        try {
+            validationNom(customer.getFirstNameCustomer());
+        } catch (Exception e) {
+            this.setErreur("firstNameCustomer", e.getMessage());
+        }
+        customer.setFirstNameCustomer(customer.getFirstNameCustomer());
 
-            return this;
+        if (this.getErreurs().isEmpty()) {
+            this.setResultat("Succès de la modification.");
+            customerService.updateCustomer(this.customer);
+            this.setCustomer(customerService.findCustomer(this.customer.getId()));
+
+        } else {
+            this.setResultat("Échec de la modification.");
+        }
+
+        return this;
     }
-    
-    
-    
-    
 
     public beanCustomer registerCustomer() throws CreateException, CheckException {
 

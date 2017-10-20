@@ -68,7 +68,7 @@
                             <input type="text" id="telephoneCustomer" name="telephoneCustomer" value="<c:out value="${bCustomer.customer.telephoneCustomer}"/>" size="20" maxlength="20" />
                             <br />
 
-                            <label disabled="true" for="email">Adresse email </label>
+                            <label  for="email">Adresse email </label>
                             <input disabled="true" type="email" id="email" name="email" value="<c:out value="${bCustomer.customer.emailCustomer}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.erreurs['emailCustomer']}</span>
                             <br />

@@ -48,7 +48,7 @@
                    <jsp:useBean id="bCustomer" class="com.cdi.g3.web.beans.beanCustomer" scope="session" />
                     
                    
-                   <form action='controller?section=customer' method='post'>                                
+                   <form action='controller?section=customer&addCustomer=true' method='post'>                                
                         <fieldset>
                             <legend>Inscription</legend>
                             <p>Vous pouvez vous inscrire via ce formulaire.</p>

@@ -293,11 +293,9 @@ public class controller extends HttpServlet {
                 session.setAttribute("fraisPort", bPanier.getFraisPort());
                 session.setAttribute("tva", bPanier.getTva());
                 session.setAttribute("subTotalTCC", bPanier.getTotalTTC());
-                float TotalTCCAvecFraisPort = bPanier.getTotalTTC()+ bPanier.getFraisPort();
-                TotalTCCAvecFraisPort = Utility.formatFloatToFloatPrecision (TotalTCCAvecFraisPort,2);   
-                session.setAttribute("TotalTCCAvecFraisPort",TotalTCCAvecFraisPort );
-                
-               
+                float TotalTCCAvecFraisPort = bPanier.getTotalTTC() + bPanier.getFraisPort();
+                TotalTCCAvecFraisPort = Utility.formatFloatToFloatPrecision(TotalTCCAvecFraisPort, 2);
+                session.setAttribute("TotalTCCAvecFraisPort", TotalTCCAvecFraisPort);
 
             }
             if (request.getParameter("dec") != null) {
@@ -418,8 +416,9 @@ public class controller extends HttpServlet {
                         request.setAttribute("fatalError", ex.getMessage());
                     }
                     request.setAttribute("orderId", orderId);
-                    
+
                     bPanier.clear();
+                    session.setAttribute("size", bPanier.getSize());
 
                 }
             }
@@ -435,7 +434,6 @@ public class controller extends HttpServlet {
                 }
 
                 if (login == null) {
-                    request.setAttribute("passOrder", "true");
                     url = "/WEB-INF/jspFormLogin.jsp";
 
                 } else {
@@ -473,9 +471,7 @@ public class controller extends HttpServlet {
                         bCustomer.setAddressBill(bAddress.getAddressBill());
 
                     }
-                    if (request.getParameter("selectAddressBill") != null) {
 
-                    }
                     if (request.getParameter("updateAddressShip") != null) {
                         beanAddress bAddress = bCustomer.getbAddress();
                         bAddress.getAddressShip().setId(request.getParameter("idAddress"));
@@ -510,33 +506,85 @@ public class controller extends HttpServlet {
                         bCustomer.setAddressShip(bAddress.getAddressShip());
 
                     }
-                    if (request.getParameter("selectAddressShip") != null) {
+                    /*==========================================================================================================/
+                     |
+                     |    selectionner adresses
+                     |
+                     /*===========================================================================================================*/
+                    bCustomer = (beanCustomer) session.getAttribute("bCustomer");
+
+                    if (bCustomer != null) {
+                        if (request.getParameter("selectAddressShip") != null) {
+
+                            String idAddress = request.getParameter("addressShip");
+                            for (Address address : (ArrayList<Address>) bCustomer.getAddressShipList()) {
+                                if (address.getId().equals(idAddress)) {
+                                    bCustomer.setAddressShip(address);
+                                }
+                            }
+
+                            if (request.getParameter("provenance").equals("order")) {
+                                url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                            }
+                            if (request.getParameter("provenance").equals("customer")) {
+                                url = "/WEB-INF/jspCustomer.jsp";
+                            }
+
+                        }
+
+                        if (request.getParameter("selectAddressBill") != null) {
+
+                            String idAddress = request.getParameter("addressBill");
+                            for (Address address : (ArrayList<Address>) bCustomer.getAddressBillList()) {
+                                if (address.getId().equals(idAddress)) {
+                                    bCustomer.setAddressBill(address);
+
+                                }
+                            }
+
+                            if (request.getParameter("provenance").equals("order")) {
+                                url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                            }
+
+                            if (request.getParameter("provenance").equals("customer")) {
+                                url = "/WEB-INF/jspCustomer.jsp";
+                            }
+                        }
+
                     }
+
                 }
 
             }
 
             if (request.getParameter("VerifCreditCardOrder") != null) {
-                url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
 
+                if (request.getParameter("DoIt") != null) {
+
+                    if (request.getParameter("idAddressShip") != null && request.getParameter("idAddressBill") != null) {
+                        url = "/WEB-INF/jspVerifCreditCardOrder.jsp";
+                    }
+
+                    if (request.getParameter("idAddressShip").isEmpty() || request.getParameter("idAddressBill").isEmpty()) {
+                        url = "/WEB-INF/jspAddAddressesOrder.jsp";
+                        request.setAttribute("retour","ok");
+                    }
+                }
             }
-            
+
             if (request.getParameter("imprimer") != null) {
                 try {
                     beanOrder bOrder = new beanOrder();
                     bOrder.print(request.getParameter("idOrder"));
                 } catch (FinderException ex) {
                     url = "/WEB-INF/jspFatalError.jsp";
-                            request.setAttribute("fatalError", ex.getMessage());
+                    request.setAttribute("fatalError", ex.getMessage());
                 } catch (CheckException ex) {
                     url = "/WEB-INF/jspFatalError.jsp";
-                            request.setAttribute("fatalError", ex.getMessage());
+                    request.setAttribute("fatalError", ex.getMessage());
                 }
 
             }
-            
-            
-            
 
         }
 
@@ -552,66 +600,44 @@ public class controller extends HttpServlet {
 
                 bCustomer
                         = (beanCustomer) session.getAttribute("bCustomer");
-//                if (bCustomer == null) {
-//                    try {
-//                        bCustomer = new beanCustomer((String) session.getAttribute("bCustomer"));
-//                    } catch (ObjectNotFoundException ex) {
-//                        url = "/WEB-INF/jspFatalError.jsp";
-//                 request.setAttribute("fatalError",ex.getMessage());
-//                    } catch (CheckException ex) {
-//                        url = "/WEB-INF/jspFatalError.jsp";
-//                 request.setAttribute("fatalError",ex.getMessage());
-//                    } catch (FinderException ex) {
-//                        url = "/WEB-INF/jspFatalError.jsp";
-//                 request.setAttribute("fatalError",ex.getMessage());
-////                    }
-//                    session.setAttribute("bCustomer", bCustomer);
-//                }
-
             }
 
             if (request.getParameter("addCustomer") != null) {
                 url = "/WEB-INF/jspRegister.jsp";
-            }
 
-            if (request.getParameter("doIt") != null) {
-                url = "/WEB-INF/jspRegister.jsp";
-                bCustomer = new beanCustomer();
-                bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
-                bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
-                bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
-                bCustomer.getCustomer().setEmailCustomer(request.getParameter("email"));
-                bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
-                bCustomer.setConfirmationPassword(request.getParameter("confirmation"));
-                try {
-                    bCustomer = bCustomer.registerCustomer();
-                    // puts the customerDTO into the session
-                    String welcome = request.getParameter("login");
-                    request.getSession().setAttribute("bCustomer", bCustomer);
-                    request.getSession().setAttribute("Welcome", welcome);
-                    Cookie cc = new Cookie("ok", welcome);
-                    response.addCookie(cc);
+                if (request.getParameter("doIt") != null) {
+                    bCustomer = new beanCustomer();
 
-                    if ("true".equals(request.getAttribute("passOrder"))) {
-                        request.setAttribute("passOrder", "true");
+                    bCustomer.getCustomer().setLoginCustomer(request.getParameter("login"));
+                    bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
+                    bCustomer.getCustomer().setLastNameCustomer(request.getParameter("nom"));
+                    bCustomer.getCustomer().setEmailCustomer(request.getParameter("email"));
+                    bCustomer.getCustomer().setPasswordCustomer(request.getParameter("password"));
+                    bCustomer.setConfirmationPassword(request.getParameter("confirmation"));
+                    try {
+                        bCustomer = bCustomer.registerCustomer();
+                        // puts the customer into the session
+                        String welcome = request.getParameter("login");
+                        bCustomer.initializeAddresses(request.getParameter("login"));
+                        request.getSession().setAttribute("bCustomer", bCustomer);
+                        request.getSession().setAttribute("Welcome", welcome);
+                        Cookie cc = new Cookie("ok", welcome);
+                        response.addCookie(cc);
+
+                    } catch (CreateException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
+
+                    } catch (CheckException ex) {
+                        url = "/WEB-INF/jspFatalError.jsp";
+                        request.setAttribute("fatalError", ex.getMessage());
                     }
-
-                } catch (CreateException ex) {
-                    url = "/WEB-INF/jspFatalError.jsp";
-                    request.setAttribute("fatalError", ex.getMessage());
-
-                } catch (CheckException ex) {
-                    url = "/WEB-INF/jspFatalError.jsp";
-                    request.setAttribute("fatalError", ex.getMessage());
                 }
             }
 
             if (request.getParameter("update") != null) {
                 if (request.getParameter("doIt") != null) {
                     url = "/WEB-INF/jspCustomer.jsp";
-
-                   
-
                     bCustomer = (beanCustomer) session.getAttribute("bCustomer");
                     bCustomer.getCustomer().setLoginCustomer(bCustomer.getCustomer().getId());
                     bCustomer.getCustomer().setFirstNameCustomer(request.getParameter("prenom"));
@@ -757,9 +783,6 @@ public class controller extends HttpServlet {
                     bLogin = new beanLogin();
                     application.setAttribute("beanLogin", bLogin);
                 }
-                if ("true".equals(request.getAttribute("passOrder"))) {
-                    request.setAttribute("passOrder", "true");
-                }
 
                 if (bLogin.checkLogin(request.getParameter("login"),
                         request.getParameter("password"))) {
@@ -772,6 +795,7 @@ public class controller extends HttpServlet {
                     if (bCustomer == null) {
                         try {
                             bCustomer = new beanCustomer(request.getParameter("login"));
+                            bCustomer.initializeAddresses(request.getParameter("login"));
                             request.setAttribute("Welcome", welcome);
                             ////ajouter session aussi
                             session.setAttribute("Welcome", welcome);
@@ -779,12 +803,15 @@ public class controller extends HttpServlet {
                             response.addCookie(cc);
                             session.setAttribute("bCustomer", bCustomer);
                         } catch (ObjectNotFoundException ex) {
+                            ex.printStackTrace();
                             url = "/WEB-INF/jspFatalError.jsp";
                             request.setAttribute("fatalError", ex.getMessage());
                         } catch (CheckException ex) {
+                            ex.printStackTrace();
                             url = "/WEB-INF/jspFatalError.jsp";
                             request.setAttribute("fatalError", ex.getMessage());
                         } catch (FinderException ex) {
+                            ex.printStackTrace();
                             url = "/WEB-INF/jspFatalError.jsp";
                             request.setAttribute("fatalError", ex.getMessage());
                         }
@@ -864,13 +891,12 @@ public class controller extends HttpServlet {
             request.setAttribute("book", book);
 
         }
-        
+
         /*==========================================================================================================/
          |
          |    Section Tris 
          |
          /*===========================================================================================================*/
-
         if (request.getParameter("tris") != null) {
 
             Collection listTris = null;

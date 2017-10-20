@@ -188,9 +188,10 @@ public class OrderService extends AbstractService {
         final Collection orders = _orderDAO.findAllByChamp(column, champ);
         
         Trace.exiting(_cname, mname, new Integer(orders.size()));
-        return setOrderLine(orders);
         
-        
+        if(orders!= null)
+            return setOrderLine(orders);
+        else return null;
     }
     
     

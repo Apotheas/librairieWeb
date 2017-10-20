@@ -48,22 +48,22 @@
 
                         <label for="login">Login </label>
                         <input disabled="true" type="login" id="login" name="login" value="<c:out value="${bCustomer.customer.loginCustomer}"/>" size="20" maxlength="60" />
-                        
+
                         <br />
 
                         <label for="nom">Nom  </label>
                         <input disabled="true" type="text" id="nom" name="nom" value="<c:out value="${bCustomer.customer.lastNameCustomer}"/>" size="20" maxlength="60" />
-                                                   
+
                         <br />
 
                         <label for="nom">Prénom</label>
                         <input disabled="true" type="text" id="prenom" name="prenom" value="<c:out value="${bCustomer.customer.firstNameCustomer}"/>" size="20" maxlength="60" />
-                        
+
                         <br />
 
                         <label for="email">Adresse email </label>
                         <input disabled="true" type="email" id="email" name="email" value="<c:out value="${bCustomer.customer.emailCustomer}"/>" size="20" maxlength="60" />
-                        
+
                         <br />
 
 
@@ -82,8 +82,11 @@
                 <div class="col-lg-6">                       
                     <br> <br>                        
                     <strong>Adresse de Livraison</strong>
+                    
+                    
+                    
 
-                    <form name="AddressShipping"  action="controller?section=order&AddAddressesOrder"  method="GET">
+                    <form name="AddressShipping"  action="controller?section=order&AddAddressesOrder"  method="POST">
                         <input type="hidden" value="order" name="provenance" />
                         <label for="addressShip">Selectionner une adresse de livraison </label>
                         <select name="addressShip">
@@ -100,10 +103,10 @@
                         <input type="hidden" value="order" name="provenance" />
                         <fieldset>
                             <legend>Adresse de Livraison</legend>
-                            
+
                             <input type="hidden" id="idAddress" name="idAddress" value="<c:out value="${bCustomer.addressShip.id}"/>" />
                             <input type="hidden" value="${addressShip.idAdress}" name="valeurId" />
-                            
+
                             <label for="nameReceiverAdress">Nom déstinataire :<span class="requis">*</span></label>
                             <input type="nameReceiverAdress" id="nameReceiverAdress" name="nameReceiverAdress" value="<c:out value="${bCustomer.addressShip.nameReceiverAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['nameReceiverAdress']}</span>
@@ -152,7 +155,7 @@
                             <span class="erreur">${bCustomer.bAddress.erreurs['countryAdress']}</span>
                             <br /><br />
 
-                            <input type="submit" value="Modifier Adresse de Livraison" name="updateAddressShip" />
+                            <input type="submit" value="Modifier Adresse de Livraison" name="updateAddressShip" class="btn btn-primary" />
 
                             <br />
                             <p class="${empty bCustomer.bAddress.erreurs ? 'succes' : 'erreur'}">${bCustomer.bAddress.resultat}</p>
@@ -160,16 +163,16 @@
                     </form> 
                 </div>
 
-              <div class="col-lg-6">  
+                <div class="col-lg-6">  
                     <br> <br>
                     <strong>Adresse de Facturation</strong>
 
-                    <form name="shipping" action='controller?section=order&AddAddressesOrder' method="GET">
+                    <form name="shipping" action='controller?section=order&AddAddressesOrder' method="POST">
                         <input type="hidden" value="order" name="provenance" />
                         <label for="addressBill">Selectionner une autre adresse </label>
                         <select name="addressBill">
                             <c:forEach var="addressBill" items="${sessionScope.bCustomer.addressBillList}">
-                                <option value="<c:out value="${addressBill.idAdress}"/>">${addressBill.idAdress}</option>                                
+                                <option value="<c:out value="${addressBill.idAdress}"/>">${addressBill}</option>                                
                             </c:forEach>
                         </select>
                         <input type="submit" value="Ok" name="selectAddressBill" />
@@ -206,7 +209,7 @@
 
 
                             <label for="nameStreetAdress">Adresse  :<span class="requis">*</span></label>
-                            <input type="nameStreetAdress" id="nameStreetAdress" name="nameStreetAdress" value="<c:out value="${bCustomer.addressBill.nameStreetAdress}"/>" size="20" maxlength="60" />
+                            <input  type="nameStreetAdress" id="nameStreetAdress" name="nameStreetAdress" value="<c:out value="${bCustomer.addressBill.nameStreetAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['nameStreetAdress']}</span>
                             <br />
 
@@ -222,7 +225,7 @@
 
 
                             <label for="cityAdress">Ville  :<span class="requis">*</span></label>
-                            <input type="cityAdress" id="cityAdress" name="cityAdress" value="<c:out value="${bCustomer.addressBill.cityAdress}"/>" size="20" maxlength="60" />
+                            <input required type="cityAdress" id="cityAdress" name="cityAdress" value="<c:out value="${bCustomer.addressBill.cityAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['cityAdress']}</span>
                             <br />
 
@@ -230,7 +233,7 @@
                             <input type="countryAdress" id="countryAdress" name="countryAdress" value="<c:out value="${bCustomer.addressBill.countryAdress}"/>" size="20" maxlength="60" />
                             <span class="erreur">${bCustomer.bAddress.erreurs['countryAdress']}</span>
                             <br /><br />
-                            <input type="submit" value="Modifier Adresse de Facturation" name="updateAddressBill" />
+                            <input type="submit" value="Modifier Adresse de Facturation" name="updateAddressBill" class="btn btn-primary"/>
 
                             <br />
                             <p class="${empty bCustomer.bAddress.erreurs ? 'succes' : 'erreur'}">${bCustomer.bAddress.resultat}</p>
@@ -239,19 +242,23 @@
                     </form> 
 
                 </div>
-
-
                 <br> <br>
 
                 <div class="modal-body">
-                    <a href="controller?section=order&VerifCreditCardOrder=true"  align="right" class="btn btn-primary">
 
-                        <button type="button"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
-                            <i style="width: 50%"> Suivant</i>
-                        </button> 
-                    </a>
+                    <form action="controller?section=order&VerifCreditCardOrder=true" method="POST">
+                         <c:if test="${!retour==ok}">
+                        <p> L'adresse de facturation et de livraisont doivent etre remplies </p> 
+                        </c:if>
+                        <input type="hidden" id="idAddressShip" name="idAddressShip" value="<c:out value="${bCustomer.addressShip.idAdress}"/>" />
+                        <input type="hidden" id="idAddressBill" name="idAddressBill" value="<c:out value="${bCustomer.addressBill.idAdress}"/>" />
+                        <input  type="submit" value="Suivant" name="DoIt" class="btn btn-primary"/> 
+                        
+                       
+                    </form>
+                   
                 </div>
-
+ 
 
 
 
